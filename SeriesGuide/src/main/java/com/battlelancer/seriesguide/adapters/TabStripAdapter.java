@@ -9,8 +9,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.widgets.SlidingTabLayout;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -29,7 +31,7 @@ public class TabStripAdapter extends FragmentPagerAdapter {
 
     private final SlidingTabLayout mTabLayout;
 
-    static final class TabInfo {
+    private static final class TabInfo {
 
         private final Class<?> mClass;
 
@@ -45,7 +47,7 @@ public class TabStripAdapter extends FragmentPagerAdapter {
     }
 
     public TabStripAdapter(FragmentManager fm, Context context, ViewPager pager,
-            SlidingTabLayout tabs) {
+                           SlidingTabLayout tabs) {
         super(fm);
         mFragmentManager = fm;
         mContext = context;
@@ -71,6 +73,7 @@ public class TabStripAdapter extends FragmentPagerAdapter {
     /**
      * Update an existing tab. Make sure to call {@link #notifyTabsChanged} afterwards.
      */
+    @SuppressWarnings("unused")
     public void updateTab(int titleRes, Class<?> fragmentClass, Bundle args, int position) {
         if (position >= 0 && position < mTabs.size()) {
             // update tab info

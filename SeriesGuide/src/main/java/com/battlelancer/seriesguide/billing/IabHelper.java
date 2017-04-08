@@ -30,11 +30,15 @@ import android.os.RemoteException;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+
 import com.android.vending.billing.IInAppBillingService;
 import com.battlelancer.seriesguide.BuildConfig;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import org.json.JSONException;
+
 import timber.log.Timber;
 
 /**
@@ -42,39 +46,50 @@ import timber.log.Timber;
  * your application and use it to process in-app billing operations. It provides synchronous
  * (blocking) and asynchronous (non-blocking) methods for many common in-app billing operations, as
  * well as automatic signature verification.
- *
+ * <p>
  * <p>After instantiating, you must perform setup in order to start using the object. To perform
  * setup, call the {@link #startSetup} method and provide a listener; that listener will be notified
  * when setup is complete, after which (and not before) you may call other methods.
- *
+ * <p>
  * <p>After setup is complete, you will typically want to request an inventory of owned items and
  * subscriptions. See {@link #queryInventory}, {@link #queryInventoryAsync} and related methods.
- *
+ * <p>
  * <p>When you are done with this object, don't forget to call {@link #dispose} to ensure proper
  * cleanup. This object holds a binding to the in-app billing service, which will leak unless you
  * dispose of it correctly. If you created the object on an Activity's onCreate method, then the
  * recommended place to dispose of it is the Activity's onDestroy method.
- *
+ * <p>
  * <p>A note about threading: When using this object from a background thread, you may call the
  * blocking versions of methods; when using from a UI thread, call only the asynchronous versions
  * and handle the results via callbacks. Also, notice that you can only call one asynchronous
  * operation at a time; attempting to start a second asynchronous operation while the first one has
  * not yet completed will result in an exception being thrown.
- *
+ * <p>
  * <p>http://developer.android.com/google/play/billing/billing_reference.html
  */
+@SuppressWarnings("unused")
 public class IabHelper {
 
     // Billing response codes
-    /** Success. */
-    public static final int BILLING_RESPONSE_RESULT_OK = 0;
-    /** User pressed back or canceled a dialog. */
+    /**
+     * Success.
+     */
+    static final int BILLING_RESPONSE_RESULT_OK = 0;
+    /**
+     * User pressed back or canceled a dialog.
+     */
     public static final int BILLING_RESPONSE_RESULT_USER_CANCELED = 1;
-    /** Network connection is down. */
-    public static final int BILLING_RESPONSE_RESULT_SERVICE_UNAVAILABLE = 2;
-    /** Billing API version is not supported for the type requested. */
-    public static final int BILLING_RESPONSE_RESULT_BILLING_UNAVAILABLE = 3;
-    /** Requested product is not available for purchase. */
+    /**
+     * Network connection is down.
+     */
+    private static final int BILLING_RESPONSE_RESULT_SERVICE_UNAVAILABLE = 2;
+    /**
+     * Billing API version is not supported for the type requested.
+     */
+    private static final int BILLING_RESPONSE_RESULT_BILLING_UNAVAILABLE = 3;
+    /**
+     * Requested product is not available for purchase.
+     */
     public static final int BILLING_RESPONSE_RESULT_ITEM_UNAVAILABLE = 4;
     /**
      * Invalid arguments provided to the API. This error can also indicate that the application was
@@ -82,45 +97,51 @@ public class IabHelper {
      * the necessary permissions in its manifest.
      */
     public static final int BILLING_RESPONSE_RESULT_DEVELOPER_ERROR = 5;
-    /** Fatal error during the API action. */
-    public static final int BILLING_RESPONSE_RESULT_ERROR = 6;
-    /** Failure to purchase since item is already owned. */
+    /**
+     * Fatal error during the API action.
+     */
+    private static final int BILLING_RESPONSE_RESULT_ERROR = 6;
+    /**
+     * Failure to purchase since item is already owned.
+     */
     public static final int BILLING_RESPONSE_RESULT_ITEM_ALREADY_OWNED = 7;
-    /** Failure to consume since item is not owned. */
+    /**
+     * Failure to consume since item is not owned.
+     */
     public static final int BILLING_RESPONSE_RESULT_ITEM_NOT_OWNED = 8;
 
     // IAB Helper error codes
-    public static final int IABHELPER_ERROR_BASE = -1000;
-    public static final int IABHELPER_REMOTE_EXCEPTION = -1001;
-    public static final int IABHELPER_BAD_RESPONSE = -1002;
-    public static final int IABHELPER_VERIFICATION_FAILED = -1003;
-    public static final int IABHELPER_SEND_INTENT_FAILED = -1004;
-    public static final int IABHELPER_USER_CANCELLED = -1005;
-    public static final int IABHELPER_UNKNOWN_PURCHASE_RESPONSE = -1006;
+    private static final int IABHELPER_ERROR_BASE = -1000;
+    private static final int IABHELPER_REMOTE_EXCEPTION = -1001;
+    private static final int IABHELPER_BAD_RESPONSE = -1002;
+    private static final int IABHELPER_VERIFICATION_FAILED = -1003;
+    private static final int IABHELPER_SEND_INTENT_FAILED = -1004;
+    static final int IABHELPER_USER_CANCELLED = -1005;
+    private static final int IABHELPER_UNKNOWN_PURCHASE_RESPONSE = -1006;
     // used with consumables
 //    public static final int IABHELPER_MISSING_TOKEN = -1007;
-    public static final int IABHELPER_UNKNOWN_ERROR = -1008;
-    public static final int IABHELPER_SUBSCRIPTIONS_NOT_AVAILABLE = -1009;
+    private static final int IABHELPER_UNKNOWN_ERROR = -1008;
+    private static final int IABHELPER_SUBSCRIPTIONS_NOT_AVAILABLE = -1009;
     // used with consumables
 //    public static final int IABHELPER_INVALID_CONSUMPTION = -1010;
 
     // Keys for the responses from InAppBillingService
-    public static final String RESPONSE_CODE = "RESPONSE_CODE";
-    public static final String RESPONSE_GET_SKU_DETAILS_LIST = "DETAILS_LIST";
-    public static final String RESPONSE_BUY_INTENT = "BUY_INTENT";
-    public static final String RESPONSE_INAPP_PURCHASE_DATA = "INAPP_PURCHASE_DATA";
-    public static final String RESPONSE_INAPP_SIGNATURE = "INAPP_DATA_SIGNATURE";
-    public static final String RESPONSE_INAPP_ITEM_LIST = "INAPP_PURCHASE_ITEM_LIST";
-    public static final String RESPONSE_INAPP_PURCHASE_DATA_LIST = "INAPP_PURCHASE_DATA_LIST";
-    public static final String RESPONSE_INAPP_SIGNATURE_LIST = "INAPP_DATA_SIGNATURE_LIST";
-    public static final String INAPP_CONTINUATION_TOKEN = "INAPP_CONTINUATION_TOKEN";
+    private static final String RESPONSE_CODE = "RESPONSE_CODE";
+    private static final String RESPONSE_GET_SKU_DETAILS_LIST = "DETAILS_LIST";
+    private static final String RESPONSE_BUY_INTENT = "BUY_INTENT";
+    private static final String RESPONSE_INAPP_PURCHASE_DATA = "INAPP_PURCHASE_DATA";
+    private static final String RESPONSE_INAPP_SIGNATURE = "INAPP_DATA_SIGNATURE";
+    private static final String RESPONSE_INAPP_ITEM_LIST = "INAPP_PURCHASE_ITEM_LIST";
+    private static final String RESPONSE_INAPP_PURCHASE_DATA_LIST = "INAPP_PURCHASE_DATA_LIST";
+    private static final String RESPONSE_INAPP_SIGNATURE_LIST = "INAPP_DATA_SIGNATURE_LIST";
+    private static final String INAPP_CONTINUATION_TOKEN = "INAPP_CONTINUATION_TOKEN";
 
     // Item types
-    public static final String ITEM_TYPE_INAPP = "inapp";
-    public static final String ITEM_TYPE_SUBS = "subs";
+    static final String ITEM_TYPE_INAPP = "inapp";
+    private static final String ITEM_TYPE_SUBS = "subs";
 
     // some fields on the getSkuDetails response bundle
-    public static final String GET_SKU_DETAILS_ITEM_LIST = "ITEM_ID_LIST";
+    private static final String GET_SKU_DETAILS_ITEM_LIST = "ITEM_ID_LIST";
 //    public static final String GET_SKU_DETAILS_ITEM_TYPE_LIST = "ITEM_TYPE_LIST";
 
     @Nullable
@@ -130,7 +151,9 @@ public class IabHelper {
     @Nullable
     private ServiceConnection billingServiceConnection;
 
-    /** Public key for verifying signature, in base64 encoding. */
+    /**
+     * Public key for verifying signature, in base64 encoding.
+     */
     private final String signatureBase64;
     private boolean subscriptionsSupported = false;
 
@@ -141,9 +164,13 @@ public class IabHelper {
     // if asyncInProgress == true, what asynchronous operation is in progress?
     private String asyncOperation = "";
 
-    /** The request code used to launch the current purchase flow. */
+    /**
+     * The request code used to launch the current purchase flow.
+     */
     private int requestCode;
-    /** The item type of the current purchase flow. */
+    /**
+     * The item type of the current purchase flow.
+     */
     private String purchasingItemType;
 
     /**
@@ -162,7 +189,7 @@ public class IabHelper {
      * Callback for setup process. This listener's {@link #onIabSetupFinished} method is called when
      * the setup process is complete.
      */
-    public interface OnIabSetupFinishedListener {
+    interface OnIabSetupFinishedListener {
         /**
          * Called to notify that setup is complete.
          *
@@ -215,7 +242,7 @@ public class IabHelper {
      *
      * @param listener The listener to notify when the setup process is complete.
      */
-    public void startSetup(@NonNull final OnIabSetupFinishedListener listener) {
+    void startSetup(@NonNull final OnIabSetupFinishedListener listener) {
         if (context == null) {
             // helper should not have been disposed of already
             throwDisposed();
@@ -326,7 +353,7 @@ public class IabHelper {
     /**
      * Callback that notifies when a purchase is finished.
      */
-    public interface OnIabPurchaseFinishedListener {
+    interface OnIabPurchaseFinishedListener {
         /**
          * Called to notify that an in-app purchase finished. If the purchase was successful, then
          * the sku parameter specifies which item was purchased. If the purchase failed, the sku and
@@ -334,7 +361,7 @@ public class IabHelper {
          * went.
          *
          * @param result The result of the purchase.
-         * @param info The purchase information (null if purchase failed)
+         * @param info   The purchase information (null if purchase failed)
          */
         void onIabPurchaseFinished(IabResult result, Purchase info);
     }
@@ -342,6 +369,7 @@ public class IabHelper {
     // The listener registered on launchPurchaseFlow, which we have to call back when
     // the purchase finishes
     @Nullable
+    private
     OnIabPurchaseFinishedListener purchaseListener;
 
 // CURRENTLY NOT ALLOWING NEW IN-APP PURCHASES
@@ -350,8 +378,8 @@ public class IabHelper {
 //        launchPurchaseFlow(act, sku, ITEM_TYPE_INAPP, requestCode, listener, extraData);
 //    }
 
-    public void launchSubscriptionPurchaseFlow(Activity act, String sku, int requestCode,
-            OnIabPurchaseFinishedListener listener, String extraData) {
+    void launchSubscriptionPurchaseFlow(Activity act, String sku, int requestCode,
+                                        OnIabPurchaseFinishedListener listener, String extraData) {
         launchPurchaseFlow(act, sku, ITEM_TYPE_SUBS, requestCode, listener, extraData);
     }
 
@@ -363,20 +391,20 @@ public class IabHelper {
      * this object's {@link #handleActivityResult} method to continue the purchase flow. This method
      * MUST be called from the UI thread of the Activity.
      *
-     * @param activity The calling activity.
-     * @param sku The sku of the item to purchase.
-     * @param itemType indicates if it's a product or a subscription (ITEM_TYPE_INAPP or
-     * ITEM_TYPE_SUBS)
+     * @param activity    The calling activity.
+     * @param sku         The sku of the item to purchase.
+     * @param itemType    indicates if it's a product or a subscription (ITEM_TYPE_INAPP or
+     *                    ITEM_TYPE_SUBS)
      * @param requestCode A request code (to differentiate from other responses -- as in {@link
-     * android.app.Activity#startActivityForResult}).
-     * @param listener The listener to notify when the purchase process finishes
-     * @param extraData Extra data (developer payload), which will be returned with the purchase
-     * data when the purchase completes. This extra data will be permanently bound to that purchase
-     * and will always be returned when the purchase is queried.
+     *                    android.app.Activity#startActivityForResult}).
+     * @param listener    The listener to notify when the purchase process finishes
+     * @param extraData   Extra data (developer payload), which will be returned with the purchase
+     *                    data when the purchase completes. This extra data will be permanently bound to that purchase
+     *                    and will always be returned when the purchase is queried.
      */
-    public void launchPurchaseFlow(@NonNull Activity activity, @NonNull String sku,
-            @NonNull String itemType, int requestCode, OnIabPurchaseFinishedListener listener,
-            @NonNull String extraData) {
+    private void launchPurchaseFlow(@NonNull Activity activity, @NonNull String sku,
+                                    @NonNull String itemType, int requestCode, OnIabPurchaseFinishedListener listener,
+                                    @NonNull String extraData) {
         if (context == null || billingService == null) {
             warnNotSetup();
             if (listener != null) {
@@ -458,12 +486,12 @@ public class IabHelper {
      * thread of the Activity.
      *
      * @param requestCode The requestCode as you received it.
-     * @param resultCode The resultCode as you received it.
-     * @param data The data (Intent) as you received it.
+     * @param resultCode  The resultCode as you received it.
+     * @param data        The data (Intent) as you received it.
      * @return Returns true if the result was related to a purchase flow and was handled; false if
      * the result was not related to a purchase, in which case you should handle it normally.
      */
-    public boolean handleActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    boolean handleActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         IabResult result;
         if (requestCode != this.requestCode) {
             return false;
@@ -562,14 +590,14 @@ public class IabHelper {
      * #queryInventoryAsync}.
      *
      * @param querySkuDetails if true, SKU details (price, description, etc) will be queried as well
-     * as purchase information.
-     * @param moreItemSkus additional PRODUCT skus to query information on, regardless of ownership.
-     * Ignored if null or if querySkuDetails is false.
+     *                        as purchase information.
+     * @param moreItemSkus    additional PRODUCT skus to query information on, regardless of ownership.
+     *                        Ignored if null or if querySkuDetails is false.
      * @throws IabException if a problem occurs while refreshing the inventory.
      */
     private static Inventory queryInventory(@NonNull IInAppBillingService service,
-            String packageName, String signatureBase64, boolean subscriptionsSupported,
-            boolean querySkuDetails, List<String> moreItemSkus)
+                                            String packageName, String signatureBase64, boolean subscriptionsSupported,
+                                            boolean querySkuDetails, List<String> moreItemSkus)
             throws IabException {
         try {
             Inventory inv = new Inventory();
@@ -616,12 +644,12 @@ public class IabHelper {
     /**
      * Listener that notifies when an inventory query operation completes.
      */
-    public interface QueryInventoryFinishedListener {
+    interface QueryInventoryFinishedListener {
         /**
          * Called to notify that an inventory query operation completed.
          *
          * @param result The result of the operation.
-         * @param inv The inventory. Never null if the result is success.
+         * @param inv    The inventory. Never null if the result is success.
          */
         void onQueryInventoryFinished(IabResult result, Inventory inv);
     }
@@ -630,15 +658,15 @@ public class IabHelper {
      * Asynchronous wrapper for inventory query. This will perform an inventory query as described
      * in {@link #queryInventory}, but will do so asynchronously and call back the specified
      * listener upon completion. This method is safe to call from a UI thread.
-     *
+     * <p>
      * <p> Ensure helper is not disposed and setup, or will do nothing.
      *
      * @param querySkuDetails as in {@link #queryInventory}
-     * @param moreSkus as in {@link #queryInventory}
-     * @param listener The listener to notify when the refresh operation completes.
+     * @param moreSkus        as in {@link #queryInventory}
+     * @param listener        The listener to notify when the refresh operation completes.
      */
-    public void queryInventoryAsync(final boolean querySkuDetails, final List<String> moreSkus,
-            final QueryInventoryFinishedListener listener) {
+    void queryInventoryAsync(final boolean querySkuDetails, final List<String> moreSkus,
+                             final QueryInventoryFinishedListener listener) {
         if (context == null || billingService == null) {
             // avoid creating a thread by doing checks here as well
             warnQueryInventorySkipped(listener);
@@ -688,7 +716,7 @@ public class IabHelper {
      * @return A human-readable string explaining the result code. It also includes the result code
      * numerically.
      */
-    public static String getResponseDesc(int code) {
+    static String getResponseDesc(int code) {
         String[] iab_msgs = ("0:OK/1:User Canceled/2:Unknown/" +
                 "3:Billing Unavailable/4:Item unavailable/" +
                 "5:Developer Error/6:Error/7:Item Already Owned/" +
@@ -737,7 +765,7 @@ public class IabHelper {
     }
 
     // Workaround to bug where sometimes response codes come as Long instead of Integer
-    int getResponseCodeFromIntent(Intent i) {
+    private int getResponseCodeFromIntent(Intent i) {
         Object o = i.getExtras().get(RESPONSE_CODE);
         if (o == null) {
             logError("Intent with no response code, assuming OK (known issue)");
@@ -755,8 +783,8 @@ public class IabHelper {
     }
 
     private static int queryPurchases(@NonNull IInAppBillingService service,
-            @NonNull String packageName, @NonNull String signatureBase64, @NonNull Inventory inv,
-            @NonNull String itemType)
+                                      @NonNull String packageName, @NonNull String signatureBase64, @NonNull Inventory inv,
+                                      @NonNull String itemType)
             throws JSONException, RemoteException {
         logDebug("Querying owned items, item type: " + itemType);
         logDebug("Package name: " + packageName);
@@ -822,8 +850,8 @@ public class IabHelper {
     }
 
     private static int querySkuDetails(@NonNull IInAppBillingService service,
-            @NonNull String packageName, @NonNull String itemType, @NonNull Inventory inv,
-            @Nullable List<String> moreSkus)
+                                       @NonNull String packageName, @NonNull String itemType, @NonNull Inventory inv,
+                                       @Nullable List<String> moreSkus)
             throws RemoteException, JSONException {
         logDebug("Querying SKU details.");
         ArrayList<String> skuList = new ArrayList<>();
@@ -904,19 +932,19 @@ public class IabHelper {
         }
     }
 
-    static void logDebug(String msg) {
+    private static void logDebug(String msg) {
         Timber.d(msg);
     }
 
-    static void logError(String msg) {
+    private static void logError(String msg) {
         Timber.e("In-app billing error: " + msg);
     }
 
-    static void logError(Throwable e, String msg) {
+    private static void logError(Throwable e, String msg) {
         Timber.e(e, "In-app billing error: " + msg);
     }
 
-    static void logWarn(String msg) {
+    private static void logWarn(String msg) {
         Timber.w("In-app billing warning: " + msg);
     }
 }

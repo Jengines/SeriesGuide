@@ -11,10 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.settings.DisplaySettings;
 import com.battlelancer.seriesguide.settings.TmdbSettings;
 import com.battlelancer.seriesguide.util.ServiceUtils;
+
 import java.text.DateFormat;
 import java.util.Date;
 
@@ -35,7 +37,7 @@ public class MoviesCursorAdapter extends CursorAdapter {
     }
 
     public MoviesCursorAdapter(Context context, PopupMenuClickListener popupMenuClickListener,
-            int uniqueId) {
+                               int uniqueId) {
         super(context, null, 0);
         this.uniqueId = uniqueId;
         this.layoutInflater = (LayoutInflater) context
@@ -112,15 +114,15 @@ public class MoviesCursorAdapter extends CursorAdapter {
 
     public static class ViewHolder {
         public TextView title;
-        public TextView releaseDate;
+        TextView releaseDate;
         public ImageView poster;
-        public View contextMenu;
+        View contextMenu;
     }
 
     public interface MoviesQuery {
 
-        String[] PROJECTION = { Movies._ID, Movies.TMDB_ID, Movies.TITLE, Movies.POSTER,
-                Movies.RELEASED_UTC_MS };
+        String[] PROJECTION = {Movies._ID, Movies.TMDB_ID, Movies.TITLE, Movies.POSTER,
+                Movies.RELEASED_UTC_MS};
 
         int ID = 0;
         int TMDB_ID = 1;

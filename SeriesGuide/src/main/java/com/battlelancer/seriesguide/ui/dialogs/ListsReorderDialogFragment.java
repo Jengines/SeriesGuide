@@ -10,9 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.adapters.ListsAdapter;
@@ -21,6 +23,7 @@ import com.battlelancer.seriesguide.ui.ListsActivity;
 import com.battlelancer.seriesguide.util.ListsTools;
 import com.mobeta.android.dslv.DragSortController;
 import com.mobeta.android.dslv.DragSortListView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,16 +38,19 @@ public class ListsReorderDialogFragment extends AppCompatDialogFragment {
         f.show(fragmentManager, "lists-reorder-dialog");
     }
 
-    @BindView(R.id.listViewListsReorder) DragSortListView dragSortListView;
-    @BindView(R.id.buttonNegative) Button buttonNegative;
-    @BindView(R.id.buttonPositive) Button buttonPositive;
+    @BindView(R.id.listViewListsReorder)
+    DragSortListView dragSortListView;
+    @BindView(R.id.buttonNegative)
+    Button buttonNegative;
+    @BindView(R.id.buttonPositive)
+    Button buttonPositive;
 
     private Unbinder unbinder;
     private ListsAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
+                             @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.dialog_lists_reorder, container, false);
         unbinder = ButterKnife.bind(this, v);
 
@@ -115,7 +121,9 @@ public class ListsReorderDialogFragment extends AppCompatDialogFragment {
         List<String> listIdsInOrder = new ArrayList<>(count);
         for (int position = 0; position < count; position++) {
             OrderedListsLoader.OrderedList list = adapter.getItem(position);
-            listIdsInOrder.add(list.id);
+            if (list != null) {
+                listIdsInOrder.add(list.id);
+            }
         }
         ListsTools.reorderLists(SgApp.from(getActivity()), listIdsInOrder);
     }
@@ -129,7 +137,7 @@ public class ListsReorderDialogFragment extends AppCompatDialogFragment {
 
         @Override
         public void onLoadFinished(Loader<List<OrderedListsLoader.OrderedList>> loader,
-                List<OrderedListsLoader.OrderedList> data) {
+                                   List<OrderedListsLoader.OrderedList> data) {
             if (!isAdded()) {
                 return;
             }

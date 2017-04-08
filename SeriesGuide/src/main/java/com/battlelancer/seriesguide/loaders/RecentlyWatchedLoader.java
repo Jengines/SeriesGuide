@@ -3,6 +3,7 @@ package com.battlelancer.seriesguide.loaders;
 import android.content.Context;
 import android.database.Cursor;
 import android.text.format.DateUtils;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.adapters.NowAdapter;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract;
@@ -11,6 +12,7 @@ import com.battlelancer.seriesguide.provider.SeriesGuideDatabase;
 import com.battlelancer.seriesguide.thetvdbapi.TvdbImageTools;
 import com.battlelancer.seriesguide.util.TextTools;
 import com.uwetrottmann.androidutils.GenericSimpleLoader;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +32,7 @@ public class RecentlyWatchedLoader extends GenericSimpleLoader<List<NowAdapter.N
         // get activity of the last 24 hours with the latest one first
         Cursor query = getContext().getContentResolver()
                 .query(Activity.CONTENT_URI,
-                        new String[] { Activity.TIMESTAMP_MS, Activity.EPISODE_TVDB_ID },
+                        new String[]{Activity.TIMESTAMP_MS, Activity.EPISODE_TVDB_ID},
                         Activity.TIMESTAMP_MS + ">" + timeDayAgo, null,
                         Activity.SORT_LATEST);
         if (query == null) {
@@ -45,7 +47,7 @@ public class RecentlyWatchedLoader extends GenericSimpleLoader<List<NowAdapter.N
             // get episode details
             Cursor episodeQuery = getContext().getContentResolver().query(
                     SeriesGuideContract.Episodes.buildEpisodeWithShowUri(episodeTvdbId),
-                    new String[] {
+                    new String[]{
                             SeriesGuideDatabase.Tables.EPISODES + "."
                                     + SeriesGuideContract.Episodes._ID, // 0
                             SeriesGuideContract.Episodes.TITLE,

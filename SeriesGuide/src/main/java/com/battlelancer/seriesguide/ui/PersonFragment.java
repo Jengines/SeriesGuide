@@ -18,9 +18,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.loaders.PersonLoader;
@@ -36,11 +38,15 @@ public class PersonFragment extends Fragment {
 
     private static final String TAG = "Person Details";
 
-    @BindView(R.id.progressBarPerson) ProgressBar progressBar;
+    @BindView(R.id.progressBarPerson)
+    ProgressBar progressBar;
 
-    @BindView(R.id.imageViewPersonHeadshot) ImageView imageViewHeadshot;
-    @BindView(R.id.textViewPersonName) TextView textViewName;
-    @BindView(R.id.textViewPersonBiography) TextView textViewBiography;
+    @BindView(R.id.imageViewPersonHeadshot)
+    ImageView imageViewHeadshot;
+    @BindView(R.id.textViewPersonName)
+    TextView textViewName;
+    @BindView(R.id.textViewPersonBiography)
+    TextView textViewBiography;
 
     private Person person;
     private Unbinder unbinder;
@@ -65,7 +71,7 @@ public class PersonFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_person, container, false);
         unbinder = ButterKnife.bind(this, rootView);
 

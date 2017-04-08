@@ -1,13 +1,16 @@
 package com.battlelancer.seriesguide.adapters;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.loaders.OrderedListsLoader;
+
 import java.util.List;
 
 /**
@@ -15,10 +18,10 @@ import java.util.List;
  */
 public class ListsAdapter extends ArrayAdapter<OrderedListsLoader.OrderedList> {
 
-    static class ListsViewHolder {
+    private static class ListsViewHolder {
         public TextView name;
 
-        public ListsViewHolder(View v) {
+        ListsViewHolder(View v) {
             name = (TextView) v.findViewById(R.id.textViewItemListName);
         }
     }
@@ -29,8 +32,9 @@ public class ListsAdapter extends ArrayAdapter<OrderedListsLoader.OrderedList> {
         super(context, 0);
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         ListsViewHolder viewHolder;
 
         if (convertView == null) {
@@ -44,6 +48,7 @@ public class ListsAdapter extends ArrayAdapter<OrderedListsLoader.OrderedList> {
         }
 
         OrderedListsLoader.OrderedList item = getItem(position);
+        assert item != null;
         viewHolder.name.setText(item.name);
 
         return convertView;

@@ -2,20 +2,22 @@ package com.battlelancer.seriesguide.util;
 
 import android.content.Context;
 import android.os.AsyncTask;
+
 import com.battlelancer.seriesguide.provider.SeriesGuideContract;
+
 import timber.log.Timber;
 
 /**
  * Updates the latest episode value for a given show or all shows. If supplied a show TVDb id will
  * update only latest episode for that show.
- *
+ * <p>
  * <p><b>Do NOT run in parallel as this task is memory intensive.</b>
  */
-public class LatestEpisodeUpdateTask extends AsyncTask<Integer, Void, Void> {
+class LatestEpisodeUpdateTask extends AsyncTask<Integer, Void, Void> {
 
     private final Context mContext;
 
-    public LatestEpisodeUpdateTask(Context context) {
+    LatestEpisodeUpdateTask(Context context) {
         mContext = context.getApplicationContext();
     }
 

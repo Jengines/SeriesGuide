@@ -5,6 +5,7 @@ import android.graphics.Rect;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
 import com.battlelancer.seriesguide.R;
 
 /**
@@ -21,7 +22,7 @@ public class GridInsetDecoration extends RecyclerView.ItemDecoration {
         this(resources, 1);
     }
 
-    public GridInsetDecoration(Resources resources, int topRowSpanSize) {
+    private GridInsetDecoration(Resources resources, int topRowSpanSize) {
         insetHorizontal = resources.getDimensionPixelSize(R.dimen.grid_horizontal_spacing);
         insetVertical = resources.getDimensionPixelOffset(R.dimen.grid_vertical_spacing);
         this.topRowSpanSize = topRowSpanSize;
@@ -29,7 +30,7 @@ public class GridInsetDecoration extends RecyclerView.ItemDecoration {
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
-            RecyclerView.State state) {
+                               RecyclerView.State state) {
         GridLayoutManager.LayoutParams layoutParams
                 = (GridLayoutManager.LayoutParams) view.getLayoutParams();
 

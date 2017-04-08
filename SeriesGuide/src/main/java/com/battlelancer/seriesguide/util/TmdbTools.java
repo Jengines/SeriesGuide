@@ -1,8 +1,10 @@
 package com.battlelancer.seriesguide.util;
 
 import android.content.Context;
+
 import com.battlelancer.seriesguide.settings.TmdbSettings;
 import com.uwetrottmann.tmdb2.entities.Genre;
+
 import java.util.List;
 
 public class TmdbTools {

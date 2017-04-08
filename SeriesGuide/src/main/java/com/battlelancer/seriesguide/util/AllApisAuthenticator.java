@@ -1,14 +1,19 @@
 package com.battlelancer.seriesguide.util;
 
 import android.content.Context;
+
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.settings.TraktCredentials;
 import com.uwetrottmann.thetvdb.TheTvdb;
 import com.uwetrottmann.thetvdb.TheTvdbAuthenticator;
 import com.uwetrottmann.trakt5.TraktV2;
+
 import dagger.Lazy;
+
 import java.io.IOException;
+
 import javax.inject.Inject;
+
 import okhttp3.Authenticator;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -22,8 +27,10 @@ import timber.log.Timber;
 public class AllApisAuthenticator implements Authenticator {
 
     private Context context;
-    @Inject Lazy<TheTvdb> theTvdb;
-    @Inject Lazy<TraktV2> trakt;
+    @Inject
+    Lazy<TheTvdb> theTvdb;
+    @Inject
+    Lazy<TraktV2> trakt;
 
     public AllApisAuthenticator(SgApp app) {
         this.context = app.getApplicationContext();

@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.format.DateUtils;
+
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.backend.settings.HexagonSettings;
 import com.battlelancer.seriesguide.items.SearchResult;
@@ -42,13 +43,16 @@ import com.uwetrottmann.seriesguide.backend.episodes.Episodes;
 import com.uwetrottmann.seriesguide.backend.lists.Lists;
 import com.uwetrottmann.seriesguide.backend.movies.Movies;
 import com.uwetrottmann.seriesguide.backend.shows.Shows;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+
 import org.greenrobot.eventbus.EventBus;
+
 import timber.log.Timber;
 
 /**
@@ -110,7 +114,7 @@ public class HexagonTools {
 
     /**
      * Creates and returns a new instance for this hexagon service or null if not signed in.
-     *
+     * <p>
      * Warning: checks sign-in state, make sure to guard with {@link HexagonSettings#isEnabled}.
      */
     @Nullable
@@ -127,7 +131,7 @@ public class HexagonTools {
 
     /**
      * Returns the instance for this hexagon service or null if not signed in.
-     *
+     * <p>
      * Warning: checks sign-in state, make sure to guard with {@link HexagonSettings#isEnabled}.
      */
     @Nullable
@@ -147,7 +151,7 @@ public class HexagonTools {
 
     /**
      * Returns the instance for this hexagon service or null if not signed in.
-     *
+     * <p>
      * Warning: checks sign-in state, make sure to guard with {@link HexagonSettings#isEnabled}.
      */
     @Nullable
@@ -167,7 +171,7 @@ public class HexagonTools {
 
     /**
      * Returns the instance for this hexagon service or null if not signed in.
-     *
+     * <p>
      * Warning: checks sign-in state, make sure to guard with {@link HexagonSettings#isEnabled}.
      */
     @Nullable
@@ -205,13 +209,13 @@ public class HexagonTools {
 
     /**
      * Get the Google account credentials to talk with Hexagon.
-     *
+     * <p>
      * <p>Make sure to check {@link GoogleAccountCredential#getSelectedAccount()} is not null (the
      * account might have gotten signed out).
      *
      * @param checkSignInState If enabled, tries to silently sign in with Google. If it fails, sets
-     * the {@link HexagonSettings#KEY_SHOULD_VALIDATE_ACCOUNT} flag. If successful, clears the
-     * flag.
+     *                         the {@link HexagonSettings#KEY_SHOULD_VALIDATE_ACCOUNT} flag. If successful, clears the
+     *                         flag.
      */
     private synchronized GoogleAccountCredential getAccountCredential(boolean checkSignInState) {
         if (credential == null) {
@@ -326,19 +330,19 @@ public class HexagonTools {
         trackSignInFailure(action, failureMessage);
     }
 
-    public void trackSignInFailure(String action, String failureMessage) {
+    void trackSignInFailure(String action, String failureMessage) {
         Utils.trackCustomEvent(app, SIGN_IN_ERROR_CATEGORY, action, failureMessage);
         Timber.e("%s: %s", action, failureMessage);
     }
 
     /**
      * Syncs episodes, shows and movies with Hexagon.
-     *
+     * <p>
      * <p> Merges shows, episodes and movies after a sign-in. Consecutive syncs will only download
      * changes to shows, episodes and movies.
      */
     public static boolean syncWithHexagon(SgApp app, HashSet<Integer> existingShows,
-            HashMap<Integer, SearchResult> newShows) {
+                                          HashMap<Integer, SearchResult> newShows) {
         Timber.d("syncWithHexagon: syncing...");
 
         //// EPISODES
@@ -368,7 +372,7 @@ public class HexagonTools {
     private static boolean syncEpisodes(SgApp app) {
         // get shows that need episode merging
         Cursor query = app.getContentResolver().query(SeriesGuideContract.Shows.CONTENT_URI,
-                new String[] { SeriesGuideContract.Shows._ID },
+                new String[]{SeriesGuideContract.Shows._ID},
                 SeriesGuideContract.Shows.HEXAGON_MERGE_COMPLETE + "=0",
                 null, null);
         if (query == null) {
@@ -413,7 +417,7 @@ public class HexagonTools {
     }
 
     private static boolean syncShows(SgApp app, HashSet<Integer> existingShows,
-            HashMap<Integer, SearchResult> newShows) {
+                                     HashMap<Integer, SearchResult> newShows) {
         boolean hasMergedShows = HexagonSettings.hasMergedShows(app);
 
         // download shows and apply property changes (if merging only overwrite some properties)

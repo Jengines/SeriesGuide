@@ -25,7 +25,9 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+
 import butterknife.ButterKnife;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.dataliberation.model.Season;
 import com.battlelancer.seriesguide.items.Episode;
@@ -37,6 +39,7 @@ import com.battlelancer.seriesguide.util.TextTools;
 import com.battlelancer.seriesguide.util.ThemeUtils;
 import com.battlelancer.seriesguide.util.Utils;
 import com.battlelancer.seriesguide.widgets.SlidingTabLayout;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +61,8 @@ public class EpisodeDetailsActivity extends BaseNavDrawerActivity {
     private ViewPager viewPager;
 
     private SeasonSpinnerAdapter spinnerAdapter;
-    @Nullable private EpisodePagerAdapter episodePagerAdapter;
+    @Nullable
+    private EpisodePagerAdapter episodePagerAdapter;
     private int episodeTvdbId;
     private int seasonTvdbId;
     private int showTvdbId;
@@ -270,7 +274,7 @@ public class EpisodeDetailsActivity extends BaseNavDrawerActivity {
 
         @Override
         public void onLoadFinished(Loader<SeasonEpisodesLoader.Result> loader,
-                SeasonEpisodesLoader.Result data) {
+                                   SeasonEpisodesLoader.Result data) {
             populateSeason(data);
         }
 
@@ -295,13 +299,13 @@ public class EpisodeDetailsActivity extends BaseNavDrawerActivity {
         return findViewById(R.id.coordinatorLayoutEpisode);
     }
 
-    public static class SeasonSpinnerAdapter extends BaseAdapter implements SpinnerAdapter {
+    private static class SeasonSpinnerAdapter extends BaseAdapter implements SpinnerAdapter {
 
         private final Context context;
         private final LayoutInflater inflater;
         private final List<Season> seasons;
 
-        public SeasonSpinnerAdapter(Context context, List<Season> seasons) {
+        SeasonSpinnerAdapter(Context context, List<Season> seasons) {
             this.context = context;
             inflater = LayoutInflater.from(context);
             this.seasons = seasons;
@@ -336,7 +340,7 @@ public class EpisodeDetailsActivity extends BaseNavDrawerActivity {
 
         @NonNull
         private View createViewFromResource(int position, View convertView, ViewGroup parent,
-                int resource) {
+                                            int resource) {
             TextView view;
             if (convertView == null) {
                 view = (TextView) inflater.inflate(resource, parent, false);
@@ -351,14 +355,15 @@ public class EpisodeDetailsActivity extends BaseNavDrawerActivity {
         }
     }
 
-    public static class EpisodePagerAdapter extends FragmentStatePagerAdapter {
+    static class EpisodePagerAdapter extends FragmentStatePagerAdapter {
 
-        @NonNull private final ArrayList<Episode> episodesList;
+        @NonNull
+        private final ArrayList<Episode> episodesList;
         private final Context context;
         private final boolean isMultiPane;
 
-        public EpisodePagerAdapter(Context context, FragmentManager fm,
-                @NonNull ArrayList<Episode> episodes, boolean isMultiPane) {
+        EpisodePagerAdapter(Context context, FragmentManager fm,
+                            @NonNull ArrayList<Episode> episodes, boolean isMultiPane) {
             super(fm);
             episodesList = episodes;
             this.context = context;
@@ -366,7 +371,7 @@ public class EpisodeDetailsActivity extends BaseNavDrawerActivity {
         }
 
         @Nullable
-        public Integer getItemEpisodeTvdbId(int position) {
+        Integer getItemEpisodeTvdbId(int position) {
             if (position < episodesList.size()) {
                 return episodesList.get(position).episodeId;
             } else {
@@ -410,7 +415,7 @@ public class EpisodeDetailsActivity extends BaseNavDrawerActivity {
                     episode.episodeNumber);
         }
 
-        public void updateEpisodeList(@NonNull ArrayList<Episode> list) {
+        void updateEpisodeList(@NonNull ArrayList<Episode> list) {
             episodesList.clear();
             episodesList.addAll(list);
             notifyDataSetChanged();

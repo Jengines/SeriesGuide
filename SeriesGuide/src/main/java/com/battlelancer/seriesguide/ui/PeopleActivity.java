@@ -9,16 +9,21 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.view.View;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.util.Shadows;
 import com.battlelancer.seriesguide.util.Utils;
 
 public class PeopleActivity extends BaseActivity implements PeopleFragment.OnShowPersonListener {
 
-    @Nullable @BindView(R.id.viewPeopleShadowStart) View shadowPeoplePane;
-    @BindView(R.id.containerPeople) View containerPeople;
+    @Nullable
+    @BindView(R.id.viewPeopleShadowStart)
+    View shadowPeoplePane;
+    @BindView(R.id.containerPeople)
+    View containerPeople;
 
     private boolean isTwoPane;
 

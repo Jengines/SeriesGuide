@@ -8,9 +8,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
+
 import com.battlelancer.seriesguide.R;
+
 import java.util.Locale;
+
 import org.greenrobot.eventbus.EventBus;
+
 import timber.log.Timber;
 
 /**
@@ -20,9 +24,10 @@ import timber.log.Timber;
 public class LanguageChoiceDialogFragment extends AppCompatDialogFragment {
 
     public static class LanguageChangedEvent {
-        @NonNull public final String selectedLanguageCode;
+        @NonNull
+        public final String selectedLanguageCode;
 
-        public LanguageChangedEvent(@NonNull String selectedLanguageCode) {
+        LanguageChangedEvent(@NonNull String selectedLanguageCode) {
             this.selectedLanguageCode = selectedLanguageCode;
         }
     }
@@ -31,7 +36,7 @@ public class LanguageChoiceDialogFragment extends AppCompatDialogFragment {
     private static final String ARG_SELECTED_LANGUAGE_CODE = "selectedLanguageCode";
 
     public static LanguageChoiceDialogFragment newInstance(@ArrayRes int languageCodes,
-            @Nullable String selectedLanguageCode) {
+                                                           @Nullable String selectedLanguageCode) {
         LanguageChoiceDialogFragment f = new LanguageChoiceDialogFragment();
 
         Bundle args = new Bundle();

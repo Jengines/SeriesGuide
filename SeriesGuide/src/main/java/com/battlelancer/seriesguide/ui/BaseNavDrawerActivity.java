@@ -20,7 +20,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+
 import butterknife.ButterKnife;
+
 import com.battlelancer.seriesguide.BuildConfig;
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.backend.CloudSetupActivity;
@@ -32,11 +34,13 @@ import com.battlelancer.seriesguide.customtabs.FeedbackBroadcastReceiver;
 import com.battlelancer.seriesguide.settings.TraktCredentials;
 import com.battlelancer.seriesguide.settings.TraktOAuthSettings;
 import com.battlelancer.seriesguide.util.Utils;
+
 import io.palaima.debugdrawer.actions.ActionsModule;
 import io.palaima.debugdrawer.actions.ButtonAction;
 import io.palaima.debugdrawer.commons.DeviceModule;
 import io.palaima.debugdrawer.timber.TimberModule;
 import io.palaima.debugdrawer.view.DebugView;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -58,11 +62,11 @@ public abstract class BaseNavDrawerActivity extends BaseActivity {
             this.shouldSendToTrakt = shouldSendToTrakt;
         }
 
-        public boolean shouldDisplayMessage() {
+        boolean shouldDisplayMessage() {
             return shouldSendToHexagon || shouldSendToTrakt;
         }
 
-        public String getStatusMessage(Context context) {
+        String getStatusMessage(Context context) {
             StringBuilder statusText = new StringBuilder();
             if (shouldSendToHexagon) {
                 statusText.append(context.getString(R.string.hexagon_api_queued));
@@ -82,7 +86,8 @@ public abstract class BaseNavDrawerActivity extends BaseActivity {
      */
     public static class ServiceCompletedEvent {
 
-        @Nullable public final String confirmationText;
+        @Nullable
+        final String confirmationText;
         public boolean isSuccessful;
 
         public ServiceCompletedEvent(@Nullable String confirmationText, boolean isSuccessful) {
@@ -391,11 +396,13 @@ public abstract class BaseNavDrawerActivity extends BaseActivity {
         return false;
     }
 
+    @SuppressWarnings("unused")
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventEpisodeTask(ServiceActiveEvent event) {
         handleServiceActiveEvent(event);
     }
 
+    @SuppressWarnings("unused")
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventEpisodeTask(ServiceCompletedEvent event) {
         if (event.confirmationText != null) {

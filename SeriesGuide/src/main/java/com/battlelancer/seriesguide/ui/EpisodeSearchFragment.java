@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.adapters.SearchResultsAdapter;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract.EpisodeSearch;
@@ -19,6 +20,7 @@ import com.battlelancer.seriesguide.provider.SeriesGuideContract.Episodes;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract.Shows;
 import com.battlelancer.seriesguide.util.TabClickEvent;
 import com.battlelancer.seriesguide.util.Utils;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -31,13 +33,15 @@ public class EpisodeSearchFragment extends ListFragment {
     private SearchResultsAdapter adapter;
 
     interface InitBundle {
-        /** Set to pre-filter search results by show title. */
+        /**
+         * Set to pre-filter search results by show title.
+         */
         String SHOW_TITLE = "title";
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_search, container, false);
     }
 
@@ -76,6 +80,7 @@ public class EpisodeSearchFragment extends ListFragment {
         search(event.args);
     }
 
+    @SuppressWarnings("unused")
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventTabClick(TabClickEvent event) {
         if (event.position == SearchActivity.TAB_POSITION_EPISODES) {
@@ -93,7 +98,7 @@ public class EpisodeSearchFragment extends ListFragment {
         public Loader<Cursor> onCreateLoader(int id, Bundle args) {
             String selection = null;
             final String query = args.getString(SearchManager.QUERY);
-            String[] selectionArgs = new String[] {
+            String[] selectionArgs = new String[]{
                     query
             };
 
@@ -103,7 +108,7 @@ public class EpisodeSearchFragment extends ListFragment {
                 // set show filter instead
                 if (showtitle != null) {
                     selection = Shows.TITLE + "=?";
-                    selectionArgs = new String[] {
+                    selectionArgs = new String[]{
                             query, showtitle
                     };
                 }
@@ -125,7 +130,7 @@ public class EpisodeSearchFragment extends ListFragment {
     };
 
     public interface SearchQuery {
-        String[] PROJECTION = new String[] {
+        String[] PROJECTION = new String[]{
                 Episodes._ID, Episodes.TITLE, Episodes.OVERVIEW, Episodes.NUMBER, Episodes.SEASON,
                 Episodes.WATCHED, Shows.TITLE
         };

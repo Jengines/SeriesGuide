@@ -16,9 +16,11 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.settings.TraktCredentials;
 import com.battlelancer.seriesguide.ui.EpisodesActivity;
@@ -34,17 +36,20 @@ import com.uwetrottmann.androidutils.AndroidUtils;
 public abstract class StreamFragment extends Fragment implements
         AdapterView.OnItemClickListener {
 
-    @BindView(R.id.swipeRefreshLayoutStream) EmptyViewSwipeRefreshLayout contentContainer;
+    @BindView(R.id.swipeRefreshLayoutStream)
+    EmptyViewSwipeRefreshLayout contentContainer;
 
-    @BindView(R.id.gridViewStream) StickyGridHeadersGridView gridView;
-    @BindView(R.id.emptyViewStream) TextView emptyView;
+    @BindView(R.id.gridViewStream)
+    StickyGridHeadersGridView gridView;
+    @BindView(R.id.emptyViewStream)
+    TextView emptyView;
 
     private ListAdapter adapter;
     private Unbinder unbinder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_stream, container, false);
         unbinder = ButterKnife.bind(this, v);
 
@@ -56,7 +61,7 @@ public abstract class StreamFragment extends Fragment implements
             }
         });
         contentContainer.setProgressViewOffset(false, getResources().getDimensionPixelSize(
-                        R.dimen.swipe_refresh_progress_bar_start_margin),
+                R.dimen.swipe_refresh_progress_bar_start_margin),
                 getResources().getDimensionPixelSize(
                         R.dimen.swipe_refresh_progress_bar_end_margin));
 

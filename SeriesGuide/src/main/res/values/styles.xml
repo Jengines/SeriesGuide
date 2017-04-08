@@ -182,7 +182,8 @@
     <!-- Progress bar -->
     <style name="Widget.SeriesGuide.ProgressBar" parent="android:Widget.Holo.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/progress_horizontal_sg</item>
-        <item name="android:indeterminateDrawable">@drawable/progress_indeterminate_horizontal_sg</item>
+        <item name="android:indeterminateDrawable">@drawable/progress_indeterminate_horizontal_sg
+        </item>
     </style>
 
     <!-- Smooth Progress Bar -->
@@ -304,7 +305,7 @@
         <item name="android:layout_height">match_parent</item>
     </style>
 
-    <style name="Page.Centered"/>
+    <style name="Page.Centered" />
 
     <!-- Widget items -->
     <style name="WidgetTextView">
@@ -341,7 +342,8 @@
     <!-- Progress bar -->
     <style name="Widget.SeriesGuide.ProgressBar.Light" parent="android:Widget.Holo.Light.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/progress_horizontal_sg_light</item>
-        <item name="android:indeterminateDrawable">@drawable/progress_indeterminate_horizontal_sg</item>
+        <item name="android:indeterminateDrawable">@drawable/progress_indeterminate_horizontal_sg
+        </item>
     </style>
 
 </resources>

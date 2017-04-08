@@ -19,8 +19,10 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.enums.NetworkResult;
 import com.battlelancer.seriesguide.items.SearchResult;
@@ -32,7 +34,9 @@ import com.battlelancer.seriesguide.util.TabClickEvent;
 import com.battlelancer.seriesguide.widgets.AddIndicator;
 import com.battlelancer.seriesguide.widgets.EmptyView;
 import com.uwetrottmann.androidutils.AndroidUtils;
+
 import java.util.List;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -43,7 +47,9 @@ import org.greenrobot.eventbus.ThreadMode;
 public abstract class AddFragment extends Fragment {
 
     public static class OnAddingShowEvent {
-        /** Is -1 if adding all shows of a tab. Not updating other tabs then. */
+        /**
+         * Is -1 if adding all shows of a tab. Not updating other tabs then.
+         */
         public final int showTvdbId;
 
         public OnAddingShowEvent(int showTvdbId) {
@@ -53,15 +59,19 @@ public abstract class AddFragment extends Fragment {
         /**
          * Sets TVDB id to -1 to indicate all shows of a tab are added.
          */
-        public OnAddingShowEvent() {
+        OnAddingShowEvent() {
             this(-1);
         }
     }
 
-    @BindView(R.id.containerAddContent) View contentContainer;
-    @BindView(R.id.progressBarAdd) View progressBar;
-    @BindView(android.R.id.list) GridView resultsGridView;
-    @BindView(R.id.emptyViewAdd) EmptyView emptyView;
+    @BindView(R.id.containerAddContent)
+    View contentContainer;
+    @BindView(R.id.progressBarAdd)
+    View progressBar;
+    @BindView(android.R.id.list)
+    GridView resultsGridView;
+    @BindView(R.id.emptyViewAdd)
+    EmptyView emptyView;
 
     protected List<SearchResult> searchResults;
     protected AddAdapter adapter;
@@ -72,7 +82,7 @@ public abstract class AddFragment extends Fragment {
      */
     @Override
     public abstract View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState);
+                                      @Nullable Bundle savedInstanceState);
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -175,6 +185,7 @@ public abstract class AddFragment extends Fragment {
      *
      * @see #onEvent(AddShowTask.OnShowAddedEvent)
      */
+    @SuppressWarnings("unused")
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(OnAddingShowEvent event) {
         if (event.showTvdbId > 0) {
@@ -182,6 +193,7 @@ public abstract class AddFragment extends Fragment {
         }
     }
 
+    @SuppressWarnings("unused")
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(AddShowTask.OnShowAddedEvent event) {
         if (event.successful) {
@@ -193,6 +205,7 @@ public abstract class AddFragment extends Fragment {
         }
     }
 
+    @SuppressWarnings("unused")
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(RemoveShowWorkerFragment.OnShowRemovedEvent event) {
         if (event.resultCode == NetworkResult.SUCCESS) {
@@ -214,6 +227,7 @@ public abstract class AddFragment extends Fragment {
      */
     protected abstract int getTabPosition();
 
+    @SuppressWarnings("unused")
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventTabClick(TabClickEvent event) {
         if (event.position == getTabPosition()) {
@@ -221,7 +235,7 @@ public abstract class AddFragment extends Fragment {
         }
     }
 
-    protected static class AddAdapter extends ArrayAdapter<SearchResult> {
+    static class AddAdapter extends ArrayAdapter<SearchResult> {
 
         public interface OnItemClickListener {
             void onAddClick(SearchResult item);
@@ -233,9 +247,9 @@ public abstract class AddFragment extends Fragment {
         private final boolean showMenuWatchlist;
         private final boolean hideMenuWatchlistIfAdded;
 
-        public AddAdapter(Activity activity, List<SearchResult> objects,
-                OnItemClickListener menuClickListener, boolean showMenuWatchlist,
-                boolean hideMenuWatchlistIfAdded) {
+        AddAdapter(Activity activity, List<SearchResult> objects,
+                   OnItemClickListener menuClickListener, boolean showMenuWatchlist,
+                   boolean hideMenuWatchlistIfAdded) {
             super(activity, 0, objects);
             this.menuClickListener = menuClickListener;
             this.showMenuWatchlist = showMenuWatchlist;
@@ -254,7 +268,7 @@ public abstract class AddFragment extends Fragment {
             return null;
         }
 
-        public void setStateForTvdbId(int showTvdbId, int state) {
+        void setStateForTvdbId(int showTvdbId, int state) {
             SearchResult item = getItemForShowTvdbId(showTvdbId);
             if (item != null) {
                 item.state = state;
@@ -262,7 +276,7 @@ public abstract class AddFragment extends Fragment {
             }
         }
 
-        public void setAllPendingNotAdded() {
+        void setAllPendingNotAdded() {
             int count = getCount();
             for (int i = 0; i < count; i++) {
                 SearchResult item = getItem(i);
@@ -322,14 +336,19 @@ public abstract class AddFragment extends Fragment {
 
             public SearchResult item;
 
-            @BindView(R.id.textViewAddTitle) public TextView title;
-            @BindView(R.id.textViewAddDescription) public TextView description;
-            @BindView(R.id.imageViewAddPoster) public ImageView poster;
-            @BindView(R.id.addIndicatorAddShow) public AddIndicator addIndicator;
-            @BindView(R.id.buttonItemAddMore) public ImageView buttonContextMenu;
+            @BindView(R.id.textViewAddTitle)
+            public TextView title;
+            @BindView(R.id.textViewAddDescription)
+            public TextView description;
+            @BindView(R.id.imageViewAddPoster)
+            public ImageView poster;
+            @BindView(R.id.addIndicatorAddShow)
+            AddIndicator addIndicator;
+            @BindView(R.id.buttonItemAddMore)
+            ImageView buttonContextMenu;
 
             public ViewHolder(View view,
-                    final OnItemClickListener onItemClickListener) {
+                              final OnItemClickListener onItemClickListener) {
                 ButterKnife.bind(this, view);
                 addIndicator.setOnClickListener(new OnClickListener() {
                     @Override

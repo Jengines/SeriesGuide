@@ -53,7 +53,7 @@
                     android:id="@+id/imageViewShowPosterBackground"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/show_poster_height_large"
-                    android:layout_toRightOf="@+id/containerShowPoster"
+                    android:layout_toEndOf="@+id/containerShowPoster"
                     android:contentDescription="@null"
                     android:scaleType="centerCrop" />
 
@@ -62,7 +62,7 @@
                     style="@style/Widget.SeriesGuide.TextView.ShowLabels"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/containerShowPoster"
+                    android:layout_toEndOf="@+id/containerShowPoster"
                     android:paddingTop="@dimen/default_padding"
                     android:textAppearance="@style/TextAppearance.Title"
                     tools:text="Continuing" />
@@ -73,7 +73,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textViewShowStatus"
-                    android:layout_toRightOf="@+id/containerShowPoster"
+                    android:layout_toEndOf="@+id/containerShowPoster"
                     android:paddingTop="@dimen/default_padding"
                     android:textAppearance="@style/TextAppearance.Title"
                     tools:text="Sat 08:00 PM" />
@@ -84,7 +84,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textViewShowReleaseTime"
-                    android:layout_toRightOf="@+id/containerShowPoster"
+                    android:layout_toEndOf="@+id/containerShowPoster"
                     android:paddingTop="@dimen/default_padding"
                     android:textAppearance="@style/TextAppearance.Title"
                     tools:text="YouTube" />
@@ -95,7 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textViewShowNetwork"
-                    android:layout_toRightOf="@+id/containerShowPoster"
+                    android:layout_toEndOf="@+id/containerShowPoster"
                     android:paddingTop="@dimen/default_padding"
                     android:textAppearance="@style/TextAppearance.Title"
                     tools:text="60 min" />

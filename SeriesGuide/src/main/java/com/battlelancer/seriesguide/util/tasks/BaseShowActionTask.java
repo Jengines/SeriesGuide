@@ -1,6 +1,7 @@
 package com.battlelancer.seriesguide.util.tasks;
 
 import android.support.annotation.NonNull;
+
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.settings.TraktCredentials;
 import com.battlelancer.seriesguide.traktapi.SgTrakt;
@@ -10,19 +11,25 @@ import com.uwetrottmann.trakt5.entities.SyncItems;
 import com.uwetrottmann.trakt5.entities.SyncResponse;
 import com.uwetrottmann.trakt5.entities.SyncShow;
 import com.uwetrottmann.trakt5.services.Sync;
+
 import dagger.Lazy;
+
 import java.io.IOException;
+
 import javax.inject.Inject;
+
 import org.greenrobot.eventbus.EventBus;
+
 import retrofit2.Call;
 import retrofit2.Response;
 
 public abstract class BaseShowActionTask extends BaseActionTask {
 
-    @Inject Lazy<Sync> traktSync;
+    @Inject
+    Lazy<Sync> traktSync;
     private final int showTvdbId;
 
-    public BaseShowActionTask(SgApp app, int showTvdbId) {
+    BaseShowActionTask(SgApp app, int showTvdbId) {
         super(app);
         app.getServicesComponent().inject(this);
         this.showTvdbId = showTvdbId;

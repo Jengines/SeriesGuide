@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.settings.TraktCredentials;
 
@@ -13,8 +14,6 @@ import com.battlelancer.seriesguide.settings.TraktCredentials;
  * {@link ConnectTraktCredentialsFragment}.
  */
 public class ConnectTraktActivity extends BaseActivity {
-
-    static final int OAUTH_CODE_REQUEST_CODE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

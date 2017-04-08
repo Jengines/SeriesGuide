@@ -16,8 +16,8 @@ import android.support.v7.app.AppCompatDialogFragment;
 public class SingleChoiceDialogFragment extends AppCompatDialogFragment {
 
     public static SingleChoiceDialogFragment newInstance(int itemArrayResource,
-            int itemDataArrayResource, int selectedItemIndex, String preferenceKey,
-            int dialogTitleResource) {
+                                                         int itemDataArrayResource, int selectedItemIndex, String preferenceKey,
+                                                         int dialogTitleResource) {
         SingleChoiceDialogFragment f = new SingleChoiceDialogFragment();
 
         Bundle args = new Bundle();

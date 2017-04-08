@@ -22,9 +22,11 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.adapters.NowAdapter;
 import com.battlelancer.seriesguide.loaders.RecentlyWatchedLoader;
@@ -41,7 +43,9 @@ import com.battlelancer.seriesguide.util.TabClickEvent;
 import com.battlelancer.seriesguide.util.ViewTools;
 import com.battlelancer.seriesguide.util.tasks.EpisodeTaskTypes;
 import com.battlelancer.seriesguide.widgets.EmptyViewSwipeRefreshLayout;
+
 import java.util.List;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -52,13 +56,19 @@ import org.greenrobot.eventbus.ThreadMode;
  */
 public class ShowsNowFragment extends Fragment {
 
-    @BindView(R.id.swipeRefreshLayoutNow) EmptyViewSwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.swipeRefreshLayoutNow)
+    EmptyViewSwipeRefreshLayout swipeRefreshLayout;
 
-    @BindView(R.id.recyclerViewNow) RecyclerView recyclerView;
-    @BindView(R.id.emptyViewNow) TextView emptyView;
-    @BindView(R.id.containerSnackbar) View snackbar;
-    @BindView(R.id.textViewSnackbar) TextView snackbarText;
-    @BindView(R.id.buttonSnackbar) Button snackbarButton;
+    @BindView(R.id.recyclerViewNow)
+    RecyclerView recyclerView;
+    @BindView(R.id.emptyViewNow)
+    TextView emptyView;
+    @BindView(R.id.containerSnackbar)
+    View snackbar;
+    @BindView(R.id.textViewSnackbar)
+    TextView snackbarText;
+    @BindView(R.id.buttonSnackbar)
+    Button snackbarButton;
 
     private Unbinder unbinder;
     private NowAdapter adapter;
@@ -68,7 +78,7 @@ public class ShowsNowFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_now, container, false);
         unbinder = ButterKnife.bind(this, v);
 
@@ -187,7 +197,7 @@ public class ShowsNowFragment extends Fragment {
      * would be to get the last loaded data).
      */
     private <D> void initAndMaybeRestartLoader(int loaderId,
-            LoaderManager.LoaderCallbacks<D> callbacks) {
+                                               LoaderManager.LoaderCallbacks<D> callbacks) {
         boolean isLoaderExists = getLoaderManager().getLoader(loaderId) != null;
         getLoaderManager().initLoader(loaderId, null, callbacks);
         if (isLoaderExists) {
@@ -384,7 +394,7 @@ public class ShowsNowFragment extends Fragment {
             // check if episode is in database
             Cursor query = getActivity().getContentResolver()
                     .query(SeriesGuideContract.Episodes.buildEpisodeUri(item.episodeTvdbId),
-                            new String[] { SeriesGuideContract.Episodes._ID }, null, null, null);
+                            new String[]{SeriesGuideContract.Episodes._ID}, null, null, null);
             if (query == null) {
                 // query failed
                 return;
@@ -409,7 +419,7 @@ public class ShowsNowFragment extends Fragment {
 
         @Override
         public void onLoadFinished(Loader<List<NowAdapter.NowItem>> loader,
-                List<NowAdapter.NowItem> data) {
+                                   List<NowAdapter.NowItem> data) {
             if (!isAdded()) {
                 return;
             }
@@ -437,7 +447,7 @@ public class ShowsNowFragment extends Fragment {
 
         @Override
         public void onLoadFinished(Loader<List<NowAdapter.NowItem>> loader,
-                List<NowAdapter.NowItem> data) {
+                                   List<NowAdapter.NowItem> data) {
             if (!isAdded()) {
                 return;
             }
@@ -466,7 +476,7 @@ public class ShowsNowFragment extends Fragment {
 
         @Override
         public void onLoadFinished(Loader<TraktRecentEpisodeHistoryLoader.Result> loader,
-                TraktRecentEpisodeHistoryLoader.Result data) {
+                                   TraktRecentEpisodeHistoryLoader.Result data) {
             if (!isAdded()) {
                 return;
             }
@@ -495,7 +505,7 @@ public class ShowsNowFragment extends Fragment {
 
         @Override
         public void onLoadFinished(Loader<List<NowAdapter.NowItem>> loader,
-                List<NowAdapter.NowItem> data) {
+                                   List<NowAdapter.NowItem> data) {
             if (!isAdded()) {
                 return;
             }

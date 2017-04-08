@@ -11,7 +11,9 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
 import butterknife.ButterKnife;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.adapters.PeopleAdapter;
@@ -21,6 +23,7 @@ import com.battlelancer.seriesguide.util.PeopleListHelper;
 import com.battlelancer.seriesguide.widgets.EmptyView;
 import com.uwetrottmann.androidutils.AndroidUtils;
 import com.uwetrottmann.tmdb2.entities.Credits;
+
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 
 /**
@@ -51,7 +54,7 @@ public class PeopleFragment extends Fragment {
     private int mTmdbId;
     private boolean mActivateOnItemClick;
 
-    public interface OnShowPersonListener {
+    interface OnShowPersonListener {
         void showPerson(View view, int tmdbId);
     }
 
@@ -78,7 +81,7 @@ public class PeopleFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_people, container, false);
 
         mListView = ButterKnife.findById(rootView, R.id.listViewPeople);
@@ -132,7 +135,9 @@ public class PeopleFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 PeopleListHelper.Person person = mAdapter.getItem(position);
                 PeopleAdapter.ViewHolder viewHolder = (PeopleAdapter.ViewHolder) view.getTag();
-                mListener.showPerson(viewHolder.headshot, person.tmdbId);
+                if (person != null) {
+                    mListener.showPerson(viewHolder.headshot, person.tmdbId);
+                }
             }
         });
 

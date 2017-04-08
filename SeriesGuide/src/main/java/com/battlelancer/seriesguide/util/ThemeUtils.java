@@ -1,6 +1,7 @@
 package com.battlelancer.seriesguide.util;
 
 import android.app.Activity;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.ui.SeriesGuidePreferences;
 

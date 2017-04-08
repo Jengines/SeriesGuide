@@ -3,6 +3,7 @@ package com.battlelancer.seriesguide.util.tasks;
 import android.content.ContentProviderOperation;
 import android.content.OperationApplicationException;
 import android.support.annotation.NonNull;
+
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.backend.HexagonTools;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract;
@@ -11,10 +12,13 @@ import com.battlelancer.seriesguide.util.DBUtils;
 import com.uwetrottmann.seriesguide.backend.lists.Lists;
 import com.uwetrottmann.seriesguide.backend.lists.model.SgList;
 import com.uwetrottmann.seriesguide.backend.lists.model.SgListList;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.greenrobot.eventbus.EventBus;
+
 import timber.log.Timber;
 
 /**
@@ -22,7 +26,8 @@ import timber.log.Timber;
  */
 public class ReorderListsTask extends BaseActionTask {
 
-    @NonNull private final List<String> listIdsInOrder;
+    @NonNull
+    private final List<String> listIdsInOrder;
 
     /**
      * The given lists order number will be changed to their position in the given list.

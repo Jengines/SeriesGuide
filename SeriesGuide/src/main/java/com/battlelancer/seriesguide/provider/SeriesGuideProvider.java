@@ -18,11 +18,14 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.BaseColumns;
 import android.support.annotation.NonNull;
+
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.ui.SeriesGuidePreferences;
 import com.battlelancer.seriesguide.util.SelectionBuilder;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+
 import timber.log.Timber;
 
 import static com.battlelancer.seriesguide.provider.SeriesGuideContract.Activity;
@@ -185,9 +188,6 @@ public class SeriesGuideProvider extends ContentProvider {
 
     @Override
     public void shutdown() {
-        /**
-         * If we ever do unit-testing, nice to have this already (no bug-hunt).
-         */
         if (mDbHelper != null) {
             mDbHelper.close();
             mDbHelper = null;
@@ -220,7 +220,7 @@ public class SeriesGuideProvider extends ContentProvider {
                     mDbHelper.close();
                     sharedPreferences.edit()
                             .putBoolean(SeriesGuidePreferences.KEY_DATABASEIMPORTED, false)
-                            .commit();
+                            .apply();
                 }
             }
         }
@@ -228,7 +228,7 @@ public class SeriesGuideProvider extends ContentProvider {
 
     @Override
     public Cursor query(@NonNull Uri uri, String[] projection, String selection,
-            String[] selectionArgs, String sortOrder) {
+                        String[] selectionArgs, String sortOrder) {
         if (LOGV) {
             Timber.v("query(uri=%s, proj=%s)", uri, Arrays.toString(projection));
         }
@@ -359,8 +359,8 @@ public class SeriesGuideProvider extends ContentProvider {
         final SQLiteDatabase db = mDbHelper.getWritableDatabase();
         db.beginTransaction();
         try {
-            for (int i = 0; i < numValues; i++) {
-                Uri result = insertInTransaction(db, uri, values[i], true);
+            for (ContentValues value : values) {
+                Uri result = insertInTransaction(db, uri, value, true);
                 if (result != null) {
                     notifyChange = true;
                 }
@@ -381,11 +381,11 @@ public class SeriesGuideProvider extends ContentProvider {
 
     /**
      * @param bulkInsert It seems to happen on occasion that TVDB has duplicate episodes, also
-     * backup files may contain duplicates. Handle them by making the last insert win (ON CONFLICT
-     * REPLACE) for bulk inserts.
+     *                   backup files may contain duplicates. Handle them by making the last insert win (ON CONFLICT
+     *                   REPLACE) for bulk inserts.
      */
     private Uri insertInTransaction(SQLiteDatabase db, Uri uri, ContentValues values,
-            boolean bulkInsert) {
+                                    boolean bulkInsert) {
         if (LOGV) {
             Timber.v("insert(uri=%s, values=%s)", uri, values.toString());
         }
@@ -482,7 +482,7 @@ public class SeriesGuideProvider extends ContentProvider {
      */
     @Override
     public int update(@NonNull Uri uri, ContentValues values, String selection,
-            String[] selectionArgs) {
+                      String[] selectionArgs) {
         if (LOGV) {
             Timber.v("update(uri=%s, values=%s)", uri, values.toString());
         }

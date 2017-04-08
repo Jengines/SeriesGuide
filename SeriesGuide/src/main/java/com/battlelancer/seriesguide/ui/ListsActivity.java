@@ -9,8 +9,10 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.adapters.ListsPagerAdapter;
@@ -23,6 +25,7 @@ import com.battlelancer.seriesguide.ui.dialogs.ListsReorderDialogFragment;
 import com.battlelancer.seriesguide.util.Utils;
 import com.battlelancer.seriesguide.util.ViewTools;
 import com.battlelancer.seriesguide.widgets.SlidingTabLayout;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -40,8 +43,10 @@ public class ListsActivity extends BaseTopActivity {
     public static final String TAG = "Lists";
     public static final int LISTS_REORDER_LOADER_ID = 1;
 
-    @BindView(R.id.viewPagerTabs) ViewPager viewPager;
-    @BindView(R.id.tabLayoutTabs) SlidingTabLayout tabs;
+    @BindView(R.id.viewPagerTabs)
+    ViewPager viewPager;
+    @BindView(R.id.tabLayoutTabs)
+    SlidingTabLayout tabs;
     private ListsPagerAdapter listsAdapter;
 
     @Override

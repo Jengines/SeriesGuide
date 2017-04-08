@@ -11,16 +11,16 @@
     </Preference>
 
     <SwitchPreference
-        android:defaultValue="True"
+        android:defaultValue="true"
         android:key="com.battlelancer.seriesguide.autoupdate"
         android:summary="@string/pref_autoupdatesummary"
         android:title="@string/pref_autoupdate" />
 
     <CheckBoxPreference
-        android:defaultValue="False"
+        android:defaultValue="false"
         android:key="com.battlelancer.seriesguide.autoupdatewlanonly"
-        android:title="@string/pref_updatewifionly"
-        android:summary="@string/pref_updatewifionlysummary" />
+        android:summary="@string/pref_updatewifionlysummary"
+        android:title="@string/pref_updatewifionly" />
 
     <Preference
         android:key="screen_notifications"

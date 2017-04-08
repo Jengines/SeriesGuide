@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.PopupMenu;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.adapters.ListItemsAdapter;
@@ -27,6 +28,7 @@ import com.battlelancer.seriesguide.ui.dialogs.ManageListsDialogFragment;
 import com.battlelancer.seriesguide.util.ListsTools;
 import com.battlelancer.seriesguide.util.Utils;
 import com.uwetrottmann.androidutils.AndroidUtils;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -36,7 +38,9 @@ import org.greenrobot.eventbus.ThreadMode;
  */
 public class ListsFragment extends Fragment implements OnItemClickListener, View.OnClickListener {
 
-    /** LoaderManager is created unique to fragment, so use same id for all of them */
+    /**
+     * LoaderManager is created unique to fragment, so use same id for all of them
+     */
     private static final int LOADER_ID = 1;
 
     private static final String TAG = "Lists";
@@ -60,7 +64,7 @@ public class ListsFragment extends Fragment implements OnItemClickListener, View
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_list, container, false);
     }
 
@@ -159,7 +163,7 @@ public class ListsFragment extends Fragment implements OnItemClickListener, View
                     // items of this list, but exclude any if show was removed from the database
                     // (the join on show data will fail, hence the show id will be 0/null)
                     ListItems.SELECTION_LIST + " AND " + Shows.REF_SHOW_ID + ">0",
-                    new String[] {
+                    new String[]{
                             listId
                     }, ListsDistillationSettings.getSortQuery(getActivity())
             );
@@ -197,8 +201,8 @@ public class ListsFragment extends Fragment implements OnItemClickListener, View
         private final int itemTvdbId;
         private final int itemType;
 
-        public PopupMenuItemClickListener(SgApp app, FragmentManager fm, String itemId,
-                int itemTvdbId, int itemType) {
+        PopupMenuItemClickListener(SgApp app, FragmentManager fm, String itemId,
+                                   int itemTvdbId, int itemType) {
             this.app = app;
             this.fragmentManager = fm;
             this.itemId = itemId;

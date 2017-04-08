@@ -1,6 +1,7 @@
 package com.battlelancer.seriesguide.modules;
 
 import android.app.Application;
+
 import com.battlelancer.seriesguide.traktapi.SgTrakt;
 import com.uwetrottmann.trakt5.TraktV2;
 import com.uwetrottmann.trakt5.services.Checkin;
@@ -12,9 +13,12 @@ import com.uwetrottmann.trakt5.services.Search;
 import com.uwetrottmann.trakt5.services.Shows;
 import com.uwetrottmann.trakt5.services.Sync;
 import com.uwetrottmann.trakt5.services.Users;
+
 import dagger.Module;
 import dagger.Provides;
+
 import javax.inject.Singleton;
+
 import okhttp3.OkHttpClient;
 
 @Module

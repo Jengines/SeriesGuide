@@ -11,6 +11,7 @@ import android.graphics.RectF;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v4.os.AsyncTaskCompat;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.thetvdbapi.TvdbImageTools;
 import com.battlelancer.seriesguide.ui.OverviewActivity;
@@ -18,7 +19,9 @@ import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
+
 import java.io.IOException;
+
 import timber.log.Timber;
 
 import static android.graphics.Shader.TileMode;
@@ -28,23 +31,27 @@ import static android.graphics.Shader.TileMode;
  */
 public final class ShortcutUtils {
 
-    /** {@link Intent} action used to create the shortcut */
+    /**
+     * {@link Intent} action used to create the shortcut
+     */
     private static final String ACTION_INSTALL_SHORTCUT
             = "com.android.launcher.action.INSTALL_SHORTCUT";
 
-    /** This class is never initialized */
+    /**
+     * This class is never initialized
+     */
     private ShortcutUtils() {
     }
 
     /**
      * Adds a shortcut from the overview page of the given show to the Home screen.
      *
-     * @param showTitle The name of the shortcut.
+     * @param showTitle  The name of the shortcut.
      * @param posterPath A TVDb show poster path.
      * @param showTvdbId The TVDb ID of the show.
      */
     public static void createShortcut(Context localContext, final String showTitle,
-            final String posterPath, final int showTvdbId) {
+                                      final String posterPath, final int showTvdbId) {
         // do not pass activity reference to AsyncTask, activity might leak if destroyed
         final Context context = localContext.getApplicationContext();
 
@@ -101,15 +108,23 @@ public final class ShortcutUtils {
         AsyncTaskCompat.executeParallel(shortCutTask);
     }
 
-    /** A {@link Transformation} used to draw a {@link Bitmap} with round corners */
+    /**
+     * A {@link Transformation} used to draw a {@link Bitmap} with round corners
+     */
     private static final class RoundedCornerTransformation implements Transformation {
 
-        /** A key used to uniquely identify this {@link Transformation} */
+        /**
+         * A key used to uniquely identify this {@link Transformation}
+         */
         private final String mKey;
-        /** The corner radius */
+        /**
+         * The corner radius
+         */
         private final float mRadius;
 
-        /** Constructor for {@code RoundedCornerTransformation} */
+        /**
+         * Constructor for {@code RoundedCornerTransformation}
+         */
         private RoundedCornerTransformation(@NonNull String key, float radius) {
             mKey = key;
             mRadius = radius;

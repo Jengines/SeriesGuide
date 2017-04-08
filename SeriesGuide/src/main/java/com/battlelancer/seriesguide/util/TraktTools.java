@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.text.format.DateUtils;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.enums.EpisodeFlags;
@@ -35,7 +36,9 @@ import com.uwetrottmann.trakt5.entities.SyncSeason;
 import com.uwetrottmann.trakt5.entities.SyncShow;
 import com.uwetrottmann.trakt5.enums.RatingsFilter;
 import com.uwetrottmann.trakt5.services.Sync;
+
 import dagger.Lazy;
+
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -46,7 +49,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+
 import javax.inject.Inject;
+
 import retrofit2.Response;
 import timber.log.Timber;
 
@@ -56,12 +61,13 @@ public class TraktTools {
 
     // Sync status codes
     public static final int SUCCESS = 1;
-    public static final int FAILED_API = -1;
-    public static final int FAILED = -2;
-    public static final int FAILED_CREDENTIALS = -3;
+    private static final int FAILED_API = -1;
+    private static final int FAILED = -2;
+    private static final int FAILED_CREDENTIALS = -3;
 
     private final Context context;
-    @Inject Lazy<Sync> traktSync;
+    @Inject
+    Lazy<Sync> traktSync;
 
     public TraktTools(SgApp app) {
         context = app.getApplicationContext();
@@ -90,7 +96,7 @@ public class TraktTools {
         final int notFlaggedValue;
 
         Flag(String name, String databaseColumn, String clearFlagSelection, String flagSelection,
-                int flaggedValue, int notFlaggedValue) {
+             int flaggedValue, int notFlaggedValue) {
             this.name = name;
             this.databaseColumn = databaseColumn;
             this.clearFlagSelection = clearFlagSelection;
@@ -213,7 +219,7 @@ public class TraktTools {
 
     /**
      * Downloads trakt movie ratings and applies the latest ones to the database.
-     *
+     * <p>
      * <p> To apply all ratings, set {@link TraktSettings#KEY_LAST_MOVIES_RATED_AT} to 0.
      */
     public UpdateResult downloadMovieRatings(Date ratedAt) {
@@ -308,7 +314,7 @@ public class TraktTools {
 
     /**
      * Downloads trakt show ratings and applies the latest ones to the database.
-     *
+     * <p>
      * <p> To apply all ratings, set {@link TraktSettings#KEY_LAST_SHOWS_RATED_AT} to 0.
      */
     public UpdateResult downloadShowRatings(@Nullable Date ratedAt) {
@@ -404,7 +410,7 @@ public class TraktTools {
 
     /**
      * Downloads trakt episode ratings and applies the latest ones to the database.
-     *
+     * <p>
      * <p> To apply all ratings, set {@link TraktSettings#KEY_LAST_EPISODES_RATED_AT} to 0.
      */
     public UpdateResult downloadEpisodeRatings(@Nullable Date ratedAt) {
@@ -502,12 +508,12 @@ public class TraktTools {
      * trakt (or {@code isInitialSync} is true).
      *
      * @param isInitialSync If set, will upload any episodes flagged locally, but not flagged on
-     * trakt. If not set, all watched and collected (and only those, e.g. not skipped flag) flags
-     * will be removed prior to getting the actual flags from trakt (season by season).
+     *                      trakt. If not set, all watched and collected (and only those, e.g. not skipped flag) flags
+     *                      will be removed prior to getting the actual flags from trakt (season by season).
      * @return Any of the {@link TraktTools} result codes.
      */
     public int syncEpisodeFlags(@NonNull HashSet<Integer> localShows,
-            @NonNull LastActivityMore activity, boolean isInitialSync) {
+                                @NonNull LastActivityMore activity, boolean isInitialSync) {
         if (!TraktCredentials.get(context).hasCredentials()) {
             return FAILED_CREDENTIALS;
         }
@@ -524,8 +530,8 @@ public class TraktTools {
     }
 
     private int syncWatchedEpisodes(@NonNull HashSet<Integer> localShows,
-            @Nullable Date watchedAt,
-            boolean isInitialSync) {
+                                    @Nullable Date watchedAt,
+                                    boolean isInitialSync) {
         if (watchedAt == null) {
             Timber.e("syncWatchedEpisodes: null watched_at");
             return FAILED;
@@ -580,7 +586,7 @@ public class TraktTools {
     }
 
     private int syncCollectedEpisodes(@NonNull HashSet<Integer> localShows,
-            @Nullable Date collectedAt, boolean isInitialSync) {
+                                      @Nullable Date collectedAt, boolean isInitialSync) {
         if (collectedAt == null) {
             Timber.e("syncCollectedEpisodes: null collected_at");
             return FAILED;
@@ -639,7 +645,7 @@ public class TraktTools {
      * a single show and only downloads watched/collected episodes from trakt.
      */
     public boolean storeEpisodeFlags(@Nullable HashMap<Integer, BaseShow> traktShows,
-            int showTvdbId, @NonNull Flag flag) {
+                                     int showTvdbId, @NonNull Flag flag) {
         if (traktShows == null || traktShows.isEmpty()) {
             return true; // no watched/collected shows on trakt, done.
         }
@@ -651,7 +657,7 @@ public class TraktTools {
     }
 
     private int processTraktShows(@NonNull List<BaseShow> remoteShows,
-            @NonNull HashSet<Integer> localShows, boolean isInitialSync, Flag flag) {
+                                  @NonNull HashSet<Integer> localShows, boolean isInitialSync, Flag flag) {
         HashMap<Integer, BaseShow> traktShows = buildTraktShowsMap(remoteShows);
 
         int uploadedShowsCount = 0;
@@ -708,7 +714,7 @@ public class TraktTools {
      * trakt is later.
      */
     private void updateLastWatchedTime(Integer showTvdbId, BaseShow traktShow,
-            ArrayList<ContentProviderOperation> batch) {
+                                       ArrayList<ContentProviderOperation> batch) {
         if (traktShow.last_watched_at == null) {
             return;
         }
@@ -722,17 +728,17 @@ public class TraktTools {
      * given show has to be watched/collected on trakt.
      *
      * @param isInitialSync If {@code true}, will upload watched/collected episodes that are not
-     * watched/collected on trakt. If {@code false}, will set them not watched/collected (if not
-     * skipped) to mirror the trakt episode.
+     *                      watched/collected on trakt. If {@code false}, will set them not watched/collected (if not
+     *                      skipped) to mirror the trakt episode.
      */
-    public int processTraktSeasons(boolean isInitialSync, int localShow,
-            @NonNull BaseShow traktShow, @NonNull Flag flag) {
+    private int processTraktSeasons(boolean isInitialSync, int localShow,
+                                    @NonNull BaseShow traktShow, @NonNull Flag flag) {
         HashMap<Integer, BaseSeason> traktSeasons = buildTraktSeasonsMap(traktShow.seasons);
 
         Cursor localSeasonsQuery = context.getContentResolver()
                 .query(SeriesGuideContract.Seasons.buildSeasonsOfShowUri(localShow),
-                        new String[] { SeriesGuideContract.Seasons._ID,
-                                SeriesGuideContract.Seasons.COMBINED }, null, null,
+                        new String[]{SeriesGuideContract.Seasons._ID,
+                                SeriesGuideContract.Seasons.COMBINED}, null, null,
                         null);
         if (localSeasonsQuery == null) {
             return FAILED;
@@ -787,15 +793,15 @@ public class TraktTools {
     }
 
     private boolean processTraktEpisodes(boolean isInitialSync,
-            String seasonId, BaseSeason traktSeason, List<SyncSeason> syncSeasons, Flag flag) {
+                                         String seasonId, BaseSeason traktSeason, List<SyncSeason> syncSeasons, Flag flag) {
         HashSet<Integer> traktEpisodes = buildTraktEpisodesMap(traktSeason.episodes);
 
         Cursor localEpisodesQuery = context.getContentResolver()
                 .query(SeriesGuideContract.Episodes.buildEpisodesOfSeasonUri(
-                        seasonId), new String[] {
+                        seasonId), new String[]{
                         SeriesGuideContract.Episodes._ID,
                         SeriesGuideContract.Episodes.NUMBER,
-                        flag.databaseColumn }, null, null, null);
+                        flag.databaseColumn}, null, null, null);
         if (localEpisodesQuery == null) {
             return false;
         }
@@ -872,7 +878,7 @@ public class TraktTools {
     }
 
     @NonNull
-    public static HashMap<Integer, BaseShow> buildTraktShowsMap(List<BaseShow> traktShows) {
+    static HashMap<Integer, BaseShow> buildTraktShowsMap(List<BaseShow> traktShows) {
         HashMap<Integer, BaseShow> traktShowsMap = new HashMap<>(traktShows.size());
         for (BaseShow traktShow : traktShows) {
             if (traktShow.show == null
@@ -981,7 +987,7 @@ public class TraktTools {
 
     /**
      * @param episodesCursor Cursor of episodes sorted by season (ascending).
-     * @param seasons Empty list.
+     * @param seasons        Empty list.
      */
     private static void buildEpisodeList(Cursor episodesCursor, List<SyncSeason> seasons) {
         SyncSeason currentSeason = null;
@@ -1009,7 +1015,7 @@ public class TraktTools {
         // query for watched/collected episodes of the given season
         Cursor flaggedEpisodesQuery = context.getContentResolver().query(
                 SeriesGuideContract.Episodes.buildEpisodesOfSeasonUri(seasonTvdbId),
-                new String[] { SeriesGuideContract.Episodes.NUMBER },
+                new String[]{SeriesGuideContract.Episodes.NUMBER},
                 flag.flagSelection,
                 null,
                 SeriesGuideContract.Episodes.SORT_NUMBER_ASC);
@@ -1032,11 +1038,11 @@ public class TraktTools {
         return new SyncSeason().number(seasonNumber).episodes(syncEpisodes);
     }
 
-    public static String buildShowUrl(int showTvdbId) {
+    static String buildShowUrl(int showTvdbId) {
         return TraktLink.tvdb(showTvdbId) + "?id_type=show";
     }
 
-    public static String buildEpisodeUrl(int episodeTvdbId) {
+    static String buildEpisodeUrl(int episodeTvdbId) {
         return TraktLink.tvdb(episodeTvdbId) + "?id_type=episode";
     }
 
@@ -1137,9 +1143,9 @@ public class TraktTools {
         return null;
     }
 
-    public interface EpisodesQuery {
+    interface EpisodesQuery {
 
-        String[] PROJECTION = new String[] {
+        String[] PROJECTION = new String[]{
                 SeriesGuideContract.Episodes.SEASON, SeriesGuideContract.Episodes.NUMBER
         };
 

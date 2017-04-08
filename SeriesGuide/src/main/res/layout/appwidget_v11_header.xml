@@ -31,9 +31,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|start"
             android:ellipsize="end"
-            android:singleLine="true"
             android:text="@string/upcoming"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:maxLines="1" />
 
     </FrameLayout>
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.v4.app.NotificationManagerCompat;
+
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.enums.EpisodeFlags;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract;
@@ -36,10 +37,10 @@ public class NotificationActionReceiver extends BroadcastReceiver {
         // query for episode details
         Cursor query = context.getContentResolver()
                 .query(SeriesGuideContract.Episodes.buildEpisodeWithShowUri(episodeTvdbvId),
-                        new String[] {
+                        new String[]{
                                 SeriesGuideContract.Shows.REF_SHOW_ID,
                                 SeriesGuideContract.Episodes.SEASON,
-                                SeriesGuideContract.Episodes.NUMBER }, null, null, null);
+                                SeriesGuideContract.Episodes.NUMBER}, null, null, null);
         if (query == null) {
             return;
         }

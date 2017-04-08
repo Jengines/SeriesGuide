@@ -3,6 +3,7 @@ package com.battlelancer.seriesguide.settings;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v4.content.ContextCompat;
+
 import com.battlelancer.seriesguide.R;
 
 /**
@@ -131,10 +132,10 @@ public class WidgetSettings {
      * Calculates the background color for this widget based on user preference.
      *
      * @param lightBackground If true, will return white with alpha. Otherwise black with alpha. See
-     * {@link #isLightTheme}.
+     *                        {@link #isLightTheme}.
      */
     public static int getWidgetBackgroundColor(Context context, int appWidgetId,
-            boolean lightBackground) {
+                                               boolean lightBackground) {
         int opacity = DEFAULT_WIDGET_BACKGROUND_OPACITY_INT;
         try {
             opacity = Integer.parseInt(context.getSharedPreferences(SETTINGS_FILE, 0)

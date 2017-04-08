@@ -6,10 +6,12 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.os.AsyncTaskCompat;
 import android.widget.Toast;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.dataliberation.JsonExportTask;
 import com.battlelancer.seriesguide.items.SearchResult;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +60,7 @@ public class TaskManager {
      * @param isMergingShows Whether to set the Hexagon show merged flag to true if all shows were
      */
     public synchronized void performAddTask(final SgApp app, final List<SearchResult> shows,
-            final boolean isSilentMode, final boolean isMergingShows) {
+                                            final boolean isSilentMode, final boolean isMergingShows) {
         if (!isSilentMode) {
             // notify user here already
             if (shows.size() == 1) {

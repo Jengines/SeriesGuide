@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.adapters.model.HeaderData;
@@ -27,6 +28,7 @@ import com.battlelancer.seriesguide.util.TimeTools;
 import com.battlelancer.seriesguide.widgets.WatchedBox;
 import com.tonicartos.widget.stickygridheaders.StickyGridHeadersBaseAdapter;
 import com.uwetrottmann.androidutils.CheatSheet;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -239,7 +241,7 @@ public class CalendarAdapter extends CursorAdapter implements StickyGridHeadersB
         super.notifyDataSetInvalidated();
     }
 
-    protected List<HeaderData> generateHeaderList() {
+    private List<HeaderData> generateHeaderList() {
         int count = getCount();
         if (count == 0 || !mIsShowingHeaders) {
             return null;
@@ -265,7 +267,7 @@ public class CalendarAdapter extends CursorAdapter implements StickyGridHeadersB
 
     public interface Query {
 
-        String[] PROJECTION = new String[] {
+        String[] PROJECTION = new String[]{
                 SeriesGuideDatabase.Tables.EPISODES + "." + Episodes._ID,
                 Episodes.TITLE,
                 Episodes.NUMBER,
@@ -314,7 +316,7 @@ public class CalendarAdapter extends CursorAdapter implements StickyGridHeadersB
         public TextView show;
         public TextView episode;
         public View collected;
-        public WatchedBox watchedBox;
+        WatchedBox watchedBox;
         public TextView info;
         public TextView timestamp;
         public ImageView poster;
@@ -330,8 +332,7 @@ public class CalendarAdapter extends CursorAdapter implements StickyGridHeadersB
         }
     }
 
-    static class HeaderViewHolder {
-
+    private static class HeaderViewHolder {
         public TextView day;
     }
 }

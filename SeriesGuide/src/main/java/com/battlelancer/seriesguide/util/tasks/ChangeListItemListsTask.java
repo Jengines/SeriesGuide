@@ -3,6 +3,7 @@ package com.battlelancer.seriesguide.util.tasks;
 import android.content.ContentProviderOperation;
 import android.content.OperationApplicationException;
 import android.support.annotation.NonNull;
+
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.backend.HexagonTools;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract;
@@ -11,9 +12,11 @@ import com.uwetrottmann.seriesguide.backend.lists.Lists;
 import com.uwetrottmann.seriesguide.backend.lists.model.SgList;
 import com.uwetrottmann.seriesguide.backend.lists.model.SgListItem;
 import com.uwetrottmann.seriesguide.backend.lists.model.SgListList;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import timber.log.Timber;
 
 /**
@@ -27,7 +30,7 @@ public class ChangeListItemListsTask extends BaseActionTask {
     private final List<String> removeFromTheseLists;
 
     public ChangeListItemListsTask(@NonNull SgApp app, int itemTvdbId, int itemType,
-            @NonNull List<String> addToTheseLists, @NonNull List<String> removeFromTheseLists) {
+                                   @NonNull List<String> addToTheseLists, @NonNull List<String> removeFromTheseLists) {
         super(app);
         this.itemTvdbId = itemTvdbId;
         this.itemType = itemType;

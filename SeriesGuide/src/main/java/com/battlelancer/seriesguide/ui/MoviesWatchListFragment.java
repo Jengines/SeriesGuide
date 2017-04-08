@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.adapters.MoviesCursorAdapter;
@@ -26,7 +27,7 @@ public class MoviesWatchListFragment extends MoviesBaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View v = super.onCreateView(inflater, container, savedInstanceState);
 
         emptyView.setText(R.string.movies_watchlist_empty);

@@ -7,6 +7,7 @@ import android.provider.Settings;
 import android.support.annotation.ArrayRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
 import com.battlelancer.seriesguide.R;
 
 /**
@@ -73,21 +74,18 @@ public class NotificationSettings {
 
     @Nullable
     private static CharSequence getEntryForValue(@NonNull Context context,
-            @ArrayRes int entryValuesResId, @ArrayRes int entriesResId, @Nullable String value) {
+                                                 @ArrayRes int entryValuesResId, @ArrayRes int entriesResId, @Nullable String value) {
         if (value == null) {
             return null;
         }
         CharSequence[] entryValues = context.getResources().getTextArray(entryValuesResId);
-        if (entryValues == null) {
-            return null;
-        }
         int index = findIndexOfValue(value, entryValues);
         CharSequence[] entries = context.getResources().getTextArray(entriesResId);
-        return index >= 0 && entries != null ? entries[index] : null;
+        return index >= 0 ? entries[index] : null;
     }
 
     private static int findIndexOfValue(@NonNull String value,
-            @NonNull CharSequence[] entryValues) {
+                                        @NonNull CharSequence[] entryValues) {
         for (int i = entryValues.length - 1; i >= 0; i--) {
             if (entryValues[i].equals(value)) {
                 return i;

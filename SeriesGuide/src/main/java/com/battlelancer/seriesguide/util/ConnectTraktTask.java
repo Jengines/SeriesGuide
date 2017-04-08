@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
+
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.enums.Result;
 import com.battlelancer.seriesguide.enums.TraktResult;
@@ -19,10 +20,15 @@ import com.uwetrottmann.trakt5.TraktV2;
 import com.uwetrottmann.trakt5.entities.AccessToken;
 import com.uwetrottmann.trakt5.entities.Settings;
 import com.uwetrottmann.trakt5.services.Users;
+
 import dagger.Lazy;
+
 import org.greenrobot.eventbus.EventBus;
+
 import java.io.IOException;
+
 import javax.inject.Inject;
+
 import retrofit2.Response;
 
 /**
@@ -37,14 +43,16 @@ public class ConnectTraktTask extends AsyncTask<String, Void, Integer> {
          */
         public int resultCode;
 
-        public FinishedEvent(int resultCode) {
+        FinishedEvent(int resultCode) {
             this.resultCode = resultCode;
         }
     }
 
     private final Context context;
-    @Inject TraktV2 trakt;
-    @Inject Lazy<Users> traktUsers;
+    @Inject
+    TraktV2 trakt;
+    @Inject
+    Lazy<Users> traktUsers;
 
     public ConnectTraktTask(SgApp app) {
         context = app;
@@ -146,7 +154,7 @@ public class ConnectTraktTask extends AsyncTask<String, Void, Integer> {
         editor.putLong(TraktSettings.KEY_LAST_EPISODES_RATED_AT, 0);
         editor.putLong(TraktSettings.KEY_LAST_MOVIES_RATED_AT, 0);
 
-        editor.commit();
+        editor.apply();
 
         return Result.SUCCESS;
     }

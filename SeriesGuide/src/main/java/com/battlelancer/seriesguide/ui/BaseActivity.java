@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
 import android.view.MenuItem;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.settings.AdvancedSettings;
 import com.battlelancer.seriesguide.settings.BackupSettings;
@@ -22,6 +23,7 @@ import com.battlelancer.seriesguide.util.DBUtils;
 import com.battlelancer.seriesguide.util.TaskManager;
 import com.battlelancer.seriesguide.util.TraktTask;
 import com.battlelancer.seriesguide.widgets.FirstRunView;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -70,7 +72,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * Override this to avoid registering with {@link EventBus#getDefault()} in {@link #onStart()}.
-     *
+     * <p>
      * <p> See {@link #unregisterEventBus()} as well.
      */
     public void registerEventBus() {
@@ -91,7 +93,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * Override this to avoid unregistering from {@link EventBus#getDefault()} in {@link
      * #onStop()}.
-     *
+     * <p>
      * <p> See {@link #registerEventBus()} as well.
      */
     public void unregisterEventBus() {
@@ -121,12 +123,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @SuppressWarnings("unused")
     @Subscribe
     public void onEvent(AddShowTask.OnShowAddedEvent event) {
         // display status toast about adding shows
         event.handle(this);
     }
 
+    @SuppressWarnings("unused")
     @Subscribe
     public void onEvent(TraktTask.TraktActionCompleteEvent event) {
         // display status toast about trakt action
@@ -196,7 +200,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * Schedule an update for the given show. Might not run if this show was just updated. Execution
      * is also delayed so it won't reduce UI setup performance (= you can run this in {@link
      * #onCreate(android.os.Bundle)}).
-     *
+     * <p>
      * <p> See {@link com.battlelancer.seriesguide.sync.SgSyncAdapter#requestSyncIfTime(android.content.Context,
      * int)}.
      */

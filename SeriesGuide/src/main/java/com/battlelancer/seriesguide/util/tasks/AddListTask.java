@@ -2,6 +2,7 @@ package com.battlelancer.seriesguide.util.tasks;
 
 import android.content.ContentValues;
 import android.support.annotation.NonNull;
+
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.backend.HexagonTools;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract;
@@ -9,9 +10,11 @@ import com.battlelancer.seriesguide.ui.ListsActivity;
 import com.uwetrottmann.seriesguide.backend.lists.Lists;
 import com.uwetrottmann.seriesguide.backend.lists.model.SgList;
 import com.uwetrottmann.seriesguide.backend.lists.model.SgListList;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.greenrobot.eventbus.EventBus;
 
 /**
@@ -19,7 +22,8 @@ import org.greenrobot.eventbus.EventBus;
  */
 public class AddListTask extends BaseActionTask {
 
-    @NonNull protected final String listName;
+    @NonNull
+    final String listName;
 
     public AddListTask(@NonNull SgApp app, @NonNull String listName) {
         super(app);

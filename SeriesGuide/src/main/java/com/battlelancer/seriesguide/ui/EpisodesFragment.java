@@ -20,6 +20,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+
 import com.battlelancer.seriesguide.Constants;
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
@@ -67,7 +68,7 @@ public class EpisodesFragment extends ListFragment
     }
 
     public static EpisodesFragment newInstance(int showId, int seasonId, int seasonNumber,
-            int startingPosition) {
+                                               int startingPosition) {
         EpisodesFragment f = new EpisodesFragment();
 
         Bundle args = new Bundle();
@@ -82,7 +83,7 @@ public class EpisodesFragment extends ListFragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_episodes, container, false);
     }
 
@@ -190,7 +191,7 @@ public class EpisodesFragment extends ListFragment
 
     @Override
     public void onPopupMenuClick(View v, final int episodeTvdbId, final int episodeNumber,
-            final long releaseTimeMs, final int watchedFlag, final boolean isCollected) {
+                                 final long releaseTimeMs, final int watchedFlag, final boolean isCollected) {
         PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
         popupMenu.inflate(R.menu.episodes_popup_menu);
 
@@ -312,7 +313,7 @@ public class EpisodesFragment extends ListFragment
 
     public interface EpisodesQuery {
 
-        String[] PROJECTION = new String[] {
+        String[] PROJECTION = new String[]{
                 Tables.EPISODES + "." + Episodes._ID, // 0
                 Episodes.WATCHED,
                 Episodes.TITLE,

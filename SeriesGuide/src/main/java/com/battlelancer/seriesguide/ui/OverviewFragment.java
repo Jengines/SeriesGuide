@@ -32,9 +32,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.api.Action;
@@ -71,11 +73,14 @@ import com.battlelancer.seriesguide.widgets.FeedbackView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.uwetrottmann.androidutils.CheatSheet;
+
 import java.util.Date;
 import java.util.List;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
 import timber.log.Timber;
 
 /**
@@ -88,42 +93,77 @@ public class OverviewFragment extends Fragment implements
     private static final String TAG = "Overview";
     private static final String ARG_EPISODE_TVDB_ID = "episodeTvdbId";
 
-    @BindView(R.id.containerOverviewShow) View containerShow;
-    @Nullable @BindView(R.id.viewStubOverviewFeedback) ViewStub feedbackViewStub;
-    @Nullable @BindView(R.id.feedbackViewOverview) FeedbackView feedbackView;
-    @BindView(R.id.containerOverviewEpisode) View containerEpisode;
-    @BindView(R.id.containerEpisodeActions) LinearLayout containerActions;
-    @BindView(R.id.background) ImageView imageBackground;
-    @BindView(R.id.imageViewOverviewEpisode) ImageView imageEpisode;
+    @BindView(R.id.containerOverviewShow)
+    View containerShow;
+    @Nullable
+    @BindView(R.id.viewStubOverviewFeedback)
+    ViewStub feedbackViewStub;
+    @Nullable
+    @BindView(R.id.feedbackViewOverview)
+    FeedbackView feedbackView;
+    @BindView(R.id.containerOverviewEpisode)
+    View containerEpisode;
+    @BindView(R.id.containerEpisodeActions)
+    LinearLayout containerActions;
+    @BindView(R.id.background)
+    ImageView imageBackground;
+    @BindView(R.id.imageViewOverviewEpisode)
+    ImageView imageEpisode;
 
-    @BindView(R.id.episodeTitle) TextView textEpisodeTitle;
-    @BindView(R.id.episodeTime) TextView textEpisodeTime;
-    @BindView(R.id.episodeInfo) TextView textEpisodeNumbers;
-    @BindView(R.id.episode_primary_container) View containerEpisodePrimary;
-    @BindView(R.id.episode_meta_container) View containerEpisodeMeta;
-    @BindView(R.id.dividerHorizontalOverviewEpisodeMeta) View dividerEpisodeMeta;
-    @BindView(R.id.progress_container) View containerProgress;
-    @BindView(R.id.containerRatings) View containerRatings;
-    @BindView(R.id.dividerEpisodeButtons) View dividerEpisodeButtons;
-    @BindView(R.id.buttonEpisodeCheckin) Button buttonCheckin;
-    @BindView(R.id.buttonEpisodeWatched) Button buttonWatch;
-    @BindView(R.id.buttonEpisodeCollected) Button buttonCollect;
-    @BindView(R.id.buttonEpisodeSkip) Button buttonSkip;
+    @BindView(R.id.episodeTitle)
+    TextView textEpisodeTitle;
+    @BindView(R.id.episodeTime)
+    TextView textEpisodeTime;
+    @BindView(R.id.episodeInfo)
+    TextView textEpisodeNumbers;
+    @BindView(R.id.episode_primary_container)
+    View containerEpisodePrimary;
+    @BindView(R.id.episode_meta_container)
+    View containerEpisodeMeta;
+    @BindView(R.id.dividerHorizontalOverviewEpisodeMeta)
+    View dividerEpisodeMeta;
+    @BindView(R.id.progress_container)
+    View containerProgress;
+    @BindView(R.id.containerRatings)
+    View containerRatings;
+    @BindView(R.id.dividerEpisodeButtons)
+    View dividerEpisodeButtons;
+    @BindView(R.id.buttonEpisodeCheckin)
+    Button buttonCheckin;
+    @BindView(R.id.buttonEpisodeWatched)
+    Button buttonWatch;
+    @BindView(R.id.buttonEpisodeCollected)
+    Button buttonCollect;
+    @BindView(R.id.buttonEpisodeSkip)
+    Button buttonSkip;
 
-    @BindView(R.id.TextViewEpisodeDescription) TextView textDescription;
-    @BindView(R.id.labelDvd) View labelDvdNumber;
-    @BindView(R.id.textViewEpisodeDVDnumber) TextView textDvdNumber;
-    @BindView(R.id.labelGuestStars) View labelGuestStars;
-    @BindView(R.id.TextViewEpisodeGuestStars) TextView textGuestStars;
-    @BindView(R.id.textViewRatingsValue) TextView textRating;
-    @BindView(R.id.textViewRatingsVotes) TextView textRatingVotes;
-    @BindView(R.id.textViewRatingsUser) TextView textUserRating;
+    @BindView(R.id.TextViewEpisodeDescription)
+    TextView textDescription;
+    @BindView(R.id.labelDvd)
+    View labelDvdNumber;
+    @BindView(R.id.textViewEpisodeDVDnumber)
+    TextView textDvdNumber;
+    @BindView(R.id.labelGuestStars)
+    View labelGuestStars;
+    @BindView(R.id.TextViewEpisodeGuestStars)
+    TextView textGuestStars;
+    @BindView(R.id.textViewRatingsValue)
+    TextView textRating;
+    @BindView(R.id.textViewRatingsVotes)
+    TextView textRatingVotes;
+    @BindView(R.id.textViewRatingsUser)
+    TextView textUserRating;
 
-    @BindView(R.id.buttonShowInfoIMDB) View buttonImdb;
-    @BindView(R.id.buttonTVDB) View buttonTvdb;
-    @BindView(R.id.buttonTrakt) View buttonTrakt;
-    @BindView(R.id.buttonWebSearch) Button buttonWebSearch;
-    @BindView(R.id.buttonShouts) Button buttonComments;
+    @BindView(R.id.buttonShowInfoIMDB)
+    View buttonImdb;
+    @BindView(R.id.buttonTVDB)
+    View buttonTvdb;
+    @BindView(R.id.buttonTrakt)
+    View buttonTrakt;
+    @BindView(R.id.buttonWebSearch)
+    Button buttonWebSearch;
+    @BindView(R.id.buttonShouts)
+    Button buttonComments;
 
     private Handler handler = new Handler();
     private TraktRatingsTask traktRatingsTask;
@@ -160,7 +200,7 @@ public class OverviewFragment extends Fragment implements
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_overview, container, false);
         unbinder = ButterKnife.bind(this, v);
 
@@ -427,11 +467,11 @@ public class OverviewFragment extends Fragment implements
         SgApp.from(getActivity()).getShowTools().storeIsFavorite(showTvdbId, !isFavorite);
     }
 
-    public static class EpisodeLoader extends CursorLoader {
+    private static class EpisodeLoader extends CursorLoader {
 
         private int showTvdbId;
 
-        public EpisodeLoader(Context context, int showTvdbId) {
+        EpisodeLoader(Context context, int showTvdbId) {
             super(context);
             this.showTvdbId = showTvdbId;
             setProjection(EpisodeQuery.PROJECTION);
@@ -449,7 +489,7 @@ public class OverviewFragment extends Fragment implements
 
     interface EpisodeQuery {
 
-        String[] PROJECTION = new String[] {
+        String[] PROJECTION = new String[]{
                 Episodes._ID,
                 Episodes.NUMBER,
                 Episodes.ABSOLUTE_NUMBER,
@@ -490,7 +530,7 @@ public class OverviewFragment extends Fragment implements
 
     interface ShowQuery {
 
-        String[] PROJECTION = new String[] {
+        String[] PROJECTION = new String[]{
                 Shows._ID,
                 Shows.TITLE,
                 Shows.STATUS,
@@ -575,11 +615,13 @@ public class OverviewFragment extends Fragment implements
         }
     }
 
+    @SuppressWarnings("unused")
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventEpisodeTask(BaseNavDrawerActivity.ServiceActiveEvent event) {
         setEpisodeButtonsEnabled(false);
     }
 
+    @SuppressWarnings("unused")
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventEpisodeTask(BaseNavDrawerActivity.ServiceCompletedEvent event) {
         setEpisodeButtonsEnabled(true);
@@ -660,7 +702,7 @@ public class OverviewFragment extends Fragment implements
             ViewTools.setCompoundDrawablesRelativeWithIntrinsicBounds(buttonCollect, 0,
                     isCollected ? R.drawable.ic_collected
                             : Utils.resolveAttributeToResourceId(getActivity().getTheme(),
-                                    R.attr.drawableCollect), 0, 0);
+                            R.attr.drawableCollect), 0, 0);
             buttonCollect.setText(isCollected ? R.string.action_collection_remove
                     : R.string.action_collection_add);
             CheatSheet.setup(buttonCollect, isCollected ? R.string.action_collection_remove

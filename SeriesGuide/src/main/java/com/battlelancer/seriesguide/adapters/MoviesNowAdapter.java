@@ -8,9 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.util.ServiceUtils;
 import com.battlelancer.seriesguide.util.TimeTools;
+
 import java.util.Date;
 
 /**
@@ -22,7 +24,7 @@ public class MoviesNowAdapter extends NowAdapter {
         public TextView title;
         public TextView timestamp;
         public TextView username;
-        public ImageView avatar;
+        ImageView avatar;
         public ImageView type;
 
         MovieHistoryViewHolder(View itemView, final ItemClickListener listener) {
@@ -52,7 +54,7 @@ public class MoviesNowAdapter extends NowAdapter {
     @NonNull
     @Override
     protected RecyclerView.ViewHolder getHistoryViewHolder(ViewGroup viewGroup,
-            ItemClickListener itemClickListener) {
+                                                           ItemClickListener itemClickListener) {
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.item_now_history_movie, viewGroup, false);
         return new MovieHistoryViewHolder(v, itemClickListener);

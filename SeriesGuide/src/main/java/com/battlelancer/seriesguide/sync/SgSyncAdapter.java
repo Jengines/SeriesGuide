@@ -16,6 +16,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.widget.Toast;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.backend.HexagonTools;
@@ -41,14 +42,18 @@ import com.uwetrottmann.tmdb2.entities.Configuration;
 import com.uwetrottmann.tmdb2.services.ConfigurationService;
 import com.uwetrottmann.trakt5.entities.LastActivities;
 import com.uwetrottmann.trakt5.entities.LastActivityMore;
+
 import dagger.Lazy;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+
 import javax.inject.Inject;
+
 import retrofit2.Response;
 import timber.log.Timber;
 
@@ -80,7 +85,7 @@ public class SgSyncAdapter extends AbstractThreadedSyncAdapter {
         SUCCESS, INCOMPLETE
     }
 
-    public interface SyncInitBundle {
+    interface SyncInitBundle {
 
         /**
          * One of {@link com.battlelancer.seriesguide.sync.SgSyncAdapter.SyncType}.
@@ -126,7 +131,7 @@ public class SgSyncAdapter extends AbstractThreadedSyncAdapter {
     /**
      * Schedules a sync for a single show if {@link TvdbTools#isUpdateShow(android.content.Context,
      * int)} returns true.
-     *
+     * <p>
      * <p> <em>Note: Runs a content provider op, so you should do this on a background thread.</em>
      */
     public static void requestSyncIfTime(Context context, int showTvdbId) {
@@ -139,10 +144,10 @@ public class SgSyncAdapter extends AbstractThreadedSyncAdapter {
      * Schedules a sync. Will only queue a sync request if there is a network connection and
      * auto-sync is enabled.
      *
-     * @param syncType Any of {@link SyncType}.
+     * @param syncType   Any of {@link SyncType}.
      * @param showTvdbId If using {@link SyncType#SINGLE}, the TVDb id of a show.
      */
-    public static void requestSyncIfConnected(Context context, SyncType syncType, int showTvdbId) {
+    private static void requestSyncIfConnected(Context context, SyncType syncType, int showTvdbId) {
         if (!AndroidUtils.isNetworkConnected(context) || !isSyncAutomatically(context)) {
             // offline or auto-sync disabled: abort
             return;
@@ -159,12 +164,12 @@ public class SgSyncAdapter extends AbstractThreadedSyncAdapter {
      * Schedules an immediate sync even if auto-sync is disabled, it runs as soon as there is a
      * connection.
      *
-     * @param syncType Any of {@link SyncType}.
-     * @param showTvdbId If using {@link SyncType#SINGLE}, the TVDb id of a show.
+     * @param syncType        Any of {@link SyncType}.
+     * @param showTvdbId      If using {@link SyncType#SINGLE}, the TVDb id of a show.
      * @param showStatusToast If set, shows a status toast and aborts if offline.
      */
     public static void requestSyncImmediate(Context context, SyncType syncType, int showTvdbId,
-            boolean showStatusToast) {
+                                            boolean showStatusToast) {
         if (showStatusToast) {
             if (!AndroidUtils.isNetworkConnected(context)) {
                 // offline: notify and abort
@@ -239,7 +244,8 @@ public class SgSyncAdapter extends AbstractThreadedSyncAdapter {
     }
 
     private final SgApp app;
-    @Inject Lazy<ConfigurationService> tmdbConfigService;
+    @Inject
+    Lazy<ConfigurationService> tmdbConfigService;
 
     public SgSyncAdapter(SgApp app, boolean autoInitialize) {
         super(app, autoInitialize);
@@ -251,7 +257,7 @@ public class SgSyncAdapter extends AbstractThreadedSyncAdapter {
     @SuppressLint("CommitPrefEdits")
     @Override
     public void onPerformSync(Account account, Bundle extras, String authority,
-            ContentProviderClient provider, SyncResult syncResult) {
+                              ContentProviderClient provider, SyncResult syncResult) {
         // determine type of sync
         final boolean syncImmediately = extras.getBoolean(SyncInitBundle.SYNC_IMMEDIATE, false);
         final SyncType syncType = SyncType.from(
@@ -275,7 +281,7 @@ public class SgSyncAdapter extends AbstractThreadedSyncAdapter {
                 Timber.e("Syncing...ABORT_INVALID_SHOW_TVDB_ID");
                 return;
             }
-            showsToUpdate = new int[] {
+            showsToUpdate = new int[]{
                     showTvdbId
             };
         } else {
@@ -373,7 +379,7 @@ public class SgSyncAdapter extends AbstractThreadedSyncAdapter {
             if (resultCode == UpdateResult.SUCCESS) {
                 // we were successful, reset failed counter
                 prefs.edit().putLong(UpdateSettings.KEY_LASTUPDATE, currentTime)
-                        .putInt(UpdateSettings.KEY_FAILED_COUNTER, 0).commit();
+                        .putInt(UpdateSettings.KEY_FAILED_COUNTER, 0).apply();
             } else {
                 int failed = UpdateSettings.getFailedNumberOfUpdates(getContext());
 
@@ -395,7 +401,7 @@ public class SgSyncAdapter extends AbstractThreadedSyncAdapter {
                 failed += 1;
                 prefs.edit()
                         .putLong(UpdateSettings.KEY_LASTUPDATE, fakeLastUpdateTime)
-                        .putInt(UpdateSettings.KEY_FAILED_COUNTER, failed).commit();
+                        .putInt(UpdateSettings.KEY_FAILED_COUNTER, failed).apply();
             }
         }
 
@@ -414,7 +420,7 @@ public class SgSyncAdapter extends AbstractThreadedSyncAdapter {
             case FULL: {
                 // get all show IDs for a full update
                 final Cursor showsQuery = getContext().getContentResolver().query(Shows.CONTENT_URI,
-                        new String[] {
+                        new String[]{
                                 Shows._ID
                         }, null, null, null
                 );
@@ -547,12 +553,12 @@ public class SgSyncAdapter extends AbstractThreadedSyncAdapter {
 
     /**
      * Downloads and uploads episode watched and collected flags.
-     *
+     * <p>
      * <p> Do <b>NOT</b> call if there are no local shows to avoid unnecessary work.
      */
     @SuppressLint("CommitPrefEdits")
     private UpdateResult performTraktEpisodeSync(@NonNull HashSet<Integer> localShows,
-            @NonNull LastActivityMore lastActivity, long currentTime) {
+                                                 @NonNull LastActivityMore lastActivity, long currentTime) {
         // do we need to merge data instead of overwriting with data from trakt?
         boolean isInitialSync = !TraktSettings.hasMergedEpisodes(getContext());
 
@@ -575,7 +581,7 @@ public class SgSyncAdapter extends AbstractThreadedSyncAdapter {
 
         // success, set last sync time to now
         editor.putLong(TraktSettings.KEY_LAST_FULL_EPISODE_SYNC, currentTime);
-        editor.commit();
+        editor.apply();
 
         return UpdateResult.SUCCESS;
     }

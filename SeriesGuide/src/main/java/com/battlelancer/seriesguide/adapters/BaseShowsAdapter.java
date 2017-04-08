@@ -9,11 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import butterknife.ButterKnife;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.util.TimeTools;
 import com.battlelancer.seriesguide.util.Utils;
+
 import java.util.Date;
 
 /**
@@ -70,7 +73,7 @@ public abstract class BaseShowsAdapter extends CursorAdapter {
      * Builds a network + release time string for a show formatted like "Network / Tue 08:00 PM".
      */
     static String buildNetworkAndTimeString(Context context, int time, int weekday,
-            String timeZone, String country, String network) {
+                                            String timeZone, String country, String network) {
         // network
         StringBuilder networkAndTime = new StringBuilder();
         networkAndTime.append(network);
@@ -93,20 +96,20 @@ public abstract class BaseShowsAdapter extends CursorAdapter {
     public static class ShowViewHolder {
 
         public TextView name;
-        public TextView timeAndNetwork;
+        TextView timeAndNetwork;
         public TextView episode;
-        public TextView episodeTime;
-        public TextView remainingCount;
+        TextView episodeTime;
+        TextView remainingCount;
         public ImageView poster;
         public ImageView favorited;
-        public ImageView contextMenu;
+        ImageView contextMenu;
 
         public int showTvdbId;
         public int episodeTvdbId;
         public boolean isFavorited;
         public boolean isHidden;
 
-        public ShowViewHolder(View v, final SgApp app, final OnContextMenuClickListener listener) {
+        ShowViewHolder(View v, final SgApp app, final OnContextMenuClickListener listener) {
             name = (TextView) v.findViewById(R.id.seriesname);
             timeAndNetwork = (TextView) v.findViewById(R.id.textViewShowsTimeAndNetwork);
             episode = (TextView) v.findViewById(R.id.TextViewShowListNextEpisode);

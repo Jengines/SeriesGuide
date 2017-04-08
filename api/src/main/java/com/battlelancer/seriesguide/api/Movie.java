@@ -1,6 +1,7 @@
 package com.battlelancer.seriesguide.api;
 
 import android.os.Bundle;
+
 import java.util.Date;
 
 public class Movie {
@@ -32,6 +33,7 @@ public class Movie {
     /**
      * The release date of the movie, or null if not known.
      */
+    @SuppressWarnings("unused")
     public Date getReleaseDate() {
         return releaseDate;
     }
@@ -85,7 +87,7 @@ public class Movie {
     /**
      * Deserializes an {@link Movie} into a {@link Bundle} object.
      */
-    public static Movie fromBundle(Bundle bundle) {
+    static Movie fromBundle(Bundle bundle) {
         long releaseDate = bundle.getLong(KEY_RELEASE_DATE, Long.MAX_VALUE);
         Builder builder = new Builder()
                 .title(bundle.getString(KEY_TITLE))

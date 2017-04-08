@@ -7,6 +7,7 @@ import android.support.v4.content.Loader;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
+
 import com.battlelancer.seriesguide.adapters.EpisodeHistoryAdapter;
 import com.battlelancer.seriesguide.loaders.TraktEpisodeHistoryLoader;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract;
@@ -61,7 +62,7 @@ public class UserEpisodeStreamFragment extends StreamFragment {
 
         Cursor episodeQuery = getActivity().getContentResolver().query(
                 SeriesGuideContract.Episodes.buildEpisodesOfShowUri(item.show.ids.tvdb),
-                new String[] {
+                new String[]{
                         SeriesGuideContract.Episodes._ID
                 }, SeriesGuideContract.Episodes.NUMBER + "=" + item.episode.number + " AND "
                         + SeriesGuideContract.Episodes.SEASON + "=" + item.episode.season, null,
@@ -94,7 +95,7 @@ public class UserEpisodeStreamFragment extends StreamFragment {
 
                 @Override
                 public void onLoadFinished(Loader<TraktEpisodeHistoryLoader.Result> loader,
-                        TraktEpisodeHistoryLoader.Result data) {
+                                           TraktEpisodeHistoryLoader.Result data) {
                     if (!isAdded()) {
                         return;
                     }

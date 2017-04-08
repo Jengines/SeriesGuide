@@ -18,6 +18,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.settings.AdvancedSettings;
@@ -25,8 +26,10 @@ import com.battlelancer.seriesguide.ui.BaseActivity;
 import com.battlelancer.seriesguide.ui.SeriesGuidePreferences;
 import com.battlelancer.seriesguide.ui.ShowsActivity;
 import com.battlelancer.seriesguide.util.Utils;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import timber.log.Timber;
 
 public class BillingActivity extends BaseActivity {
@@ -226,7 +229,7 @@ public class BillingActivity extends BaseActivity {
      * AdvancedSettings#setSupporterState(Context, boolean)}.
      */
     public static boolean checkForSubscription(@NonNull Context context,
-            @NonNull Inventory inventory) {
+                                               @NonNull Inventory inventory) {
         /*
          * Check for items we own. Notice that for each purchase, we check the
          * developer payload to see if it's correct! See
@@ -324,12 +327,10 @@ public class BillingActivity extends BaseActivity {
     private void onSubscribeToXButtonClicked() {
         Timber.d("Subscribe button clicked; launching purchase flow for X subscription.");
 
-        String payload = SOME_STRING;
-
         setWaitMode(true);
 
         billingHelper.launchSubscriptionPurchaseFlow(this, SKU_X_SUB_NEW_PURCHASES, RC_REQUEST,
-                purchaseFinishedListener, payload);
+                purchaseFinishedListener, SOME_STRING);
     }
 
     // Callback for when a purchase is finished

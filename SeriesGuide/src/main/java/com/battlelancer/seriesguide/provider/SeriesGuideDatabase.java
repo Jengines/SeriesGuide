@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 import android.support.annotation.Nullable;
+
 import com.battlelancer.seriesguide.provider.SeriesGuideContract.EpisodeSearch;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract.EpisodeSearchColumns;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract.Episodes;
@@ -23,10 +24,13 @@ import com.battlelancer.seriesguide.provider.SeriesGuideContract.ShowsColumns;
 import com.battlelancer.seriesguide.util.DBUtils;
 import com.battlelancer.seriesguide.util.TimeTools;
 import com.uwetrottmann.androidutils.AndroidUtils;
+
 import java.util.Calendar;
 import java.util.TimeZone;
+
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalTime;
+
 import timber.log.Timber;
 
 import static com.battlelancer.seriesguide.provider.SeriesGuideContract.ActivityColumns;
@@ -34,6 +38,7 @@ import static com.battlelancer.seriesguide.provider.SeriesGuideContract.ListItem
 import static com.battlelancer.seriesguide.provider.SeriesGuideContract.Movies;
 import static com.battlelancer.seriesguide.provider.SeriesGuideContract.Seasons;
 
+@SuppressWarnings("unused")
 public class SeriesGuideDatabase extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "seriesdatabase";
@@ -66,67 +71,67 @@ public class SeriesGuideDatabase extends SQLiteOpenHelper {
 
     public static final int DBVER_ABSOLUTE_NUMBERS = 30;
 
-    public static final int DBVER_31_LAST_WATCHED_ID = 31;
+    private static final int DBVER_31_LAST_WATCHED_ID = 31;
 
-    public static final int DBVER_32_MOVIES = 32;
+    private static final int DBVER_32_MOVIES = 32;
 
-    public static final int DBVER_33_IGNORE_ARTICLE_SORT = 33;
+    private static final int DBVER_33_IGNORE_ARTICLE_SORT = 33;
 
     /**
      * Changes for trakt v2 compatibility, also for storing ratings offline.
-     *
+     * <p>
      * Shows:
-     *
+     * <p>
      * <ul>
-     *
+     * <p>
      * <li>changed release time encoding
-     *
+     * <p>
      * <li>changed release week day encoding
-     *
+     * <p>
      * <li>first release date now includes time
-     *
+     * <p>
      * <li>added time zone
-     *
+     * <p>
      * <li>added rating votes
-     *
+     * <p>
      * <li>added user rating
-     *
+     * <p>
      * </ul>
-     *
+     * <p>
      * Episodes:
-     *
+     * <p>
      * <ul>
-     *
+     * <p>
      * <li>added rating votes
-     *
+     * <p>
      * <li>added user rating
-     *
+     * <p>
      * </ul>
-     *
+     * <p>
      * Movies:
-     *
+     * <p>
      * <ul>
-     *
+     * <p>
      * <li>added user rating
-     *
+     * <p>
      * </ul>
      */
-    public static final int DBVER_34_TRAKT_V2 = 34;
+    static final int DBVER_34_TRAKT_V2 = 34;
 
     /**
      * Added activity table to store recently watched episodes.
      */
-    public static final int DBVER_35_ACTIVITY_TABLE = 35;
+    private static final int DBVER_35_ACTIVITY_TABLE = 35;
 
     /**
      * Support for re-ordering lists: added new column to lists table.
      */
-    public static final int DBVER_36_ORDERABLE_LISTS = 36;
+    private static final int DBVER_36_ORDERABLE_LISTS = 36;
 
     /**
      * Added language column to shows table.
      */
-    public static final int DBVER_37_LANGUAGE_PER_SERIES = 37;
+    private static final int DBVER_37_LANGUAGE_PER_SERIES = 37;
 
     /**
      * Added trakt id column to shows table.
@@ -442,7 +447,9 @@ public class SeriesGuideDatabase extends SQLiteOpenHelper {
 
             + ");";
 
-    /** Some Android 4.0 devices do not support FTS4, despite being standard since 3.0. */
+    /**
+     * Some Android 4.0 devices do not support FTS4, despite being standard since 3.0.
+     */
     private static final String CREATE_SEARCH_TABLE_API_ICS = "CREATE VIRTUAL TABLE "
             + Tables.EPISODES_SEARCH + " USING FTS3("
 
@@ -756,7 +763,7 @@ public class SeriesGuideDatabase extends SQLiteOpenHelper {
 
         // migrate existing data to new formats
         Cursor query = db.query(Tables.SHOWS,
-                new String[] { Shows._ID, Shows.RELEASE_TIME, Shows.RELEASE_WEEKDAY }, null, null,
+                new String[]{Shows._ID, Shows.RELEASE_TIME, Shows.RELEASE_WEEKDAY}, null, null,
                 null, null, null);
 
         // create calendar, set to custom time zone
@@ -811,7 +818,7 @@ public class SeriesGuideDatabase extends SQLiteOpenHelper {
         }
 
         // shows
-        Cursor shows = db.query(Tables.SHOWS, new String[] { Shows._ID, Shows.TITLE }, null, null,
+        Cursor shows = db.query(Tables.SHOWS, new String[]{Shows._ID, Shows.TITLE}, null, null,
                 null, null, null);
         ContentValues newTitleValues = new ContentValues();
         if (shows != null) {
@@ -835,7 +842,7 @@ public class SeriesGuideDatabase extends SQLiteOpenHelper {
         newTitleValues.clear();
 
         // movies
-        Cursor movies = db.query(Tables.MOVIES, new String[] { Movies._ID, Movies.TITLE }, null,
+        Cursor movies = db.query(Tables.MOVIES, new String[]{Movies._ID, Movies.TITLE}, null,
                 null, null, null, null);
         if (movies != null) {
             db.beginTransaction();
@@ -887,7 +894,7 @@ public class SeriesGuideDatabase extends SQLiteOpenHelper {
 
         // pre populate with latest watched episode ids
         ContentValues values = new ContentValues();
-        final Cursor shows = db.query(Tables.SHOWS, new String[] {
+        final Cursor shows = db.query(Tables.SHOWS, new String[]{
                 Shows._ID,
         }, null, null, null, null, null);
         if (shows != null) {
@@ -895,16 +902,16 @@ public class SeriesGuideDatabase extends SQLiteOpenHelper {
             try {
                 while (shows.moveToNext()) {
                     final String showId = shows.getString(0);
-                    final Cursor highestWatchedEpisode = db.query(Tables.EPISODES, new String[] {
+                    final Cursor highestWatchedEpisode = db.query(Tables.EPISODES, new String[]{
                             Episodes._ID
-                    }, LATEST_SELECTION, new String[] {
+                    }, LATEST_SELECTION, new String[]{
                             showId
                     }, null, null, LATEST_ORDER);
 
                     if (highestWatchedEpisode != null) {
                         if (highestWatchedEpisode.moveToFirst()) {
                             values.put(Shows.LASTWATCHEDID, highestWatchedEpisode.getInt(0));
-                            db.update(Tables.SHOWS, values, Shows._ID + "=?", new String[] {
+                            db.update(Tables.SHOWS, values, Shows._ID + "=?", new String[]{
                                     showId
                             });
                             values.clear();
@@ -982,7 +989,7 @@ public class SeriesGuideDatabase extends SQLiteOpenHelper {
                 + " INTEGER DEFAULT -1;");
 
         // populate the new column from existing data
-        final Cursor shows = db.query(Tables.SHOWS, new String[] {
+        final Cursor shows = db.query(Tables.SHOWS, new String[]{
                 Shows._ID
         }, null, null, null, null, null);
 
@@ -990,9 +997,9 @@ public class SeriesGuideDatabase extends SQLiteOpenHelper {
             final String showId = shows.getString(0);
 
             //noinspection deprecation
-            final Cursor episodes = db.query(Tables.EPISODES, new String[] {
+            final Cursor episodes = db.query(Tables.EPISODES, new String[]{
                     Episodes._ID, Episodes.FIRSTAIRED
-            }, Shows.REF_SHOW_ID + "=?", new String[] {
+            }, Shows.REF_SHOW_ID + "=?", new String[]{
                     showId
             }, null, null, null);
 
@@ -1009,7 +1016,7 @@ public class SeriesGuideDatabase extends SQLiteOpenHelper {
                             deviceTimeZone);
 
                     values.put(Episodes.FIRSTAIREDMS, episodeAirtime);
-                    db.update(Tables.EPISODES, values, Episodes._ID + "=?", new String[] {
+                    db.update(Tables.EPISODES, values, Episodes._ID + "=?", new String[]{
                             episodes.getString(0)
                     });
                     values.clear();
@@ -1071,7 +1078,7 @@ public class SeriesGuideDatabase extends SQLiteOpenHelper {
                 + " TEXT DEFAULT '';");
 
         // convert status text to 0/1 integer
-        final Cursor shows = db.query(Tables.SHOWS, new String[] {
+        final Cursor shows = db.query(Tables.SHOWS, new String[]{
                 Shows._ID, Shows.STATUS
         }, null, null, null, null, null);
         final ContentValues values = new ContentValues();
@@ -1089,7 +1096,7 @@ public class SeriesGuideDatabase extends SQLiteOpenHelper {
                     status = "";
                 }
                 values.put(Shows.STATUS, status);
-                db.update(Tables.SHOWS, values, Shows._ID + "=?", new String[] {
+                db.update(Tables.SHOWS, values, Shows._ID + "=?", new String[]{
                         shows.getString(0)
                 });
                 values.clear();
@@ -1114,7 +1121,7 @@ public class SeriesGuideDatabase extends SQLiteOpenHelper {
      * Drops the current {@link Tables#EPISODES_SEARCH} table and re-creates it with current data
      * from {@link Tables#EPISODES}.
      */
-    public static void rebuildFtsTable(SQLiteDatabase db) {
+    static void rebuildFtsTable(SQLiteDatabase db) {
         if (!recreateFtsTable(db)) {
             return;
         }
@@ -1324,7 +1331,7 @@ public class SeriesGuideDatabase extends SQLiteOpenHelper {
     }
 
     @Nullable
-    public static Cursor getSuggestions(String searchTerm, SQLiteDatabase db) {
+    static Cursor getSuggestions(String searchTerm, SQLiteDatabase db) {
         String query = "select _id," + Episodes.TITLE + " as "
                 + SearchManager.SUGGEST_COLUMN_TEXT_1 + "," + Shows.TITLE + " as "
                 + SearchManager.SUGGEST_COLUMN_TEXT_2 + "," + "_id as "
@@ -1346,7 +1353,7 @@ public class SeriesGuideDatabase extends SQLiteOpenHelper {
 
         try {
             // search for anything starting with the given search term
-            return db.rawQuery(query, new String[] {
+            return db.rawQuery(query, new String[]{
                     "\"" + searchTerm + "*\""
             });
         } catch (SQLiteException e) {
@@ -1359,8 +1366,8 @@ public class SeriesGuideDatabase extends SQLiteOpenHelper {
      * Checks whether a table exists in the given database.
      */
     private static boolean isTableExisting(SQLiteDatabase db, String table) {
-        Cursor cursor = db.query("sqlite_master", new String[] { "name" },
-                "type='table' AND name=?", new String[] { table }, null, null, null, "1");
+        Cursor cursor = db.query("sqlite_master", new String[]{"name"},
+                "type='table' AND name=?", new String[]{table}, null, null, null, "1");
         if (cursor == null) {
             return false;
         }

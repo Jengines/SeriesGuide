@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.os.AsyncTaskCompat;
+
 import com.battlelancer.seriesguide.provider.SeriesGuideContract.Episodes;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract.Shows;
 import com.battlelancer.seriesguide.util.TextTools;
@@ -50,7 +51,7 @@ public class CheckInDialogFragment extends GenericCheckInDialogFragment {
 
     private interface CheckInQuery {
 
-        String[] PROJECTION = new String[] {
+        String[] PROJECTION = new String[]{
                 Episodes.SEASON,
                 Episodes.NUMBER,
                 Episodes.TITLE,

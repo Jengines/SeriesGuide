@@ -3,6 +3,7 @@ package com.battlelancer.seriesguide.customtabs;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+
 import com.battlelancer.seriesguide.ui.HelpActivity;
 import com.battlelancer.seriesguide.util.Utils;
 

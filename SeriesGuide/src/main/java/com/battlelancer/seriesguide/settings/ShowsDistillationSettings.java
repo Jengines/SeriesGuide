@@ -23,7 +23,7 @@ public class ShowsDistillationSettings {
      * Builds an appropriate SQL sort statement for sorting shows.
      */
     public static String getSortQuery(int sortOrderId, boolean isSortFavoritesFirst,
-            boolean isSortIgnoreArticles) {
+                                      boolean isSortIgnoreArticles) {
         StringBuilder query = new StringBuilder();
 
         if (isSortFavoritesFirst) {

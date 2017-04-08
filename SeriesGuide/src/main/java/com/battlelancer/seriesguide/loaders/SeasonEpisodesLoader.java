@@ -3,11 +3,13 @@ package com.battlelancer.seriesguide.loaders;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
+
 import com.battlelancer.seriesguide.Constants;
 import com.battlelancer.seriesguide.items.Episode;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract.Episodes;
 import com.battlelancer.seriesguide.settings.DisplaySettings;
 import com.uwetrottmann.androidutils.GenericSimpleLoader;
+
 import java.util.ArrayList;
 
 /**
@@ -41,7 +43,7 @@ public class SeasonEpisodesLoader extends GenericSimpleLoader<SeasonEpisodesLoad
         // get episodes of season
         Constants.EpisodeSorting sortOrder = DisplaySettings.getEpisodeSortOrder(getContext());
         Cursor episodesOfSeason = getContext().getContentResolver().query(
-                Episodes.buildEpisodesOfSeasonUri(String.valueOf(seasonTvdbId)), new String[] {
+                Episodes.buildEpisodesOfSeasonUri(String.valueOf(seasonTvdbId)), new String[]{
                         Episodes._ID, Episodes.NUMBER, Episodes.SEASON
                 }, null, null, sortOrder.query()
         );

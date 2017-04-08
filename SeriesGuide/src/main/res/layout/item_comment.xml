@@ -4,16 +4,16 @@
     android:id="@+id/containerComment"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="@dimen/large_padding"
+    android:paddingStart="@dimen/large_padding"
     android:paddingTop="@dimen/large_padding">
 
     <ImageView
         android:id="@+id/imageViewCommentAvatar"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="@dimen/large_padding"
+        android:layout_marginEnd="@dimen/large_padding"
         android:contentDescription="@null"
         tools:src="@color/protection_dark" />
 
@@ -21,8 +21,8 @@
         android:id="@+id/containerCommentMeta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/large_padding"
-        android:layout_toRightOf="@+id/imageViewCommentAvatar"
+        android:layout_marginEnd="@dimen/large_padding"
+        android:layout_toEndOf="@+id/imageViewCommentAvatar"
         android:baselineAligned="false"
         android:orientation="horizontal">
 
@@ -48,8 +48,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/containerCommentMeta"
         android:layout_marginBottom="@dimen/default_padding"
-        android:layout_marginRight="@dimen/large_padding"
-        android:layout_toRightOf="@+id/imageViewCommentAvatar"
+        android:layout_marginEnd="@dimen/large_padding"
+        android:layout_toEndOf="@+id/imageViewCommentAvatar"
         android:textAppearance="@style/TextAppearance.Body"
         tools:text="Some comment describing how the user felt or not felt about the watched media item..." />
 
@@ -58,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewComment"
-        android:layout_toRightOf="@+id/imageViewCommentAvatar"
+        android:layout_toEndOf="@+id/imageViewCommentAvatar"
         android:textAppearance="@style/TextAppearance.Caption"
         tools:text="3 replies" />
 
@@ -67,7 +67,7 @@
         android:layout_height="1dp"
         android:layout_below="@+id/textViewCommentReplies"
         android:layout_marginTop="@dimen/default_padding"
-        android:layout_toRightOf="@+id/imageViewCommentAvatar"
+        android:layout_toEndOf="@+id/imageViewCommentAvatar"
         android:background="?attr/sgColorDivider" />
 
 </RelativeLayout>

@@ -29,7 +29,9 @@ import com.battlelancer.seriesguide.util.TraktTools;
 import com.battlelancer.seriesguide.util.tasks.BaseMovieActionTask;
 import com.battlelancer.seriesguide.util.tasks.BaseRateItemTask;
 import com.battlelancer.seriesguide.util.tasks.BaseShowActionTask;
+
 import dagger.Component;
+
 import javax.inject.Singleton;
 
 @Singleton
@@ -42,32 +44,60 @@ import javax.inject.Singleton;
 })
 public interface ServicesComponent {
     void inject(AddShowTask addShowTask);
+
     void inject(AllApisAuthenticator allApisAuthenticator);
+
     void inject(BaseMovieActionTask baseMovieActionTask);
+
     void inject(BaseRateItemTask baseRateItemTask);
+
     void inject(BaseShowActionTask baseShowActionTask);
+
     void inject(ConnectTraktTask connectTraktTask);
+
     void inject(EpisodeTools.EpisodeFlagTask episodeFlagTask);
+
     void inject(MovieCreditsLoader movieCreditsLoader);
+
     void inject(MovieTrailersLoader movieTrailersLoader);
+
     void inject(MovieTools movieTools);
+
     void inject(PersonLoader personLoader);
+
     void inject(SgSyncAdapter sgSyncAdapter);
+
     void inject(SgTheTvdbInterceptor sgTheTvdbInterceptor);
+
     void inject(SgTraktInterceptor sgTraktInterceptor);
+
     void inject(ShowCreditsLoader showCreditsLoader);
+
     void inject(TmdbMoviesLoader tmdbMoviesLoader);
+
     void inject(TraktAddLoader traktAddLoader);
+
     void inject(TraktAuthActivity traktAuthActivity);
+
     void inject(TraktCancelCheckinDialogFragment traktCancelCheckinDialogFragment);
+
     void inject(TraktCommentsLoader traktCommentsLoader);
+
     void inject(TraktEpisodeHistoryLoader traktEpisodeHistoryLoader);
+
     void inject(TraktFriendsEpisodeHistoryLoader traktFriendsEpisodeHistoryLoader);
+
     void inject(TraktFriendsMovieHistoryLoader traktFriendsMovieHistoryLoader);
+
     void inject(TraktRatingsTask traktRatingsTask);
+
     void inject(TraktRecentEpisodeHistoryLoader traktRecentEpisodeHistoryLoader);
+
     void inject(TraktTask traktTask);
+
     void inject(TraktTools traktTools);
+
     void inject(TvdbAddLoader tvdbAddLoader);
+
     void inject(TvdbTools tvdbTools);
 }

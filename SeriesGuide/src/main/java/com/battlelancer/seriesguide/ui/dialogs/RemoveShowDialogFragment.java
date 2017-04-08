@@ -12,12 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract.Shows;
 import com.battlelancer.seriesguide.util.RemoveShowWorkerFragment;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -29,7 +32,7 @@ public class RemoveShowDialogFragment extends AppCompatDialogFragment {
 
     private static final String KEY_SHOW_TVDB_ID = "show_tvdb_id";
 
-    public static class ShowTitleEvent {
+    static class ShowTitleEvent {
         public String showTitle;
     }
 
@@ -48,10 +51,14 @@ public class RemoveShowDialogFragment extends AppCompatDialogFragment {
         f.show(fm, "dialog-remove-show");
     }
 
-    @BindView(R.id.progressBarRemove) View progressBar;
-    @BindView(R.id.textViewRemove) TextView dialogText;
-    @BindView(R.id.buttonNegative) Button negativeButton;
-    @BindView(R.id.buttonPositive) Button positiveButton;
+    @BindView(R.id.progressBarRemove)
+    View progressBar;
+    @BindView(R.id.textViewRemove)
+    TextView dialogText;
+    @BindView(R.id.buttonNegative)
+    Button negativeButton;
+    @BindView(R.id.buttonPositive)
+    Button positiveButton;
 
     private Unbinder unbinder;
     private int showTvdbId;
@@ -71,7 +78,7 @@ public class RemoveShowDialogFragment extends AppCompatDialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.dialog_remove, container, false);
         unbinder = ButterKnife.bind(this, v);
 
@@ -110,7 +117,7 @@ public class RemoveShowDialogFragment extends AppCompatDialogFragment {
 
         private final Context context;
 
-        public GetShowTitleTask(Context context) {
+        GetShowTitleTask(Context context) {
             this.context = context.getApplicationContext();
         }
 
@@ -123,7 +130,7 @@ public class RemoveShowDialogFragment extends AppCompatDialogFragment {
             // get show title
             final Cursor show = context.getContentResolver().query(
                     Shows.buildShowUri(showTvdbId),
-                    new String[] {
+                    new String[]{
                             Shows.TITLE
                     }, null, null, null
             );

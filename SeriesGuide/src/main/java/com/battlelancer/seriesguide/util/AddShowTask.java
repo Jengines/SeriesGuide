@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.backend.settings.HexagonSettings;
@@ -17,13 +18,18 @@ import com.battlelancer.seriesguide.traktapi.SgTrakt;
 import com.uwetrottmann.androidutils.AndroidUtils;
 import com.uwetrottmann.trakt5.entities.BaseShow;
 import com.uwetrottmann.trakt5.services.Sync;
+
 import dagger.Lazy;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+
 import javax.inject.Inject;
+
 import org.greenrobot.eventbus.EventBus;
+
 import retrofit2.Response;
 import timber.log.Timber;
 
@@ -36,7 +42,9 @@ public class AddShowTask extends AsyncTask<Void, Integer, Void> {
     public static class OnShowAddedEvent {
 
         public final boolean successful;
-        /** Is -1 if add task was aborted. */
+        /**
+         * Is -1 if add task was aborted.
+         */
         public final int showTvdbId;
         private final String message;
 
@@ -67,15 +75,15 @@ public class AddShowTask extends AsyncTask<Void, Integer, Void> {
                     false);
         }
 
-        public static OnShowAddedEvent failedDetails(Context context, int showTvdbId,
-                String showTitle, String details) {
+        static OnShowAddedEvent failedDetails(Context context, int showTvdbId,
+                                              String showTitle, String details) {
             return new OnShowAddedEvent(showTvdbId,
                     String.format("%s %s", context.getString(R.string.add_error, showTitle),
                             details),
                     false);
         }
 
-        public static OnShowAddedEvent aborted(String message) {
+        static OnShowAddedEvent aborted(String message) {
             return new OnShowAddedEvent(-1, message, false);
         }
     }
@@ -94,15 +102,16 @@ public class AddShowTask extends AsyncTask<Void, Integer, Void> {
     private final SgApp app;
     private final LinkedList<SearchResult> addQueue = new LinkedList<>();
 
-    @Inject Lazy<Sync> traktSync;
+    @Inject
+    Lazy<Sync> traktSync;
     private boolean isFinishedAddingShows = false;
     private boolean isSilentMode;
     private boolean isMergingShows;
     private String currentShowName;
     private int currentShowTvdbId;
 
-    public AddShowTask(SgApp app, List<SearchResult> shows, boolean isSilentMode,
-            boolean isMergingShows) {
+    AddShowTask(SgApp app, List<SearchResult> shows, boolean isSilentMode,
+                boolean isMergingShows) {
         this.app = app;
         app.getServicesComponent().inject(this);
         addQueue.addAll(shows);
@@ -114,7 +123,7 @@ public class AddShowTask extends AsyncTask<Void, Integer, Void> {
      * Adds shows to the add queue. If this returns false, the shows were not added because the task
      * is finishing up. Create a new one instead.
      */
-    public boolean addShows(List<SearchResult> show, boolean isSilentMode, boolean isMergingShows) {
+    boolean addShows(List<SearchResult> show, boolean isSilentMode, boolean isMergingShows) {
         if (isFinishedAddingShows) {
             Timber.d("addShows: failed, already finishing up.");
             return false;
@@ -307,7 +316,7 @@ public class AddShowTask extends AsyncTask<Void, Integer, Void> {
 
     @Nullable
     private HashMap<Integer, BaseShow> getTraktShows(String action,
-            boolean isCollectionNotWatched) {
+                                                     boolean isCollectionNotWatched) {
         try {
             Response<List<BaseShow>> response;
             if (isCollectionNotWatched) {

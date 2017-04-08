@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.adapters.BaseShowsAdapter;
@@ -27,6 +28,7 @@ import com.battlelancer.seriesguide.provider.SeriesGuideContract;
 import com.battlelancer.seriesguide.util.ShowMenuItemClickListener;
 import com.battlelancer.seriesguide.util.TabClickEvent;
 import com.battlelancer.seriesguide.util.TimeTools;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -40,7 +42,7 @@ public class ShowSearchFragment extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_search, container, false);
     }
 
@@ -85,6 +87,7 @@ public class ShowSearchFragment extends ListFragment {
         search(event.args);
     }
 
+    @SuppressWarnings("unused")
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventTabClick(TabClickEvent event) {
         if (event.position == SearchActivity.TAB_POSITION_SHOWS) {
@@ -111,7 +114,7 @@ public class ShowSearchFragment extends ListFragment {
                         SeriesGuideContract.Shows.NEXTEPISODE + "!='' AND "
                                 + SeriesGuideContract.Shows.HIDDEN + "=0 AND "
                                 + SeriesGuideContract.Shows.NEXTAIRDATEMS + "<?",
-                        new String[] { customTimeInOneHour },
+                        new String[]{customTimeInOneHour},
                         SeriesGuideContract.Shows.SORT_LATEST_EPISODE);
             } else {
                 Uri uri = SeriesGuideContract.Shows.CONTENT_URI_FILTER.buildUpon()

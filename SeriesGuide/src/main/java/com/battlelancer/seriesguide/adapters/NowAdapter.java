@@ -12,12 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.settings.DisplaySettings;
 import com.battlelancer.seriesguide.thetvdbapi.TvdbImageTools;
 import com.battlelancer.seriesguide.util.ServiceUtils;
 import com.battlelancer.seriesguide.util.TimeTools;
 import com.battlelancer.seriesguide.util.Utils;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
@@ -30,20 +32,20 @@ import java.util.List;
  */
 public class NowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    public static final String TRAKT_ACTION_WATCH = "watch";
+    static final String TRAKT_ACTION_WATCH = "watch";
 
     public interface ItemClickListener {
         void onItemClick(View view, int position);
     }
 
-    static class ReleasedViewHolder extends RecyclerView.ViewHolder {
+    private static class ReleasedViewHolder extends RecyclerView.ViewHolder {
         TextView show;
         TextView episode;
         TextView timestamp;
         TextView info;
         ImageView poster;
 
-        public ReleasedViewHolder(View itemView, final ItemClickListener listener) {
+        ReleasedViewHolder(View itemView, final ItemClickListener listener) {
             super(itemView);
             show = (TextView) itemView.findViewById(R.id.textViewReleasedShow);
             episode = (TextView) itemView.findViewById(R.id.textViewReleasedEpisode);
@@ -63,16 +65,16 @@ public class NowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    static class HistoryViewHolder extends RecyclerView.ViewHolder {
+    private static class HistoryViewHolder extends RecyclerView.ViewHolder {
         public TextView show;
         public TextView episode;
         public TextView timestamp;
         public ImageView poster;
         public TextView username;
-        public ImageView avatar;
+        ImageView avatar;
         public ImageView type;
 
-        public HistoryViewHolder(View itemView, final ItemClickListener listener) {
+        HistoryViewHolder(View itemView, final ItemClickListener listener) {
             super(itemView);
             show = (TextView) itemView.findViewById(R.id.textViewFriendShow);
             episode = (TextView) itemView.findViewById(R.id.textViewFriendEpisode);
@@ -94,10 +96,10 @@ public class NowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    static class MoreViewHolder extends RecyclerView.ViewHolder {
+    private static class MoreViewHolder extends RecyclerView.ViewHolder {
         public TextView title;
 
-        public MoreViewHolder(View itemView, final ItemClickListener listener) {
+        MoreViewHolder(View itemView, final ItemClickListener listener) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.textViewNowMoreText);
 
@@ -113,18 +115,18 @@ public class NowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    static class HeaderViewHolder extends RecyclerView.ViewHolder {
+    private static class HeaderViewHolder extends RecyclerView.ViewHolder {
         public TextView title;
 
-        public HeaderViewHolder(View itemView) {
+        HeaderViewHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.textViewGridHeader);
         }
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    @IntDef({ ItemType.RELEASED, ItemType.HISTORY, ItemType.FRIEND, ItemType.MORE_LINK,
-            ItemType.HEADER })
+    @IntDef({ItemType.RELEASED, ItemType.HISTORY, ItemType.FRIEND, ItemType.MORE_LINK,
+            ItemType.HEADER})
     public @interface ItemType {
         int RELEASED = 0;
         int HISTORY = 1;
@@ -134,8 +136,8 @@ public class NowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    @IntDef({ ViewType.RELEASED, ViewType.HISTORY, ViewType.MORE_LINK, ViewType.HEADER })
-    public @interface ViewType {
+    @IntDef({ViewType.RELEASED, ViewType.HISTORY, ViewType.MORE_LINK, ViewType.HEADER})
+    @interface ViewType {
         int RELEASED = 0;
         int HISTORY = 1;
         int MORE_LINK = 2;
@@ -160,11 +162,12 @@ public class NowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public String title;
         public String description;
         public String network;
-        public String tvdbPosterUrl;
+        String tvdbPosterUrl;
         public String username;
-        public String avatar;
+        String avatar;
         public String action;
-        @ItemType public int type;
+        @ItemType
+        public int type;
 
         public NowItem releasedToday(String network) {
             this.network = network;
@@ -203,7 +206,7 @@ public class NowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         public NowItem displayData(long timestamp, String title, String description,
-                String tvdbPosterUrl) {
+                                   String tvdbPosterUrl) {
             this.timestamp = timestamp;
             this.title = title;
             this.description = description;
@@ -257,7 +260,7 @@ public class NowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @NonNull
     protected RecyclerView.ViewHolder getHistoryViewHolder(ViewGroup viewGroup,
-            ItemClickListener itemClickListener) {
+                                                           ItemClickListener itemClickListener) {
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.item_now_history, viewGroup, false);
         return new HistoryViewHolder(v, itemClickListener);
@@ -372,11 +375,11 @@ public class NowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return context;
     }
 
-    protected int getResIdDrawableWatched() {
+    int getResIdDrawableWatched() {
         return resIdDrawableWatched;
     }
 
-    protected int getResIdDrawableCheckin() {
+    int getResIdDrawableCheckin() {
         return resIdDrawableCheckin;
     }
 

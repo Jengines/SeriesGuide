@@ -37,7 +37,7 @@ public abstract class SystemUiHider {
      * bar</a>, the most important structural element of an Android app, should
      * be visible and not obscured by the system UI.
      */
-    public static final int FLAG_LAYOUT_IN_SCREEN_OLDER_DEVICES = 0x1;
+    static final int FLAG_LAYOUT_IN_SCREEN_OLDER_DEVICES = 0x1;
 
     /**
      * When this flag is set, {@link #show()} and {@link #hide()} will toggle
@@ -52,17 +52,17 @@ public abstract class SystemUiHider {
      * the device allows hiding it. In cases where the navigation bar is present
      * but cannot be hidden, show and hide will toggle low profile mode.
      */
-    public static final int FLAG_HIDE_NAVIGATION = FLAG_FULLSCREEN | 0x4;
+    static final int FLAG_HIDE_NAVIGATION = FLAG_FULLSCREEN | 0x4;
 
     /**
      * The activity associated with this UI hider object.
      */
-    protected AppCompatActivity mActivity;
+    AppCompatActivity mActivity;
 
     /**
      * The view on which {@link View#setSystemUiVisibility(int)} will be called.
      */
-    protected View mAnchorView;
+    View mAnchorView;
 
     /**
      * The current UI hider flags.
@@ -71,12 +71,12 @@ public abstract class SystemUiHider {
      * @see #FLAG_HIDE_NAVIGATION
      * @see #FLAG_LAYOUT_IN_SCREEN_OLDER_DEVICES
      */
-    protected int mFlags;
+    int mFlags;
 
     /**
      * The current visibility callback.
      */
-    protected OnVisibilityChangeListener mOnVisibilityChangeListener = sDummyListener;
+    OnVisibilityChangeListener mOnVisibilityChangeListener = sDummyListener;
 
     /**
      * Creates and returns an instance of {@link SystemUiHider} that is
@@ -84,24 +84,20 @@ public abstract class SystemUiHider {
      * {@link SystemUiHiderBase} or {@link SystemUiHiderHoneycomb} depending on
      * the device.
      *
-     * @param activity The activity whose window's system UI should be
-     *            controlled by this class.
+     * @param activity   The activity whose window's system UI should be
+     *                   controlled by this class.
      * @param anchorView The view on which
-     *            {@link View#setSystemUiVisibility(int)} will be called.
-     * @param flags Either 0 or any combination of {@link #FLAG_FULLSCREEN},
-     *            {@link #FLAG_HIDE_NAVIGATION}, and
-     *            {@link #FLAG_LAYOUT_IN_SCREEN_OLDER_DEVICES}.
+     *                   {@link View#setSystemUiVisibility(int)} will be called.
+     * @param flags      Either 0 or any combination of {@link #FLAG_FULLSCREEN},
+     *                   {@link #FLAG_HIDE_NAVIGATION}, and
+     *                   {@link #FLAG_LAYOUT_IN_SCREEN_OLDER_DEVICES}.
      */
     public static SystemUiHider getInstance(AppCompatActivity activity, View anchorView,
-            int flags) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            return new SystemUiHiderHoneycomb(activity, anchorView, flags);
-        } else {
-            return new SystemUiHiderBase(activity, anchorView, flags);
-        }
+                                            int flags) {
+        return new SystemUiHiderHoneycomb(activity, anchorView, flags);
     }
 
-    protected SystemUiHider(AppCompatActivity activity, View anchorView, int flags) {
+    SystemUiHider(AppCompatActivity activity, View anchorView, int flags) {
         mActivity = activity;
         mAnchorView = anchorView;
         mFlags = flags;
@@ -142,6 +138,7 @@ public abstract class SystemUiHider {
      * Registers a callback, to be triggered when the system UI visibility
      * changes.
      */
+    @SuppressWarnings("unused")
     public void setOnVisibilityChangeListener(OnVisibilityChangeListener listener) {
         if (listener == null) {
             listener = sDummyListener;
@@ -162,7 +159,7 @@ public abstract class SystemUiHider {
     /**
      * A callback interface used to listen for system UI visibility changes.
      */
-    public interface OnVisibilityChangeListener {
+    interface OnVisibilityChangeListener {
         /**
          * Called when the system UI visibility has changed.
          *

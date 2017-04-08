@@ -16,20 +16,20 @@ public class TvdbException extends Exception {
     private final Service service;
     private final boolean itemDoesNotExist;
 
-    public TvdbException(String message) {
+    TvdbException(String message) {
         this(message, null, Service.TVDB, false);
     }
 
-    public TvdbException(String message, Throwable throwable) {
+    TvdbException(String message, Throwable throwable) {
         this(message, throwable, Service.TVDB, false);
     }
 
-    public TvdbException(String message, boolean itemDoesNotExist) {
+    TvdbException(String message, boolean itemDoesNotExist) {
         this(message, null, Service.TVDB, itemDoesNotExist);
     }
 
-    protected TvdbException(String message, Throwable throwable, Service service,
-            boolean itemDoesNotExist) {
+    TvdbException(String message, Throwable throwable, Service service,
+                  boolean itemDoesNotExist) {
         super(message, throwable);
         this.service = service;
         this.itemDoesNotExist = itemDoesNotExist;

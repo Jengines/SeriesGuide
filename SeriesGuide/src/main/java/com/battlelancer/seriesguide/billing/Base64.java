@@ -21,12 +21,16 @@ package com.battlelancer.seriesguide.billing;
  * Base64 converter class. This code is not a complete MIME encoder;
  * it simply converts binary data to base64 data and back.
  */
-public class Base64 {
+class Base64 {
 
-    /** The equals sign (=) as a byte. */
+    /**
+     * The equals sign (=) as a byte.
+     */
     private final static byte EQUALS_SIGN = (byte) '=';
 
-    /** The new line character (\n) as a byte. */
+    /**
+     * The new line character (\n) as a byte.
+     */
     private final static byte NEW_LINE = (byte) '\n';
 
     /**
@@ -34,26 +38,26 @@ public class Base64 {
      * or a negative number indicating some other meaning.
      **/
     private final static byte[] DECODABET = {-9, -9, -9, -9, -9, -9, -9, -9, -9, // Decimal  0 -  8
-        -5, -5, // Whitespace: Tab and Linefeed
-        -9, -9, // Decimal 11 - 12
-        -5, // Whitespace: Carriage Return
-        -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, // Decimal 14 - 26
-        -9, -9, -9, -9, -9, // Decimal 27 - 31
-        -5, // Whitespace: Space
-        -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, // Decimal 33 - 42
-        62, // Plus sign at decimal 43
-        -9, -9, -9, // Decimal 44 - 46
-        63, // Slash at decimal 47
-        52, 53, 54, 55, 56, 57, 58, 59, 60, 61, // Numbers zero through nine
-        -9, -9, -9, // Decimal 58 - 60
-        -1, // Equals sign at decimal 61
-        -9, -9, -9, // Decimal 62 - 64
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, // Letters 'A' through 'N'
-        14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, // Letters 'O' through 'Z'
-        -9, -9, -9, -9, -9, -9, // Decimal 91 - 96
-        26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, // Letters 'a' through 'm'
-        39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, // Letters 'n' through 'z'
-        -9, -9, -9, -9, -9 // Decimal 123 - 127
+            -5, -5, // Whitespace: Tab and Linefeed
+            -9, -9, // Decimal 11 - 12
+            -5, // Whitespace: Carriage Return
+            -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, // Decimal 14 - 26
+            -9, -9, -9, -9, -9, // Decimal 27 - 31
+            -5, // Whitespace: Space
+            -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, // Decimal 33 - 42
+            62, // Plus sign at decimal 43
+            -9, -9, -9, // Decimal 44 - 46
+            63, // Slash at decimal 47
+            52, 53, 54, 55, 56, 57, 58, 59, 60, 61, // Numbers zero through nine
+            -9, -9, -9, // Decimal 58 - 60
+            -1, // Equals sign at decimal 61
+            -9, -9, -9, // Decimal 62 - 64
+            0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, // Letters 'A' through 'N'
+            14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, // Letters 'O' through 'Z'
+            -9, -9, -9, -9, -9, -9, // Decimal 91 - 96
+            26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, // Letters 'a' through 'm'
+            39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, // Letters 'n' through 'z'
+            -9, -9, -9, -9, -9 // Decimal 123 - 127
         /*  ,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,     // Decimal 128 - 139
         -9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,     // Decimal 140 - 152
         -9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,-9,     // Decimal 153 - 165
@@ -71,7 +75,9 @@ public class Base64 {
     // Indicates equals sign in encoding
     private final static byte EQUALS_SIGN_ENC = -1;
 
-    /** Defeats instantiation. */
+    /**
+     * Defeats instantiation.
+     */
     private Base64() {
     }
 
@@ -89,22 +95,21 @@ public class Base64 {
      * This method returns the actual number of bytes that
      * were converted from the Base64 encoding.
      *
-     *
-     * @param source the array to convert
-     * @param srcOffset the index where conversion begins
+     * @param source      the array to convert
+     * @param srcOffset   the index where conversion begins
      * @param destination the array to hold the conversion
-     * @param destOffset the index where output will be put
-     * @param decodabet the decodabet for decoding Base64 content
+     * @param destOffset  the index where output will be put
+     * @param decodabet   the decodabet for decoding Base64 content
      * @return the number of decoded bytes converted
      * @since 1.3
      */
     private static int decode4to3(byte[] source, int srcOffset,
-            byte[] destination, int destOffset, byte[] decodabet) {
+                                  byte[] destination, int destOffset, byte[] decodabet) {
         // Example: Dk==
         if (source[srcOffset + 2] == EQUALS_SIGN) {
             int outBuff =
                     ((decodabet[source[srcOffset]] << 24) >>> 6)
-                    | ((decodabet[source[srcOffset + 1]] << 24) >>> 12);
+                            | ((decodabet[source[srcOffset + 1]] << 24) >>> 12);
 
             destination[destOffset] = (byte) (outBuff >>> 16);
             return 1;
@@ -112,8 +117,8 @@ public class Base64 {
             // Example: DkL=
             int outBuff =
                     ((decodabet[source[srcOffset]] << 24) >>> 6)
-                    | ((decodabet[source[srcOffset + 1]] << 24) >>> 12)
-                    | ((decodabet[source[srcOffset + 2]] << 24) >>> 18);
+                            | ((decodabet[source[srcOffset + 1]] << 24) >>> 12)
+                            | ((decodabet[source[srcOffset + 2]] << 24) >>> 18);
 
             destination[destOffset] = (byte) (outBuff >>> 16);
             destination[destOffset + 1] = (byte) (outBuff >>> 8);
@@ -122,9 +127,9 @@ public class Base64 {
             // Example: DkLE
             int outBuff =
                     ((decodabet[source[srcOffset]] << 24) >>> 6)
-                    | ((decodabet[source[srcOffset + 1]] << 24) >>> 12)
-                    | ((decodabet[source[srcOffset + 2]] << 24) >>> 18)
-                    | ((decodabet[source[srcOffset + 3]] << 24) >>> 24);
+                            | ((decodabet[source[srcOffset + 1]] << 24) >>> 12)
+                            | ((decodabet[source[srcOffset + 2]] << 24) >>> 18)
+                            | ((decodabet[source[srcOffset + 3]] << 24) >>> 24);
 
             destination[destOffset] = (byte) (outBuff >> 16);
             destination[destOffset + 1] = (byte) (outBuff >> 8);
@@ -141,7 +146,7 @@ public class Base64 {
      * @return the decoded data
      * @since 1.4
      */
-    public static byte[] decode(String s) throws Base64DecoderException {
+    static byte[] decode(String s) throws Base64DecoderException {
         byte[] bytes = s.getBytes();
         return decode(bytes, 0, bytes.length);
     }
@@ -154,10 +159,10 @@ public class Base64 {
      * @param off    the offset of where to begin decoding
      * @param len    the length of characters to decode
      * @return decoded data
+     * @throws Base64DecoderException exception
      * @since 1.3
-     * @throws Base64DecoderException
      */
-    public static byte[] decode(byte[] source, int off, int len)
+    private static byte[] decode(byte[] source, int off, int len)
             throws Base64DecoderException {
         return decode(source, off, len, DECODABET);
     }
@@ -166,13 +171,13 @@ public class Base64 {
      * Decodes Base64 content using the supplied decodabet and returns
      * the decoded byte array.
      *
-     * @param source the Base64 encoded data
-     * @param off the offset of where to begin decoding
-     * @param len the length of characters to decode
+     * @param source    the Base64 encoded data
+     * @param off       the offset of where to begin decoding
+     * @param len       the length of characters to decode
      * @param decodabet the decodabet for decoding Base64 content
      * @return decoded data
      */
-    public static byte[] decode(byte[] source, int off, int len, byte[] decodabet)
+    private static byte[] decode(byte[] source, int off, int len, byte[] decodabet)
             throws Base64DecoderException {
         int len34 = len * 3 / 4;
         byte[] outBuff = new byte[2 + len34]; // Upper limit on size of output
@@ -180,9 +185,9 @@ public class Base64 {
 
         byte[] b4 = new byte[4];
         int b4Posn = 0;
-        int i = 0;
-        byte sbiCrop = 0;
-        byte sbiDecode = 0;
+        int i;
+        byte sbiCrop;
+        byte sbiDecode;
         for (i = 0; i < len; i++) {
             sbiCrop = (byte) (source[i + off] & 0x7f); // Only the low seven bits
             sbiDecode = decodabet[sbiCrop];
@@ -197,8 +202,7 @@ public class Base64 {
                         if (b4Posn == 0 || b4Posn == 1) {
                             throw new Base64DecoderException(
                                     "invalid padding byte '=' at byte offset " + i);
-                        } else if ((b4Posn == 3 && bytesLeft > 2)
-                                || (b4Posn == 4 && bytesLeft > 1)) {
+                        } else if (b4Posn == 3 && bytesLeft > 2) {
                             throw new Base64DecoderException(
                                     "padding byte '=' falsely signals end of encoded value "
                                             + "at offset " + i);

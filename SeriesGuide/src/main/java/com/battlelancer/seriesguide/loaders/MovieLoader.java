@@ -3,6 +3,7 @@ package com.battlelancer.seriesguide.loaders;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.items.MovieDetails;
 import com.battlelancer.seriesguide.util.DBUtils;
@@ -88,7 +89,7 @@ public class MovieLoader extends GenericSimpleLoader<MovieDetails> {
     }
 
     private static void updateLocalMovie(Context context,
-            MovieDetails details, int tmdbId) {
+                                         MovieDetails details, int tmdbId) {
         ContentValues values = MovieTools.buildBasicMovieContentValues(details);
         if (values.size() == 0) {
             // nothing to update, downloading probably failed :(

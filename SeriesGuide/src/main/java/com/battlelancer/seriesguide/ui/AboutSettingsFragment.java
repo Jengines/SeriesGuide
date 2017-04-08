@@ -10,36 +10,46 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.util.Utils;
 
 /**
  * Displays information about the app, the developer and licence information about content and
  * libraries.
- *
+ * <p>
  * <p>Note: this is a platform, not a support library fragment so it can be used right within {@link
  * SeriesGuidePreferences}.
  */
 public class AboutSettingsFragment extends Fragment {
 
-    @BindView(R.id.textViewAboutVersion) TextView textVersion;
-    @BindView(R.id.buttonAboutWebsite) Button buttonWebsite;
-    @BindView(R.id.buttonAboutTvdbTerms) Button buttonTvdbTerms;
-    @BindView(R.id.buttonAboutCreativeCommons) Button buttonCreativeCommons;
-    @BindView(R.id.buttonAboutTmdbTerms) Button buttonTmdbTerms;
-    @BindView(R.id.buttonAboutTmdbApiTerms) Button buttonTmdbApiTerms;
-    @BindView(R.id.buttonAboutTraktTerms) Button buttonTraktTerms;
-    @BindView(R.id.buttonAboutCredits) Button buttonCredits;
+    @BindView(R.id.textViewAboutVersion)
+    TextView textVersion;
+    @BindView(R.id.buttonAboutWebsite)
+    Button buttonWebsite;
+    @BindView(R.id.buttonAboutTvdbTerms)
+    Button buttonTvdbTerms;
+    @BindView(R.id.buttonAboutCreativeCommons)
+    Button buttonCreativeCommons;
+    @BindView(R.id.buttonAboutTmdbTerms)
+    Button buttonTmdbTerms;
+    @BindView(R.id.buttonAboutTmdbApiTerms)
+    Button buttonTmdbApiTerms;
+    @BindView(R.id.buttonAboutTraktTerms)
+    Button buttonTraktTerms;
+    @BindView(R.id.buttonAboutCredits)
+    Button buttonCredits;
 
     private Unbinder unbinder;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_about, container, false);
         unbinder = ButterKnife.bind(this, v);
 

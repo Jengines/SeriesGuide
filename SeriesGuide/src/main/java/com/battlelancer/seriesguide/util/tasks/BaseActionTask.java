@@ -2,29 +2,31 @@ package com.battlelancer.seriesguide.util.tasks;
 
 import android.os.AsyncTask;
 import android.support.annotation.CallSuper;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.backend.settings.HexagonSettings;
 import com.battlelancer.seriesguide.settings.TraktCredentials;
 import com.battlelancer.seriesguide.ui.BaseNavDrawerActivity;
 import com.uwetrottmann.androidutils.AndroidUtils;
+
 import org.greenrobot.eventbus.EventBus;
 
-public abstract class BaseActionTask extends AsyncTask<Void, Void, Integer> {
+abstract class BaseActionTask extends AsyncTask<Void, Void, Integer> {
 
     public static final int SUCCESS = 0;
-    public static final int ERROR_NETWORK = -1;
-    public static final int ERROR_DATABASE = -2;
-    public static final int ERROR_TRAKT_AUTH = -3;
-    public static final int ERROR_TRAKT_API = -4;
-    public static final int ERROR_TRAKT_API_NOT_FOUND = -5;
-    public static final int ERROR_HEXAGON_API = -6;
+    private static final int ERROR_NETWORK = -1;
+    static final int ERROR_DATABASE = -2;
+    static final int ERROR_TRAKT_AUTH = -3;
+    static final int ERROR_TRAKT_API = -4;
+    static final int ERROR_TRAKT_API_NOT_FOUND = -5;
+    static final int ERROR_HEXAGON_API = -6;
 
     private final SgApp app;
     private boolean isSendingToHexagon;
     private boolean isSendingToTrakt;
 
-    public BaseActionTask(SgApp app) {
+    BaseActionTask(SgApp app) {
         this.app = app;
     }
 

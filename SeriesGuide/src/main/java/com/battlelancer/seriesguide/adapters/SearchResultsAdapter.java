@@ -3,6 +3,7 @@ package com.battlelancer.seriesguide.adapters;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.os.Build;
 import android.support.v4.widget.CursorAdapter;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -10,8 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.ui.EpisodeSearchFragment.SearchQuery;
 import com.battlelancer.seriesguide.util.EpisodeTools;
@@ -50,11 +53,17 @@ public class SearchResultsAdapter extends CursorAdapter {
                         ? Utils.resolveAttributeToResourceId(mContext.getTheme(),
                         R.attr.drawableWatched)
                         : Utils.resolveAttributeToResourceId(mContext.getTheme(),
-                                R.attr.drawableWatch));
+                        R.attr.drawableWatch));
 
         // ensure matched term is bold
         String snippet = mCursor.getString(SearchQuery.OVERVIEW);
-        viewHolder.searchSnippet.setText(snippet != null ? Html.fromHtml(snippet) : null);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            viewHolder.searchSnippet.setText(snippet != null ? Html.fromHtml(snippet, Html.FROM_HTML_MODE_LEGACY) : null);
+        }
+        else{
+            //noinspection deprecation
+            viewHolder.searchSnippet.setText(snippet != null ? Html.fromHtml(snippet) : null);
+        }
 
         // episode
         int number = mCursor.getInt(SearchQuery.NUMBER);
@@ -66,10 +75,14 @@ public class SearchResultsAdapter extends CursorAdapter {
 
     static class ViewHolder {
 
-        @BindView(R.id.textViewShowTitle) TextView showTitle;
-        @BindView(R.id.textViewEpisodeTitle) TextView episodeTitle;
-        @BindView(R.id.textViewSearchSnippet) TextView searchSnippet;
-        @BindView(R.id.imageViewWatchedStatus) ImageView watchedStatus;
+        @BindView(R.id.textViewShowTitle)
+        TextView showTitle;
+        @BindView(R.id.textViewEpisodeTitle)
+        TextView episodeTitle;
+        @BindView(R.id.textViewSearchSnippet)
+        TextView searchSnippet;
+        @BindView(R.id.imageViewWatchedStatus)
+        ImageView watchedStatus;
 
         public ViewHolder(View itemView) {
             ButterKnife.bind(this, itemView);

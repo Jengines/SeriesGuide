@@ -22,6 +22,7 @@ import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.style.StyleSpan;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract.Episodes;
@@ -38,9 +39,11 @@ import com.battlelancer.seriesguide.util.TextTools;
 import com.battlelancer.seriesguide.util.TimeTools;
 import com.battlelancer.seriesguide.util.Utils;
 import com.uwetrottmann.androidutils.AndroidUtils;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import timber.log.Timber;
 
 public class NotificationService extends IntentService {
@@ -59,11 +62,11 @@ public class NotificationService extends IntentService {
     private static final int REQUEST_CODE_ACTION_CHECKIN = 4;
     private static final int REQUEST_CODE_ACTION_SET_WATCHED = 4;
 
-    private static final long[] VIBRATION_PATTERN = new long[] {
+    private static final long[] VIBRATION_PATTERN = new long[]{
             0, 100, 200, 100, 100, 100
     };
 
-    private static final String[] PROJECTION = new String[] {
+    private static final String[] PROJECTION = new String[]{
             Tables.EPISODES + "." + Episodes._ID, Episodes.TITLE, Episodes.FIRSTAIREDMS,
             Shows.TITLE, Shows.NETWORK, Episodes.NUMBER, Episodes.SEASON, Shows.POSTER,
             Episodes.OVERVIEW
@@ -156,7 +159,7 @@ public class NotificationService extends IntentService {
 
         final long customCurrentTime = TimeTools.getCurrentTime(this);
         final Cursor upcomingEpisodes = getContentResolver().query(Episodes.CONTENT_URI_WITHSHOW,
-                PROJECTION, selection.toString(), new String[] {
+                PROJECTION, selection.toString(), new String[]{
                         String.valueOf(customCurrentTime - 12 * DateUtils.HOUR_IN_MILLIS)
                 }, SORTING
         );
@@ -196,11 +199,6 @@ public class NotificationService extends IntentService {
                             NotificationQuery.EPISODE_FIRST_RELEASE_MS);
                     if (releaseTime < nextEpisodeReleaseTime) {
                         if (releaseTime > latestTimeNotified) {
-                            /**
-                             * This will not get new episodes which would have
-                             * aired the same time as the last one we notified
-                             * about. Sad, but the best we can do right now.
-                             */
                             newEpisodesAvailable = 1;
                             break;
                         }
@@ -258,12 +256,12 @@ public class NotificationService extends IntentService {
                         Timber.d("Delete intent NOT supported, setting last cleared to: %d",
                                 latestAirtime);
                         prefs.edit().putLong(NotificationSettings.KEY_LAST_CLEARED,
-                                latestAirtime).commit();
+                                latestAirtime).apply();
                     }
                     Timber.d("Found %d new episodes, setting last notified to: %d",
                             notifyPositions.size(), latestAirtime);
                     prefs.edit().putLong(NotificationSettings.KEY_LAST_NOTIFIED, latestAirtime)
-                            .commit();
+                            .apply();
 
                     onNotify(upcomingEpisodes, notifyPositions, latestAirtime);
                 }
@@ -280,7 +278,7 @@ public class NotificationService extends IntentService {
                         // store next episode we plan to notify about
                         Timber.d("Storing next episode time to notify about: %d", releaseTime);
                         prefs.edit().putLong(NotificationSettings.KEY_NEXT_TO_NOTIFY, releaseTime)
-                                .commit();
+                                .apply();
 
                         // calc actual wake up time
                         wakeUpTime = TimeTools.applyUserOffset(this, releaseTime).getTime()
@@ -328,7 +326,7 @@ public class NotificationService extends IntentService {
             PreferenceManager.getDefaultSharedPreferences(context)
                     .edit()
                     .putLong(NotificationSettings.KEY_LAST_CLEARED, clearedTime)
-                    .commit();
+                    .apply();
             return true;
         }
         return false;
@@ -344,11 +342,11 @@ public class NotificationService extends IntentService {
         prefs.edit()
                 .putLong(NotificationSettings.KEY_LAST_CLEARED, 0)
                 .putLong(NotificationSettings.KEY_LAST_NOTIFIED, 0)
-                .commit();
+                .apply();
     }
 
     private void onNotify(final Cursor upcomingEpisodes, List<Integer> notifyPositions,
-            long latestAirtime) {
+                          long latestAirtime) {
         final Context context = getApplicationContext();
 
         CharSequence tickerText;

@@ -24,21 +24,21 @@
             android:id="@+id/textViewEpisodeTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/textViewEpisodeNumber"
-            android:layout_toRightOf="@id/watchedBoxEpisode"
+            android:layout_toStartOf="@+id/textViewEpisodeNumber"
+            android:layout_toEndOf="@id/watchedBoxEpisode"
             android:ellipsize="end"
             android:paddingTop="16dp"
-            android:singleLine="true"
             android:textAppearance="@style/TextAppearance.Subhead"
-            tools:text="Episode Title" />
+            tools:text="Episode Title"
+            android:maxLines="1" />
 
         <TextView
             android:id="@+id/textViewEpisodeNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="@dimen/default_padding"
-            android:paddingRight="@dimen/large_padding"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/default_padding"
+            android:paddingEnd="@dimen/large_padding"
             android:paddingTop="16dp"
             android:textAppearance="@style/TextAppearance.Subhead.Secondary"
             tools:text="23" />
@@ -49,33 +49,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/textViewEpisodeTitle"
-            android:layout_toRightOf="@id/watchedBoxEpisode"
+            android:layout_toEndOf="@id/watchedBoxEpisode"
             android:ellipsize="end"
             android:paddingTop="@dimen/inline_padding"
-            android:singleLine="true"
             android:textAppearance="@style/TextAppearance.Body.Secondary"
-            tools:text="in 2 days" />
+            tools:text="in 2 days"
+            android:maxLines="1" />
 
         <TextView
             android:id="@+id/textViewEpisodeAlternativeNumbers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/textViewEpisodeAirdate"
-            android:layout_toLeftOf="@+id/textViewEpisodeNumber"
-            android:layout_toRightOf="@id/watchedBoxEpisode"
+            android:layout_toStartOf="@+id/textViewEpisodeNumber"
+            android:layout_toEndOf="@id/watchedBoxEpisode"
             android:ellipsize="end"
             android:paddingBottom="@dimen/large_padding"
             android:paddingTop="@dimen/inline_padding"
-            android:singleLine="true"
             android:textAppearance="@style/TextAppearance.Caption.Dim"
-            tools:text="ABSOLUTE 42" />
+            tools:text="ABSOLUTE 42"
+            android:maxLines="1" />
 
         <ImageView
             android:id="@+id/imageViewCollected"
             android:layout_width="14dp"
             android:layout_height="14dp"
             android:layout_below="@+id/watchedBoxEpisode"
-            android:layout_marginLeft="29dp"
+            android:layout_marginStart="29dp"
             android:contentDescription="@string/action_collection_added"
             android:src="@drawable/ic_collected" />
 
@@ -84,11 +84,11 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/description_menu_overflow"
             android:paddingBottom="13dp"
-            android:paddingRight="@dimen/default_padding"
+            android:paddingEnd="@dimen/default_padding"
             android:scaleType="fitXY"
             android:src="?attr/drawableDropdown" />
     </RelativeLayout>

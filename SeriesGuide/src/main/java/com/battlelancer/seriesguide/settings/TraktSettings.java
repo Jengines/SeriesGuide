@@ -3,7 +3,9 @@ package com.battlelancer.seriesguide.settings;
 import android.content.Context;
 import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
+
 import com.battlelancer.seriesguide.util.TimeTools;
+
 import java.util.Date;
 
 /**
@@ -11,7 +13,7 @@ import java.util.Date;
  */
 public class TraktSettings {
 
-    public static final String KEY_LAST_ACTIVITY_DOWNLOAD
+    private static final String KEY_LAST_ACTIVITY_DOWNLOAD
             = "com.battlelancer.seriesguide.lasttraktupdate";
 
     public static final String KEY_LAST_SHOWS_RATED_AT
@@ -26,10 +28,10 @@ public class TraktSettings {
     public static final String KEY_LAST_EPISODES_RATED_AT
             = "trakt.last_activity.episodes.rated";
 
-    public static final String KEY_LAST_MOVIES_WATCHLISTED_AT
+    private static final String KEY_LAST_MOVIES_WATCHLISTED_AT
             = "trakt.last_activity.movies.watchlisted";
 
-    public static final String KEY_LAST_MOVIES_COLLECTED_AT
+    private static final String KEY_LAST_MOVIES_COLLECTED_AT
             = "trakt.last_activity.movies.collected";
 
     public static final String KEY_LAST_MOVIES_RATED_AT
@@ -41,7 +43,7 @@ public class TraktSettings {
     public static final String KEY_LAST_FULL_EPISODE_SYNC
             = "com.battlelancer.seriesguide.trakt.lastfullsync";
 
-    public static final String KEY_AUTO_ADD_TRAKT_SHOWS
+    private static final String KEY_AUTO_ADD_TRAKT_SHOWS
             = "com.battlelancer.seriesguide.autoaddtraktshows";
 
     public static final String KEY_HAS_MERGED_EPISODES =
@@ -50,7 +52,7 @@ public class TraktSettings {
     public static final String KEY_HAS_MERGED_MOVIES
             = "com.battlelancer.seriesguide.trakt.mergedmovies";
 
-    public static final String KEY_QUICK_CHECKIN
+    private static final String KEY_QUICK_CHECKIN
             = "com.battlelancer.seriesguide.trakt.quickcheckin";
 
     private static final long FULL_SYNC_INTERVAL_MILLIS = 24 * DateUtils.HOUR_IN_MILLIS;
@@ -58,6 +60,7 @@ public class TraktSettings {
     /**
      * The last time trakt episode activity was successfully downloaded.
      */
+    @SuppressWarnings("unused")
     public static long getLastActivityDownloadTime(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context)
                 .getLong(KEY_LAST_ACTIVITY_DOWNLOAD, System.currentTimeMillis());
@@ -98,7 +101,7 @@ public class TraktSettings {
     /**
      * The last time watched flags for movies have changed.
      */
-    public static long getLastMoviesWatchlistedAt(Context context) {
+    private static long getLastMoviesWatchlistedAt(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context)
                 .getLong(KEY_LAST_MOVIES_WATCHLISTED_AT, 0);
     }
@@ -106,7 +109,7 @@ public class TraktSettings {
     /**
      * The last time collected flags for movies have changed.
      */
-    public static long getLastMoviesCollectedAt(Context context) {
+    private static long getLastMoviesCollectedAt(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context)
                 .getLong(KEY_LAST_MOVIES_COLLECTED_AT, 0);
     }
@@ -131,7 +134,7 @@ public class TraktSettings {
      * If either collection or watchlist have changes newer than last stored.
      */
     public static boolean isMovieListsChanged(Context context, Date collectedAt,
-            Date watchlistedAt) {
+                                              Date watchlistedAt) {
         return TimeTools.isAfterMillis(collectedAt, TraktSettings.getLastMoviesCollectedAt(context))
                 || TimeTools.isAfterMillis(watchlistedAt,
                 TraktSettings.getLastMoviesWatchlistedAt(context));
@@ -141,7 +144,7 @@ public class TraktSettings {
      * Store last collected and watchlisted timestamps.
      */
     public static void storeLastMoviesChangedAt(Context context, Date collectedAt,
-            Date watchlistedAt) {
+                                                Date watchlistedAt) {
         PreferenceManager.getDefaultSharedPreferences(context)
                 .edit()
                 .putLong(TraktSettings.KEY_LAST_MOVIES_COLLECTED_AT, collectedAt.getTime())
@@ -161,6 +164,7 @@ public class TraktSettings {
                 .commit();
     }
 
+    @SuppressWarnings("unused")
     public static boolean isAutoAddingShows(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context)
                 .getBoolean(KEY_AUTO_ADD_TRAKT_SHOWS, true);
@@ -187,6 +191,7 @@ public class TraktSettings {
     /**
      * Determines if enough time has passed since the last full trakt episode sync.
      */
+    @SuppressWarnings("unused")
     public static boolean isTimeForFullEpisodeSync(Context context, long currentTime) {
         long previousUpdateTime = PreferenceManager.getDefaultSharedPreferences(context)
                 .getLong(KEY_LAST_FULL_EPISODE_SYNC, currentTime);

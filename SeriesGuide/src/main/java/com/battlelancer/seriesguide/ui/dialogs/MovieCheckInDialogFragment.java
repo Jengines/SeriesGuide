@@ -2,8 +2,8 @@ package com.battlelancer.seriesguide.ui.dialogs;
 
 import android.os.Bundle;
 import android.support.v4.os.AsyncTaskCompat;
+
 import com.battlelancer.seriesguide.util.TraktTask;
-import com.battlelancer.seriesguide.util.Utils;
 
 /**
  * Allows to check into movies on trakt or GetGlue. Launching activities should subscribe to {@link

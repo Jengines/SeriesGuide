@@ -2,8 +2,10 @@ package com.battlelancer.seriesguide.loaders;
 
 import android.content.Context;
 import android.database.Cursor;
+
 import com.battlelancer.seriesguide.provider.SeriesGuideContract;
 import com.uwetrottmann.androidutils.GenericSimpleLoader;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +19,7 @@ public class OrderedListsLoader extends GenericSimpleLoader<List<OrderedListsLoa
         public String id;
         public String name;
 
-        public OrderedList(String id, String name) {
+        OrderedList(String id, String name) {
             this.id = id;
             this.name = name;
         }
@@ -51,8 +53,8 @@ public class OrderedListsLoader extends GenericSimpleLoader<List<OrderedListsLoa
         return items;
     }
 
-    public interface ListsQuery {
-        String[] PROJECTION = new String[] {
+    interface ListsQuery {
+        String[] PROJECTION = new String[]{
                 SeriesGuideContract.Lists._ID,
                 SeriesGuideContract.Lists.LIST_ID,
                 SeriesGuideContract.Lists.NAME

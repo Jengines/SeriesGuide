@@ -21,10 +21,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.dataliberation.DataLiberationTools;
@@ -41,8 +43,10 @@ import com.battlelancer.seriesguide.util.TimeTools;
 import com.battlelancer.seriesguide.util.TraktTools;
 import com.battlelancer.seriesguide.util.ViewTools;
 import com.uwetrottmann.androidutils.AndroidUtils;
+
 import java.util.Date;
 import java.util.List;
+
 import org.greenrobot.eventbus.EventBus;
 
 /**
@@ -78,7 +82,7 @@ public class AddShowDialogFragment extends AppCompatDialogFragment {
     /**
      * Display a {@link com.battlelancer.seriesguide.ui.dialogs.AddShowDialogFragment} for the given
      * show.
-     *
+     * <p>
      * <p> Use if there is no actual search result, but just a TheTVDB id available.
      */
     public static void showAddDialog(int showTvdbId, FragmentManager fm) {
@@ -104,20 +108,28 @@ public class AddShowDialogFragment extends AppCompatDialogFragment {
         String SEARCH_RESULT = "search_result";
     }
 
-    @BindView(R.id.textViewAddTitle) TextView title;
-    @BindView(R.id.textViewAddShowMeta) TextView showmeta;
-    @BindView(R.id.textViewAddDescription) TextView overview;
-    @BindView(R.id.textViewAddRatingValue) TextView rating;
-    @BindView(R.id.textViewAddGenres) TextView genres;
-    @BindView(R.id.textViewAddReleased) TextView releasedTextView;
-    @BindView(R.id.imageViewAddPoster) ImageView poster;
+    @BindView(R.id.textViewAddTitle)
+    TextView title;
+    @BindView(R.id.textViewAddShowMeta)
+    TextView showmeta;
+    @BindView(R.id.textViewAddDescription)
+    TextView overview;
+    @BindView(R.id.textViewAddRatingValue)
+    TextView rating;
+    @BindView(R.id.textViewAddGenres)
+    TextView genres;
+    @BindView(R.id.textViewAddReleased)
+    TextView releasedTextView;
+    @BindView(R.id.imageViewAddPoster)
+    ImageView poster;
 
     @BindViews({
             R.id.textViewAddRatingValue,
             R.id.textViewAddRatingLabel,
             R.id.textViewAddRatingRange,
             R.id.textViewAddGenresLabel
-    }) List<View> labelViews;
+    })
+    List<View> labelViews;
 
     static final ButterKnife.Setter<View, Boolean> VISIBLE
             = new ButterKnife.Setter<View, Boolean>() {
@@ -127,9 +139,12 @@ public class AddShowDialogFragment extends AppCompatDialogFragment {
         }
     };
 
-    @BindView(R.id.buttonPositive) Button buttonPositive;
-    @BindView(R.id.buttonNegative) Button buttonNegative;
-    @BindView(R.id.progressBarAdd) View progressBar;
+    @BindView(R.id.buttonPositive)
+    Button buttonPositive;
+    @BindView(R.id.buttonNegative)
+    Button buttonNegative;
+    @BindView(R.id.progressBarAdd)
+    View progressBar;
 
     private Unbinder unbinder;
     private OnAddShowListener addShowListener;
@@ -162,7 +177,7 @@ public class AddShowDialogFragment extends AppCompatDialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.dialog_addshow, container, false);
         unbinder = ButterKnife.bind(this, v);
 
@@ -213,7 +228,7 @@ public class AddShowDialogFragment extends AppCompatDialogFragment {
 
         @Override
         public void onLoadFinished(Loader<TvdbShowLoader.Result> loader,
-                TvdbShowLoader.Result data) {
+                                   TvdbShowLoader.Result data) {
             if (!isAdded()) {
                 return;
             }

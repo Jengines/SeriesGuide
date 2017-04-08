@@ -1,13 +1,16 @@
 package com.battlelancer.seriesguide.traktapi;
 
 import android.content.Context;
+
 import com.battlelancer.seriesguide.BuildConfig;
 import com.battlelancer.seriesguide.settings.TraktCredentials;
 import com.battlelancer.seriesguide.settings.TraktOAuthSettings;
 import com.battlelancer.seriesguide.ui.BaseOAuthActivity;
 import com.battlelancer.seriesguide.util.Utils;
 import com.uwetrottmann.trakt5.TraktV2;
+
 import java.io.IOException;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -69,7 +72,7 @@ public class SgTrakt extends TraktV2 {
     }
 
     public static void trackFailedRequest(Context context, String action,
-            retrofit2.Response response) {
+                                          retrofit2.Response response) {
         Utils.trackFailedRequest(context, TAG_TRAKT_ERROR, action, response);
     }
 

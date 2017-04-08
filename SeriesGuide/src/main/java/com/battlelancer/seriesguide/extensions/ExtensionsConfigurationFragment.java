@@ -18,9 +18,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 import com.battlelancer.seriesguide.BuildConfig;
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.adapters.ExtensionsAdapter;
@@ -28,7 +30,9 @@ import com.battlelancer.seriesguide.loaders.AvailableExtensionsLoader;
 import com.battlelancer.seriesguide.util.Utils;
 import com.mobeta.android.dslv.DragSortController;
 import com.mobeta.android.dslv.DragSortListView;
+
 import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -37,8 +41,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
 import timber.log.Timber;
 
 /**
@@ -51,7 +57,8 @@ public class ExtensionsConfigurationFragment extends Fragment
 
     private static final String TAG = "Extension Configuration";
 
-    @BindView(R.id.listViewExtensionsConfiguration) DragSortListView listView;
+    @BindView(R.id.listViewExtensionsConfiguration)
+    DragSortListView listView;
 
     private ExtensionsAdapter adapter;
     private PopupMenu addExtensionPopupMenu;
@@ -62,7 +69,7 @@ public class ExtensionsConfigurationFragment extends Fragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_extensions_configuration, container, false);
         unbinder = ButterKnife.bind(this, v);
 
@@ -165,7 +172,7 @@ public class ExtensionsConfigurationFragment extends Fragment
 
         @Override
         public void onLoadFinished(Loader<List<ExtensionManager.Extension>> loader,
-                @NonNull List<ExtensionManager.Extension> availableExtensions) {
+                                   @NonNull List<ExtensionManager.Extension> availableExtensions) {
             if (availableExtensions.size() == 0) {
                 Timber.d("Did not find any extension");
             } else {
@@ -196,7 +203,7 @@ public class ExtensionsConfigurationFragment extends Fragment
             Collections.sort(ExtensionsConfigurationFragment.this.availableExtensions, new Comparator<ExtensionManager.Extension>() {
                 @Override
                 public int compare(ExtensionManager.Extension extension1,
-                        ExtensionManager.Extension extension2) {
+                                   ExtensionManager.Extension extension2) {
                     String title1 = createTitle(extension1);
                     String title2 = createTitle(extension2);
                     return title1.compareToIgnoreCase(title2);
@@ -315,7 +322,7 @@ public class ExtensionsConfigurationFragment extends Fragment
 
         private int mFloatViewOriginPosition;
 
-        public ExtensionsDragSortController() {
+        ExtensionsDragSortController() {
             super(listView, R.id.drag_handle, DragSortController.ON_DOWN,
                     DragSortController.CLICK_REMOVE);
             setRemoveEnabled(false);

@@ -16,7 +16,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import butterknife.ButterKnife;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.backend.settings.HexagonSettings;
@@ -32,9 +34,11 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
 import timber.log.Timber;
 
 /**
@@ -54,7 +58,8 @@ public class CloudSetupFragment extends Fragment {
     private Snackbar snackbar;
 
     private GoogleApiClient googleApiClient;
-    @Nullable private GoogleSignInAccount signInAccount;
+    @Nullable
+    private GoogleSignInAccount signInAccount;
     private HexagonTools hexagonTools;
     private HexagonSetupTask hexagonSetupTask;
 
@@ -71,7 +76,7 @@ public class CloudSetupFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_cloud_setup, container, false);
 
         textViewDescription = (TextView) v.findViewById(R.id.textViewCloudDescription);
@@ -165,7 +170,7 @@ public class CloudSetupFragment extends Fragment {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventMainThread(RemoveCloudAccountDialogFragment.CanceledEvent event) {
+    public void onEventMainThread() {
         setProgressVisible(false);
     }
 
@@ -322,17 +327,18 @@ public class CloudSetupFragment extends Fragment {
 
     private static class HexagonSetupTask extends AsyncTask<String, Void, Integer> {
 
-        public static final int SUCCESS_SYNC_REQUIRED = 1;
-        public static final int FAILURE = -1;
-        public static final int FAILURE_AUTH = -2;
+        static final int SUCCESS_SYNC_REQUIRED = 1;
+        static final int FAILURE = -1;
+        static final int FAILURE_AUTH = -2;
 
-        public interface OnSetupFinishedListener {
+        interface OnSetupFinishedListener {
 
             void onSetupFinished(int resultCode);
         }
 
         private final HexagonTools hexagonTools;
-        @NonNull private final GoogleSignInAccount signInAccount;
+        @NonNull
+        private final GoogleSignInAccount signInAccount;
         private OnSetupFinishedListener onSetupFinishedListener;
 
         /**
@@ -340,8 +346,8 @@ public class CloudSetupFragment extends Fragment {
          * in the local database as well as on hexagon, will download and merge data first, then
          * upload.
          */
-        public HexagonSetupTask(HexagonTools hexagonTools,
-                @NonNull GoogleSignInAccount signInAccount, OnSetupFinishedListener listener) {
+        HexagonSetupTask(HexagonTools hexagonTools,
+                         @NonNull GoogleSignInAccount signInAccount, OnSetupFinishedListener listener) {
             this.hexagonTools = hexagonTools;
             this.signInAccount = signInAccount;
             onSetupFinishedListener = listener;

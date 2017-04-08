@@ -12,9 +12,11 @@ import android.support.v7.app.AppCompatDialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.settings.TraktCredentials;
@@ -24,6 +26,7 @@ import com.battlelancer.seriesguide.util.tasks.RateEpisodeTask;
 import com.battlelancer.seriesguide.util.tasks.RateMovieTask;
 import com.battlelancer.seriesguide.util.tasks.RateShowTask;
 import com.uwetrottmann.trakt5.enums.Rating;
+
 import java.util.List;
 
 /**
@@ -36,7 +39,7 @@ public class RateDialogFragment extends AppCompatDialogFragment {
      * Display a {@link RateDialogFragment} to rate an episode.
      */
     public static void displayRateDialog(Context context, FragmentManager fragmentManager,
-            int episodeTvdbId) {
+                                         int episodeTvdbId) {
         if (!TraktCredentials.ensureCredentials(context)) {
             return;
         }
@@ -106,7 +109,8 @@ public class RateDialogFragment extends AppCompatDialogFragment {
             R.id.rating8,
             R.id.rating9,
             R.id.rating10
-    }) List<Button> ratingButtons;
+    })
+    List<Button> ratingButtons;
     private Unbinder unbinder;
 
     @NonNull

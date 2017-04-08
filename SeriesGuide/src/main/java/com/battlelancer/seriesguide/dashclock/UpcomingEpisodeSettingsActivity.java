@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.settings.DashClockSettings;
 import com.battlelancer.seriesguide.ui.SeriesGuidePreferences;
@@ -44,7 +45,8 @@ public class UpcomingEpisodeSettingsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.sgToolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override

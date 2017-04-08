@@ -19,12 +19,13 @@ package com.battlelancer.seriesguide.billing;
  *
  * @author nelson
  */
-public class Base64DecoderException extends Exception {
+class Base64DecoderException extends Exception {
+    @SuppressWarnings("unused")
     public Base64DecoderException() {
         super();
     }
 
-    public Base64DecoderException(String s) {
+    Base64DecoderException(String s) {
         super(s);
     }
 

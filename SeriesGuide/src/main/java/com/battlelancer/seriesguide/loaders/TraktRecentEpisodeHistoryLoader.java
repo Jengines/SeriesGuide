@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.util.SparseArrayCompat;
 import android.text.format.DateUtils;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.adapters.NowAdapter;
@@ -21,11 +22,15 @@ import com.uwetrottmann.trakt5.entities.HistoryEntry;
 import com.uwetrottmann.trakt5.entities.UserSlug;
 import com.uwetrottmann.trakt5.enums.HistoryType;
 import com.uwetrottmann.trakt5.services.Users;
+
 import dagger.Lazy;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -35,11 +40,12 @@ import retrofit2.Response;
 public class TraktRecentEpisodeHistoryLoader
         extends GenericSimpleLoader<TraktRecentEpisodeHistoryLoader.Result> {
 
-    public static final int MAX_HISTORY_SIZE = 25;
+    static final int MAX_HISTORY_SIZE = 25;
 
     public static class Result {
         public List<NowAdapter.NowItem> items;
-        @Nullable public String errorText;
+        @Nullable
+        public String errorText;
 
         public Result(List<NowAdapter.NowItem> items) {
             this(items, null);
@@ -51,7 +57,8 @@ public class TraktRecentEpisodeHistoryLoader
         }
     }
 
-    @Inject Lazy<Users> traktUsers;
+    @Inject
+    Lazy<Users> traktUsers;
 
     public TraktRecentEpisodeHistoryLoader(Activity activity) {
         super(activity);
@@ -132,7 +139,7 @@ public class TraktRecentEpisodeHistoryLoader
             String description = (entry.episode.season == null || entry.episode.number == null)
                     ? entry.episode.title
                     : TextTools.getNextEpisodeString(getContext(), entry.episode.season,
-                            entry.episode.number, entry.episode.title);
+                    entry.episode.number, entry.episode.title);
             NowAdapter.NowItem item = new NowAdapter.NowItem()
                     .displayData(
                             entry.watched_at.getTime(),
@@ -155,7 +162,7 @@ public class TraktRecentEpisodeHistoryLoader
         return buildUserEpisodeHistoryCall(traktUsers.get());
     }
 
-    public static Call<List<HistoryEntry>> buildUserEpisodeHistoryCall(Users traktUsers) {
+    static Call<List<HistoryEntry>> buildUserEpisodeHistoryCall(Users traktUsers) {
         return traktUsers.history(UserSlug.ME, HistoryType.EPISODES, 1, MAX_HISTORY_SIZE,
                 null, null, null);
     }

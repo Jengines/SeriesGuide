@@ -7,6 +7,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
+
 import com.battlelancer.seriesguide.R;
 
 /**
@@ -29,14 +30,14 @@ public class Shadows {
     }
 
     public void setShadowDrawable(@NonNull Context context, @NonNull View shadowView,
-            GradientDrawable.Orientation orientation) {
+                                  GradientDrawable.Orientation orientation) {
         if (shadowColor == -1) {
             shadowColor = ContextCompat.getColor(context,
                     Utils.resolveAttributeToResourceId(context.getTheme(),
                             R.attr.sgColorShadow));
         }
         GradientDrawable shadowDrawable = new GradientDrawable(orientation,
-                new int[] { Color.TRANSPARENT, shadowColor });
+                new int[]{Color.TRANSPARENT, shadowColor});
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             shadowView.setBackground(shadowDrawable);
         } else {

@@ -15,6 +15,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Xml;
+
 import com.battlelancer.seriesguide.BuildConfig;
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
@@ -48,7 +49,9 @@ import com.uwetrottmann.trakt5.entities.BaseShow;
 import com.uwetrottmann.trakt5.enums.Extended;
 import com.uwetrottmann.trakt5.enums.IdType;
 import com.uwetrottmann.trakt5.enums.Type;
+
 import dagger.Lazy;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -59,15 +62,19 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.TimeZone;
 import java.util.zip.ZipInputStream;
+
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalTime;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
+
 import timber.log.Timber;
 
 /**
@@ -87,15 +94,20 @@ public class TvdbTools {
     private static final String TVDB_PARAM_LANGUAGE = "&language=";
     private static final String TVDB_EXTENSION_COMPRESSED = ".zip";
     private static final String TVDB_FILE_DEFAULT = "en" + TVDB_EXTENSION_COMPRESSED;
-    private static final String[] LANGUAGE_QUERY_PROJECTION = new String[] { Shows.LANGUAGE };
+    private static final String[] LANGUAGE_QUERY_PROJECTION = new String[]{Shows.LANGUAGE};
 
     private static TvdbTools tvdbTools;
     private final SgApp app;
-    @Inject Lazy<TheTvdbSearch> tvdbSearch;
-    @Inject Lazy<TheTvdbSeries> tvdbSeries;
-    @Inject Lazy<com.uwetrottmann.trakt5.services.Search> traktSearch;
-    @Inject Lazy<com.uwetrottmann.trakt5.services.Shows> traktShows;
-    @Inject Lazy<OkHttpClient> okHttpClient;
+    @Inject
+    Lazy<TheTvdbSearch> tvdbSearch;
+    @Inject
+    Lazy<TheTvdbSeries> tvdbSeries;
+    @Inject
+    Lazy<com.uwetrottmann.trakt5.services.Search> traktSearch;
+    @Inject
+    Lazy<com.uwetrottmann.trakt5.services.Shows> traktShows;
+    @Inject
+    Lazy<OkHttpClient> okHttpClient;
 
     public static synchronized TvdbTools getInstance(SgApp app) {
         if (tvdbTools == null) {
@@ -115,7 +127,7 @@ public class TvdbTools {
      */
     public static boolean isUpdateShow(Context context, int showTvdbId) {
         final Cursor show = context.getContentResolver().query(Shows.buildShowUri(showTvdbId),
-                new String[] {
+                new String[]{
                         Shows._ID, Shows.LASTUPDATED
                 }, null, null, null
         );
@@ -134,17 +146,17 @@ public class TvdbTools {
 
     /**
      * Adds a show and its episodes to the database. If the show already exists, does nothing.
-     *
+     * <p>
      * <p> If signed in to Hexagon, gets show properties and episode flags.
-     *
+     * <p>
      * <p> If connected to trakt, but not signed in to Hexagon, gets episode flags from trakt
      * instead.
      *
      * @return True, if the show and its episodes were added to the database.
      */
     public boolean addShow(int showTvdbId, @Nullable String language,
-            @Nullable HashMap<Integer, BaseShow> traktCollection,
-            @Nullable HashMap<Integer, BaseShow> traktWatched)
+                           @Nullable HashMap<Integer, BaseShow> traktCollection,
+                           @Nullable HashMap<Integer, BaseShow> traktWatched)
             throws TvdbException {
         boolean isShowExists = DBUtils.isShowExists(app, showTvdbId);
         if (isShowExists) {
@@ -349,7 +361,7 @@ public class TvdbTools {
         final List<Integer> updatableShowIds = new ArrayList<>();
 
         // get existing show ids
-        final Cursor shows = context.getContentResolver().query(Shows.CONTENT_URI, new String[] {
+        final Cursor shows = context.getContentResolver().query(Shows.CONTENT_URI, new String[]{
                 Shows._ID, Shows.LASTUPDATED, Shows.RELEASE_WEEKDAY
         }, null, null, null);
 
@@ -386,7 +398,7 @@ public class TvdbTools {
      * information to the database.
      */
     private void getEpisodesAndUpdateDatabase(final ArrayList<ContentProviderOperation> batch,
-            Show show, String language) throws TvdbException {
+                                              Show show, String language) throws TvdbException {
         // get ops for episodes of this show
         ArrayList<ContentValues> importShowEpisodes = fetchEpisodes(batch, show, language);
         ContentValues[] newEpisodesValues = new ContentValues[importShowEpisodes.size()];
@@ -408,7 +420,7 @@ public class TvdbTools {
      */
     @NonNull
     private Show getShowDetailsWithHexagon(int showTvdbId, @Nullable String language,
-            boolean hexagonEnabled)
+                                           boolean hexagonEnabled)
             throws TvdbException {
         // check for show on hexagon
         com.uwetrottmann.seriesguide.backend.shows.model.Show hexagonShow = null;
@@ -455,8 +467,8 @@ public class TvdbTools {
      * information from trakt.
      *
      * @param language A TVDb language code (ISO 639-1 two-letter format, see <a
-     * href="http://www.thetvdb.com/wiki/index.php/API:languages.xml">TVDb wiki</a>). If not
-     * supplied, TVDb falls back to English.
+     *                 href="http://www.thetvdb.com/wiki/index.php/API:languages.xml">TVDb wiki</a>). If not
+     *                 supplied, TVDb falls back to English.
      */
     @NonNull
     public Show getShowDetails(int showTvdbId, @NonNull String language) throws TvdbException {
@@ -612,7 +624,7 @@ public class TvdbTools {
     }
 
     private retrofit2.Response<SeriesImageQueryResultResponse> getSeriesPosters(int showTvdbId,
-            @Nullable String language) throws TvdbException {
+                                                                                @Nullable String language) throws TvdbException {
         try {
             return tvdbSeries.get()
                     .imagesQuery(showTvdbId, "poster", null, null, language)
@@ -641,7 +653,7 @@ public class TvdbTools {
     }
 
     private ArrayList<ContentValues> fetchEpisodes(ArrayList<ContentProviderOperation> batch,
-            Show show, String language) throws TvdbException {
+                                                   Show show, String language) throws TvdbException {
         String url = TVDB_API_SERIES + show.tvdb_id + "/" + TVDB_PATH_ALL
                 + (language != null ? language + TVDB_EXTENSION_COMPRESSED : TVDB_FILE_DEFAULT);
 
@@ -654,7 +666,7 @@ public class TvdbTools {
      * local orphaned episodes to the given {@link ContentProviderOperation} batch.
      */
     private ArrayList<ContentValues> parseEpisodes(final ArrayList<ContentProviderOperation> batch,
-            final Show show, String url) throws TvdbException {
+                                                   final Show show, String url) throws TvdbException {
         final long dateLastMonthEpoch = (System.currentTimeMillis()
                 - (DateUtils.DAY_IN_MILLIS * 30)) / 1000;
         final DateTimeZone showTimeZone = TimeTools.getDateTimeZone(show.release_timezone);
@@ -824,7 +836,7 @@ public class TvdbTools {
      * ContentHandler}.
      */
     private void downloadAndParse(ContentHandler handler, String urlString, boolean isZipFile,
-            String logTag) throws TvdbException {
+                                  String logTag) throws TvdbException {
         Request request = new Request.Builder().url(urlString).build();
 
         Response response;

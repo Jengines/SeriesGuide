@@ -3,6 +3,7 @@ package com.battlelancer.seriesguide.loaders;
 import android.content.Context;
 import android.database.Cursor;
 import android.text.format.DateUtils;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.adapters.NowAdapter;
 import com.battlelancer.seriesguide.provider.SeriesGuideDatabase;
@@ -12,8 +13,10 @@ import com.battlelancer.seriesguide.util.EpisodeTools;
 import com.battlelancer.seriesguide.util.TextTools;
 import com.battlelancer.seriesguide.util.TimeTools;
 import com.uwetrottmann.androidutils.GenericSimpleLoader;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import org.joda.time.DateTime;
 
 import static com.battlelancer.seriesguide.provider.SeriesGuideContract.Episodes;
@@ -39,7 +42,7 @@ public class ReleasedTodayLoader extends GenericSimpleLoader<List<NowAdapter.Now
 
         Cursor query = getContext().getContentResolver().query(Episodes.CONTENT_URI_WITHSHOW,
                 Query.PROJECTION, Query.SELECTION,
-                new String[] {
+                new String[]{
                         String.valueOf(timeAtStartOfDay),
                         String.valueOf(timeAtStartOfDay + DateUtils.DAY_IN_MILLIS)
                 },
@@ -99,7 +102,7 @@ public class ReleasedTodayLoader extends GenericSimpleLoader<List<NowAdapter.Now
                 + Shows.SORT_TITLE + ","
                 + Episodes.NUMBER + " DESC";
 
-        String[] PROJECTION = new String[] {
+        String[] PROJECTION = new String[]{
                 SeriesGuideDatabase.Tables.EPISODES + "." + Episodes._ID, // 0
                 Episodes.TITLE,
                 Episodes.NUMBER,

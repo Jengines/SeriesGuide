@@ -2,6 +2,7 @@ package com.battlelancer.seriesguide.loaders;
 
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.dataliberation.model.Show;
 import com.battlelancer.seriesguide.settings.DisplaySettings;
@@ -9,6 +10,7 @@ import com.battlelancer.seriesguide.thetvdbapi.TvdbException;
 import com.battlelancer.seriesguide.thetvdbapi.TvdbTools;
 import com.battlelancer.seriesguide.util.DBUtils;
 import com.uwetrottmann.androidutils.GenericSimpleLoader;
+
 import timber.log.Timber;
 
 /**

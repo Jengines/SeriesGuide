@@ -20,8 +20,8 @@
             <android.support.design.widget.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:hint="@string/list_title_hint" />
+                android:hint="@string/list_title_hint"
+                android:inputType="text" />
 
         </android.support.design.widget.TextInputLayout>
 

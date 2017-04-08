@@ -2,6 +2,6 @@
 
 <resources>
 
-    <item type="layout" name="activity_people">@layout/activity_people_twopane</item>
+    <item name="activity_people" type="layout">@layout/activity_people_twopane</item>
 
 </resources>

@@ -1,6 +1,7 @@
 package com.battlelancer.seriesguide;
 
 import android.content.Context;
+
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 

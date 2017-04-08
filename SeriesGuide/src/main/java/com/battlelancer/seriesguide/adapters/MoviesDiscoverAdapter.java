@@ -8,11 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.enums.MoviesDiscoverLink;
 import com.uwetrottmann.tmdb2.entities.Movie;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +30,8 @@ public class MoviesDiscoverAdapter extends MoviesAdapter {
     }
 
     public static final MoviesDiscoverLink DISCOVER_LINK_DEFAULT = MoviesDiscoverLink.IN_THEATERS;
-    @NonNull private static final List<MoviesDiscoverLink> links;
+    @NonNull
+    private static final List<MoviesDiscoverLink> links;
 
     static {
         links = new ArrayList<>(3);
@@ -101,7 +105,7 @@ public class MoviesDiscoverAdapter extends MoviesAdapter {
 
     @Override
     protected Movie getMovie(int position) {
-        return movies.get(position - links.size() - 1 /** header **/);
+        return movies.get(position - links.size() - 1);
     }
 
     @NonNull
@@ -116,9 +120,10 @@ public class MoviesDiscoverAdapter extends MoviesAdapter {
 
     static class HeaderViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.textViewGridHeader) TextView header;
+        @BindView(R.id.textViewGridHeader)
+        TextView header;
 
-        public HeaderViewHolder(View itemView) {
+        HeaderViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
@@ -127,9 +132,10 @@ public class MoviesDiscoverAdapter extends MoviesAdapter {
     static class LinkViewHolder extends RecyclerView.ViewHolder {
 
         MoviesDiscoverLink link;
-        @BindView(R.id.textViewDiscoverLink) TextView title;
+        @BindView(R.id.textViewDiscoverLink)
+        TextView title;
 
-        public LinkViewHolder(View itemView, final ItemClickListener itemClickListener) {
+        LinkViewHolder(View itemView, final ItemClickListener itemClickListener) {
             super(itemView);
             ButterKnife.bind(this, itemView);
 

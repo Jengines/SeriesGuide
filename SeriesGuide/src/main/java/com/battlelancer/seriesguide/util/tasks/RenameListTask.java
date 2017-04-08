@@ -2,9 +2,11 @@ package com.battlelancer.seriesguide.util.tasks;
 
 import android.content.ContentValues;
 import android.support.annotation.NonNull;
+
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract;
 import com.battlelancer.seriesguide.ui.ListsActivity;
+
 import org.greenrobot.eventbus.EventBus;
 
 /**
@@ -12,10 +14,11 @@ import org.greenrobot.eventbus.EventBus;
  */
 public class RenameListTask extends AddListTask {
 
-    @NonNull private final String listId;
+    @NonNull
+    private final String listId;
 
     public RenameListTask(@NonNull SgApp app, @NonNull String listId,
-            @NonNull String listName) {
+                          @NonNull String listName) {
         super(app, listName);
         this.listId = listId;
     }

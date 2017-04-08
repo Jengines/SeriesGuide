@@ -3,6 +3,7 @@ package com.battlelancer.seriesguide.loaders;
 import android.app.Activity;
 import android.support.v4.util.SparseArrayCompat;
 import android.text.TextUtils;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.adapters.NowAdapter;
@@ -19,10 +20,13 @@ import com.uwetrottmann.trakt5.entities.UserSlug;
 import com.uwetrottmann.trakt5.enums.Extended;
 import com.uwetrottmann.trakt5.enums.HistoryType;
 import com.uwetrottmann.trakt5.services.Users;
+
 import dagger.Lazy;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import javax.inject.Inject;
 
 /**
@@ -31,7 +35,8 @@ import javax.inject.Inject;
 public class TraktFriendsEpisodeHistoryLoader
         extends GenericSimpleLoader<List<NowAdapter.NowItem>> {
 
-    @Inject Lazy<Users> traktUsers;
+    @Inject
+    Lazy<Users> traktUsers;
 
     public TraktFriendsEpisodeHistoryLoader(Activity activity) {
         super(activity);

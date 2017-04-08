@@ -12,12 +12,12 @@ import android.view.ViewGroup;
  * Based on {@link FragmentPagerAdapter}, but removes fragments returning
  * {@link #POSITION_NONE} in addition to detaching them.
  */
-public abstract class MultiPagerAdapter extends FragmentPagerAdapter {
+abstract class MultiPagerAdapter extends FragmentPagerAdapter {
     private FragmentManager mFragmentManager;
 
     private FragmentTransaction mCurTransaction;
 
-    public MultiPagerAdapter(FragmentManager fm) {
+    MultiPagerAdapter(FragmentManager fm) {
         super(fm);
         mFragmentManager = fm;
     }

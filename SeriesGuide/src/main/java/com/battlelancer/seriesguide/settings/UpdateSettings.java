@@ -9,7 +9,7 @@ public class UpdateSettings {
 
     public static final String KEY_AUTOUPDATE = "com.battlelancer.seriesguide.autoupdate";
 
-    public static final String KEY_ONLYWIFI = "com.battlelancer.seriesguide.autoupdatewlanonly";
+    private static final String KEY_ONLYWIFI = "com.battlelancer.seriesguide.autoupdatewlanonly";
 
     public static final String KEY_LASTUPDATE = "com.battlelancer.seriesguide.lastupdate";
 
@@ -34,7 +34,7 @@ public class UpdateSettings {
             // use now as default value, so auto-update will not run on first
             // launch
             time = System.currentTimeMillis();
-            prefs.edit().putLong(KEY_LASTUPDATE, time).commit();
+            prefs.edit().putLong(KEY_LASTUPDATE, time).apply();
         }
 
         return time;

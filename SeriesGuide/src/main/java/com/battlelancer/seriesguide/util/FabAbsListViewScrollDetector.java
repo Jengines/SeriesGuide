@@ -4,12 +4,13 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.AbsListView;
+
 import com.battlelancer.seriesguide.R;
 
 /**
  * Hides the floating action button when scrolling down, shows it when scrolling up. If the end of
  * the list will be reached, shows the button also.
- *
+ * <p>
  * <p>Built upon https://github.com/makovkastar/FloatingActionButton scroll detectors.
  */
 public class FabAbsListViewScrollDetector implements AbsListView.OnScrollListener {
@@ -32,7 +33,7 @@ public class FabAbsListViewScrollDetector implements AbsListView.OnScrollListene
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
-            int totalItemCount) {
+                         int totalItemCount) {
         if (!view.hasFocus() || totalItemCount == 0) {
             return;
         }

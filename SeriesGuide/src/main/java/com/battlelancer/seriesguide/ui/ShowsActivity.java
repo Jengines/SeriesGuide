@@ -18,7 +18,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
 import butterknife.ButterKnife;
+
 import com.battlelancer.seriesguide.BuildConfig;
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
@@ -45,6 +47,7 @@ import com.battlelancer.seriesguide.util.TabClickEvent;
 import com.battlelancer.seriesguide.util.TaskManager;
 import com.battlelancer.seriesguide.util.Utils;
 import com.battlelancer.seriesguide.widgets.SlidingTabLayout;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -490,13 +493,13 @@ public class ShowsActivity extends BaseTopActivity implements
      * Special {@link TabStripAdapter} which saves the currently selected page to preferences, so we
      * can restore it when the user comes back later.
      */
-    public static class ShowsTabPageAdapter extends TabStripAdapter
+    private static class ShowsTabPageAdapter extends TabStripAdapter
             implements ViewPager.OnPageChangeListener {
 
         private final FloatingActionButton floatingActionButton;
 
-        public ShowsTabPageAdapter(FragmentManager fm, Context context, ViewPager pager,
-                SlidingTabLayout tabs, FloatingActionButton floatingActionButton) {
+        ShowsTabPageAdapter(FragmentManager fm, Context context, ViewPager pager,
+                            SlidingTabLayout tabs, FloatingActionButton floatingActionButton) {
             super(fm, context, pager, tabs);
             this.floatingActionButton = floatingActionButton;
             tabs.setOnPageChangeListener(this);

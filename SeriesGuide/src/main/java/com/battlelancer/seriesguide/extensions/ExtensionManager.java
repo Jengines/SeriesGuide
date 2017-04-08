@@ -1,5 +1,6 @@
 package com.battlelancer.seriesguide.extensions;
 
+import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -11,11 +12,13 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+
 import com.battlelancer.seriesguide.api.Action;
 import com.battlelancer.seriesguide.api.Episode;
 import com.battlelancer.seriesguide.api.Movie;
 import com.battlelancer.seriesguide.api.SeriesGuideExtension;
 import com.battlelancer.seriesguide.api.constants.IncomingConstants;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -23,9 +26,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
 import org.json.JSONException;
+
 import timber.log.Timber;
 
 import static com.battlelancer.seriesguide.api.constants.OutgoingConstants.ACTION_TYPE_EPISODE;
@@ -46,6 +51,7 @@ public class ExtensionManager {
     private final static android.support.v4.util.LruCache<Integer, Map<ComponentName, Action>>
             sMovieActionsCache = new android.support.v4.util.LruCache<>(HARD_CACHE_CAPACITY);
 
+    @SuppressLint("StaticFieldLeak")
     private static ExtensionManager _instance;
 
     public static synchronized ExtensionManager getInstance(Context context) {
@@ -63,7 +69,7 @@ public class ExtensionManager {
     public static class EpisodeActionReceivedEvent {
         public int episodeTvdbId;
 
-        public EpisodeActionReceivedEvent(int episodeTvdbId) {
+        EpisodeActionReceivedEvent(int episodeTvdbId) {
             this.episodeTvdbId = episodeTvdbId;
         }
     }
@@ -76,7 +82,7 @@ public class ExtensionManager {
     public static class MovieActionReceivedEvent {
         public int movieTmdbId;
 
-        public MovieActionReceivedEvent(int movieTmdbId) {
+        MovieActionReceivedEvent(int movieTmdbId) {
             this.movieTmdbId = movieTmdbId;
         }
     }
@@ -150,7 +156,7 @@ public class ExtensionManager {
     /**
      * Enables the default list of extensions that come with this app.
      */
-    public void setDefaultEnabledExtensions() {
+    private void setDefaultEnabledExtensions() {
         List<ComponentName> defaultExtensions = new ArrayList<>();
         defaultExtensions.add(new ComponentName(context, WebSearchExtension.class));
         defaultExtensions.add(new ComponentName(context, YouTubeExtension.class));
@@ -161,7 +167,7 @@ public class ExtensionManager {
      * Compares the list of currently enabled extensions with the given list and enables added
      * extensions and disables removed extensions.
      */
-    public synchronized void setEnabledExtensions(List<ComponentName> extensions) {
+    synchronized void setEnabledExtensions(List<ComponentName> extensions) {
         Set<ComponentName> extensionsToEnable = new HashSet<>(extensions);
         boolean isChanged = false;
 
@@ -197,7 +203,7 @@ public class ExtensionManager {
      * Returns a copy of the list of currently enabled extensions in the order the user previously
      * determined.
      */
-    public synchronized List<ComponentName> getEnabledExtensions() {
+    synchronized List<ComponentName> getEnabledExtensions() {
         return new ArrayList<>(enabledExtensions);
     }
 
@@ -216,10 +222,6 @@ public class ExtensionManager {
         String token = UUID.randomUUID().toString();
         while (tokens.containsKey(token)) {
             // create another UUID on collision
-            /**
-             * As the number of enabled extensions is rather low compared to the UUID number
-             * space we shouldn't have to worry about this ever looping.
-             */
             token = UUID.randomUUID().toString();
         }
         Timber.d("enableExtension: subscribing to %s", extension);
@@ -334,7 +336,7 @@ public class ExtensionManager {
                 .putExtra(IncomingConstants.EXTRA_MOVIE, movie.toBundle()));
     }
 
-    public void handlePublishedAction(String token, Action action, int type) {
+    void handlePublishedAction(String token, Action action, int type) {
         if (TextUtils.isEmpty(token) || action == null) {
             // whoops, no token or action received
             Timber.d("handlePublishedAction: token or action empty");
@@ -440,7 +442,7 @@ public class ExtensionManager {
     public class Extension {
         public Drawable icon;
         public String label;
-        public ComponentName componentName;
+        ComponentName componentName;
         public String description;
         public ComponentName settingsActivity;
     }

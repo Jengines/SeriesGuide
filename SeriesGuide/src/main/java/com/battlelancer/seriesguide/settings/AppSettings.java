@@ -9,9 +9,11 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
+
 import com.battlelancer.seriesguide.BuildConfig;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract;
 import com.battlelancer.seriesguide.util.DBUtils;
+
 import timber.log.Timber;
 
 public class AppSettings {
@@ -20,12 +22,13 @@ public class AppSettings {
 
     public static final String KEY_GOOGLEANALYTICS = "enableGAnalytics";
 
-    @SuppressWarnings("unused") @Deprecated
+    @SuppressWarnings("unused")
+    @Deprecated
     public static final String KEY_HAS_SEEN_NAV_DRAWER = "hasSeenNavDrawer";
 
-    public static final String KEY_LAST_STATS_REPORT = "timeLastStatsReport";
+    private static final String KEY_LAST_STATS_REPORT = "timeLastStatsReport";
 
-    public static final String KEY_ASKED_FOR_FEEDBACK = "askedForFeedback";
+    private static final String KEY_ASKED_FOR_FEEDBACK = "askedForFeedback";
 
     /**
      * Returns the version code of the previously installed version. Is the current version on fresh
@@ -39,7 +42,7 @@ public class AppSettings {
         if (lastVersionCode == -1) {
             // set current version as default value
             lastVersionCode = BuildConfig.VERSION_CODE;
-            prefs.edit().putInt(KEY_VERSION, lastVersionCode).commit();
+            prefs.edit().putInt(KEY_VERSION, lastVersionCode).apply();
         }
 
         return lastVersionCode;

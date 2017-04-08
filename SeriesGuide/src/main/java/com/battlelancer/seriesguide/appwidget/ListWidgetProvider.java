@@ -10,20 +10,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.widget.RemoteViews;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.settings.WidgetSettings;
 import com.battlelancer.seriesguide.ui.EpisodesActivity;
 import com.battlelancer.seriesguide.ui.ShowsActivity;
-import com.uwetrottmann.androidutils.AndroidUtils;
+
 import timber.log.Timber;
 
 @TargetApi(11)
@@ -106,14 +105,14 @@ public class ListWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager,
-            int appWidgetId, Bundle newOptions) {
+                                          int appWidgetId, Bundle newOptions) {
         RemoteViews rv = buildRemoteViews(context, appWidgetManager, appWidgetId);
 
         appWidgetManager.updateAppWidget(appWidgetId, rv);
     }
 
     public static RemoteViews buildRemoteViews(Context context, AppWidgetManager appWidgetManager,
-            int appWidgetId) {
+                                               int appWidgetId) {
         // setup intent pointing to RemoteViewsService providing the views for the collection
         Intent intent = new Intent(context, ListWidgetService.class);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
@@ -211,12 +210,9 @@ public class ListWidgetProvider extends AppWidgetProvider {
      * and below.
      */
     private static boolean isCompactLayout(AppWidgetManager appWidgetManager, int appWidgetId) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            Bundle options = appWidgetManager.getAppWidgetOptions(appWidgetId);
-            int minHeight = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT);
-            return minHeight < DIP_THRESHOLD_COMPACT_LAYOUT;
-        }
-        return false;
+        Bundle options = appWidgetManager.getAppWidgetOptions(appWidgetId);
+        int minHeight = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT);
+        return minHeight < DIP_THRESHOLD_COMPACT_LAYOUT;
     }
 
     private static PendingIntent getUpdatePendingIntent(Context context) {

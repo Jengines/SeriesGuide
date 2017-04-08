@@ -4,12 +4,15 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
+
 import com.battlelancer.seriesguide.provider.SeriesGuideProvider;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
 import timber.log.Timber;
 
 /**
@@ -86,7 +89,7 @@ public class SelectionBuilder {
 
     /**
      * Return selection string for current internal state.
-     * 
+     *
      * @see #getSelectionArgs()
      */
     public String getSelection() {
@@ -95,10 +98,10 @@ public class SelectionBuilder {
 
     /**
      * Return selection arguments for current internal state.
-     * 
+     *
      * @see #getSelection()
      */
-    public String[] getSelectionArgs() {
+    private String[] getSelectionArgs() {
         return mSelectionArgs.toArray(new String[mSelectionArgs.size()]);
     }
 
@@ -128,7 +131,7 @@ public class SelectionBuilder {
      * Execute query using the current internal state as {@code WHERE} clause.
      */
     public Cursor query(SQLiteDatabase db, String[] columns, String groupBy, String having,
-            String orderBy, String limit) {
+                        String orderBy, String limit) {
         assertTable();
         if (columns != null)
             mapColumns(columns);

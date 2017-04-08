@@ -3,16 +3,21 @@ package com.battlelancer.seriesguide.modules;
 import android.app.Application;
 import android.os.Build;
 import android.os.StatFs;
+
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.thetvdbapi.SgTheTvdbInterceptor;
 import com.battlelancer.seriesguide.tmdbapi.SgTmdbInterceptor;
 import com.battlelancer.seriesguide.traktapi.SgTraktInterceptor;
 import com.battlelancer.seriesguide.util.AllApisAuthenticator;
+
 import dagger.Module;
 import dagger.Provides;
+
 import java.io.File;
 import java.util.concurrent.TimeUnit;
+
 import javax.inject.Singleton;
+
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 

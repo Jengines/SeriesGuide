@@ -12,8 +12,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.util.Utils;
+
 import java.util.Locale;
 
 /**
@@ -24,7 +26,7 @@ public class HelpActivity extends BaseActivity {
     public static Intent getFeedbackEmailIntent(Context context) {
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:"));
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[] {
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{
                 SeriesGuidePreferences.SUPPORT_MAIL
         });
         // include app version in subject
@@ -58,7 +60,7 @@ public class HelpActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        /**
+        /*
          * Force the text-to-speech accessibility Javascript plug-in service on Android 4.2.2 to
          * get shutdown, to avoid leaking its context.
          *

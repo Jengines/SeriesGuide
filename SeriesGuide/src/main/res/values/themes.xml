@@ -15,7 +15,8 @@
         <item name="android:dialogTheme">@style/Theme.SeriesGuide.Dialog</item>
 
         <!-- System widgets -->
-        <item name="android:borderlessButtonStyle">@style/Widget.SeriesGuide.Button.Borderless</item>
+        <item name="android:borderlessButtonStyle">@style/Widget.SeriesGuide.Button.Borderless
+        </item>
         <item name="android:progressBarStyleHorizontal">@style/Widget.SeriesGuide.ProgressBar</item>
         <item name="android:editTextBackground">@drawable/edit_text_sg</item>
         <item name="android:listChoiceBackgroundIndicator">@drawable/list_selector_sg</item>
@@ -112,7 +113,8 @@
         <item name="android:dialogTheme">@style/Theme.SeriesGuide.DarkBlue.Dialog</item>
 
         <!-- System widgets -->
-        <item name="android:borderlessButtonStyle">@style/Widget.SeriesGuide.Button.Borderless</item>
+        <item name="android:borderlessButtonStyle">@style/Widget.SeriesGuide.Button.Borderless
+        </item>
         <item name="android:progressBarStyleHorizontal">@style/Widget.SeriesGuide.ProgressBar</item>
         <item name="android:editTextBackground">@drawable/edit_text_sg</item>
         <item name="android:listChoiceBackgroundIndicator">@drawable/list_selector_dark</item>
@@ -197,8 +199,11 @@
         <item name="sgBorderlessButtonBackground">@drawable/btn_borderless_sg_light</item>
 
         <!-- System widgets -->
-        <item name="android:borderlessButtonStyle">@style/Widget.SeriesGuide.Button.Borderless</item>
-        <item name="android:progressBarStyleHorizontal">@style/Widget.SeriesGuide.ProgressBar.Light</item>
+        <item name="android:borderlessButtonStyle">@style/Widget.SeriesGuide.Button.Borderless
+        </item>
+        <item name="android:progressBarStyleHorizontal">
+            @style/Widget.SeriesGuide.ProgressBar.Light
+        </item>
         <item name="android:editTextBackground">@drawable/edit_text_holo_light</item>
         <item name="android:listChoiceBackgroundIndicator">@drawable/list_selector_sg</item>
 
@@ -220,7 +225,9 @@
         <item name="colorAccent">@color/teal_500</item>
 
         <!-- Special attributes -->
-        <item name="sgActivatedItemBackgroundDrawer">@drawable/activated_background_drawer_sg_light</item>
+        <item name="sgActivatedItemBackgroundDrawer">
+            @drawable/activated_background_drawer_sg_light
+        </item>
 
         <!-- Windows -->
         <item name="android:colorBackground">@color/background_inverse</item>
@@ -232,7 +239,8 @@
         <item name="android:windowContentOverlay">@null</item>
 
         <!-- System widgets -->
-        <item name="android:activatedBackgroundIndicator">@drawable/activated_background_sg_light</item>
+        <item name="android:activatedBackgroundIndicator">@drawable/activated_background_sg_light
+        </item>
 
         <!-- Action bar -->
         <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
@@ -296,7 +304,8 @@
         <item name="selectableItemBackground">@drawable/list_selector_sg</item>
         <item name="sgBorderlessButtonBackground">@drawable/btn_borderless_sg</item>
 
-        <item name="android:borderlessButtonStyle">@style/Widget.SeriesGuide.Button.Borderless</item>
+        <item name="android:borderlessButtonStyle">@style/Widget.SeriesGuide.Button.Borderless
+        </item>
         <item name="android:listChoiceBackgroundIndicator">@drawable/list_selector_sg</item>
     </style>
 
@@ -310,7 +319,8 @@
         <item name="selectableItemBackground">@drawable/list_selector_dark</item>
         <item name="sgBorderlessButtonBackground">@drawable/btn_borderless_dark</item>
 
-        <item name="android:borderlessButtonStyle">@style/Widget.SeriesGuide.Button.Borderless</item>
+        <item name="android:borderlessButtonStyle">@style/Widget.SeriesGuide.Button.Borderless
+        </item>
         <item name="android:listChoiceBackgroundIndicator">@drawable/list_selector_dark</item>
     </style>
 
@@ -326,7 +336,8 @@
         <item name="selectableItemBackground">@drawable/list_selector_sg</item>
         <item name="sgBorderlessButtonBackground">@drawable/btn_borderless_sg_light</item>
 
-        <item name="android:borderlessButtonStyle">@style/Widget.SeriesGuide.Button.Borderless</item>
+        <item name="android:borderlessButtonStyle">@style/Widget.SeriesGuide.Button.Borderless
+        </item>
         <item name="android:listChoiceBackgroundIndicator">@drawable/list_selector_sg</item>
     </style>
 

@@ -2,9 +2,12 @@ package com.battlelancer.seriesguide.loaders;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
+
 import com.battlelancer.seriesguide.R;
 import com.uwetrottmann.trakt5.entities.HistoryEntry;
+
 import java.util.List;
+
 import retrofit2.Call;
 
 /**

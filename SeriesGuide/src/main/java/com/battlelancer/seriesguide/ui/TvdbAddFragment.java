@@ -14,8 +14,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.items.SearchResult;
@@ -25,15 +27,18 @@ import com.battlelancer.seriesguide.settings.TraktCredentials;
 import com.battlelancer.seriesguide.ui.dialogs.LanguageChoiceDialogFragment;
 import com.battlelancer.seriesguide.util.TaskManager;
 import com.battlelancer.seriesguide.widgets.EmptyView;
+
 import java.util.ArrayList;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
 import timber.log.Timber;
 
 public class TvdbAddFragment extends AddFragment {
 
-    public class ClearSearchHistoryEvent {
+    class ClearSearchHistoryEvent {
     }
 
     public static TvdbAddFragment newInstance() {
@@ -59,7 +64,7 @@ public class TvdbAddFragment extends AddFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_addshow_tvdb, container, false);
         unbinder = ButterKnife.bind(this, v);
 

@@ -2,6 +2,7 @@ package com.battlelancer.seriesguide.util.tasks;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.util.MovieTools;
@@ -9,6 +10,7 @@ import com.uwetrottmann.seriesguide.backend.movies.model.Movie;
 import com.uwetrottmann.trakt5.entities.SyncItems;
 import com.uwetrottmann.trakt5.entities.SyncResponse;
 import com.uwetrottmann.trakt5.services.Sync;
+
 import retrofit2.Call;
 
 public class RemoveMovieFromWatchlistTask extends BaseMovieActionTask {

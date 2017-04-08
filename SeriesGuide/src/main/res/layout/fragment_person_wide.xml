@@ -18,7 +18,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginRight="@dimen/large_padding"
+    android:layout_marginEnd="@dimen/large_padding"
     android:orientation="vertical"
     tools:context=".ui.PersonFragment">
 
@@ -49,8 +49,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/imageViewPersonHeadshot"
                 android:layout_marginBottom="@dimen/default_padding"
-                android:layout_marginLeft="@dimen/keyline"
-                android:layout_marginRight="@dimen/large_padding"
+                android:layout_marginStart="@dimen/keyline"
+                android:layout_marginEnd="@dimen/large_padding"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:shadowColor="@color/protection_dark"
@@ -71,8 +71,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/large_padding"
-                android:paddingLeft="@dimen/large_padding"
-                android:paddingRight="@dimen/keyline"
+                android:paddingStart="@dimen/large_padding"
+                android:paddingEnd="@dimen/keyline"
                 android:paddingTop="@dimen/large_padding">
 
                 <TextView

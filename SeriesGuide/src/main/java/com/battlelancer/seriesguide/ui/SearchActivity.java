@@ -26,8 +26,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.adapters.TabStripAdapter;
@@ -44,8 +46,10 @@ import com.battlelancer.seriesguide.util.ViewTools;
 import com.battlelancer.seriesguide.widgets.SlidingTabLayout;
 import com.google.android.gms.actions.SearchIntents;
 import com.uwetrottmann.androidutils.AndroidUtils;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -79,10 +83,10 @@ public class SearchActivity extends BaseNavDrawerActivity implements
      * Used by {@link ShowSearchFragment} and {@link EpisodeSearchFragment} to search as the user
      * types.
      */
-    public class SearchQueryEvent {
+    class SearchQueryEvent {
         public final Bundle args;
 
-        public SearchQueryEvent(Bundle args) {
+        SearchQueryEvent(Bundle args) {
             this.args = args;
         }
     }
@@ -91,19 +95,24 @@ public class SearchActivity extends BaseNavDrawerActivity implements
      * Used by {@link TvdbAddFragment} to submit a query. Unlike local search it is not type and
      * search.
      */
-    public class SearchQuerySubmitEvent {
+    class SearchQuerySubmitEvent {
         public final String query;
 
-        public SearchQuerySubmitEvent(String query) {
+        SearchQuerySubmitEvent(String query) {
             this.query = query;
         }
     }
 
-    @BindView(R.id.containerSearchBar) View searchContainer;
-    @BindView(R.id.editTextSearchBar) AutoCompleteTextView searchView;
-    @BindView(R.id.imageButtonSearchClear) View clearButton;
-    @BindView(R.id.tabsSearch) SlidingTabLayout tabs;
-    @BindView(R.id.pagerSearch) ViewPager viewPager;
+    @BindView(R.id.containerSearchBar)
+    View searchContainer;
+    @BindView(R.id.editTextSearchBar)
+    AutoCompleteTextView searchView;
+    @BindView(R.id.imageButtonSearchClear)
+    View clearButton;
+    @BindView(R.id.tabsSearch)
+    SlidingTabLayout tabs;
+    @BindView(R.id.pagerSearch)
+    ViewPager viewPager;
     private ProgressDialog progressDialog;
 
     private SearchHistory searchHistory;
@@ -178,7 +187,7 @@ public class SearchActivity extends BaseNavDrawerActivity implements
         // manually retrieve the auto complete view popup background to override the theme
         TypedValue outValue = new TypedValue();
         getTheme().resolveAttribute(android.R.attr.autoCompleteTextViewStyle, outValue, true);
-        int[] attributes = new int[] { android.R.attr.popupBackground };
+        int[] attributes = new int[]{android.R.attr.popupBackground};
         TypedArray a = getTheme().obtainStyledAttributes(outValue.data, attributes);
         if (a.hasValue(0)) {
             searchView.setDropDownBackgroundDrawable(a.getDrawable(0));
@@ -251,7 +260,7 @@ public class SearchActivity extends BaseNavDrawerActivity implements
     }
 
     private static void addTraktTab(TabStripAdapter tabsAdapter, @StringRes int titleResId,
-            @TraktAddFragment.ListType int type) {
+                                    @TraktAddFragment.ListType int type) {
         Bundle args = new Bundle();
         args.putInt(TraktAddFragment.ARG_TYPE, type);
         tabsAdapter.addTab(titleResId, TraktAddFragment.class, args);
@@ -379,7 +388,7 @@ public class SearchActivity extends BaseNavDrawerActivity implements
         if (showTvdbId <= 0) {
             // try to match trakt search URLs (the ones shared by this app)
             Pattern traktShowIdPattern =
-                    Pattern.compile("trakt\\.tv\\/search\\/tvdb\\/([0-9]*)\\?id_type=show");
+                    Pattern.compile("trakt\\.tv/search/tvdb/([0-9]*)\\?id_type=show");
             showTvdbId = matchShowTvdbId(traktShowIdPattern, sharedText);
         }
 

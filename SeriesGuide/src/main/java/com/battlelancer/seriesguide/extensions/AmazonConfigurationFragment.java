@@ -3,6 +3,7 @@ package com.battlelancer.seriesguide.extensions;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.PreferenceScreen;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.settings.AmazonSettings;
 import com.battlelancer.seriesguide.ui.BaseSettingsFragment;

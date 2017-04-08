@@ -3,6 +3,7 @@ package com.battlelancer.seriesguide.ui;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.view.ViewGroup;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.util.ThemeUtils;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
@@ -18,7 +19,6 @@ public class MovieDetailsActivity extends BaseNavDrawerActivity {
     public static int LOADER_ID_MOVIE = 100;
     public static int LOADER_ID_MOVIE_TRAILERS = 101;
     public static int LOADER_ID_MOVIE_CREDITS = 102;
-    public static int LOADER_ID_MOVIE_ACTIONS = 103;
 
     private SystemBarTintManager mSystemBarTintManager;
 

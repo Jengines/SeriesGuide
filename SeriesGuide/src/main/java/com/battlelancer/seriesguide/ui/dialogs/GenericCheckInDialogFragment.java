@@ -11,15 +11,18 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.settings.TraktCredentials;
 import com.battlelancer.seriesguide.settings.TraktSettings;
 import com.battlelancer.seriesguide.ui.SeriesGuidePreferences;
 import com.battlelancer.seriesguide.util.TraktTask;
 import com.battlelancer.seriesguide.util.Utils;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -46,11 +49,16 @@ public abstract class GenericCheckInDialogFragment extends AppCompatDialogFragme
     public class CheckInDialogDismissedEvent {
     }
 
-    @BindView(R.id.textInputLayoutCheckIn) TextInputLayout textInputLayout;
-    @BindView(R.id.buttonCheckIn) View buttonCheckIn;
-    @BindView(R.id.buttonCheckInPasteTitle) View buttonPasteTitle;
-    @BindView(R.id.buttonCheckInClear) View buttonClear;
-    @BindView(R.id.progressBarCheckIn) View progressBar;
+    @BindView(R.id.textInputLayoutCheckIn)
+    TextInputLayout textInputLayout;
+    @BindView(R.id.buttonCheckIn)
+    View buttonCheckIn;
+    @BindView(R.id.buttonCheckInPasteTitle)
+    View buttonPasteTitle;
+    @BindView(R.id.buttonCheckInClear)
+    View buttonClear;
+    @BindView(R.id.progressBarCheckIn)
+    View progressBar;
 
     private Unbinder unbinder;
 
@@ -70,7 +78,7 @@ public abstract class GenericCheckInDialogFragment extends AppCompatDialogFragme
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.dialog_checkin, container, false);
         unbinder = ButterKnife.bind(this, v);
 

@@ -16,8 +16,8 @@
         android:fastScrollEnabled="true"
         android:nestedScrollingEnabled="true"
         android:paddingBottom="@dimen/grid_topbottom_padding"
-        android:paddingLeft="@dimen/keyline"
-        android:paddingRight="@dimen/search_padding_right"
+        android:paddingStart="@dimen/keyline"
+        android:paddingEnd="@dimen/search_padding_right"
         android:paddingTop="@dimen/grid_topbottom_padding"
         android:scrollbarStyle="outsideOverlay"
         tools:ignore="UnusedAttribute" />

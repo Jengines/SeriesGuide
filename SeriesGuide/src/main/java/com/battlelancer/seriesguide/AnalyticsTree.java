@@ -4,9 +4,11 @@ import android.content.Context;
 import android.database.sqlite.SQLiteException;
 import android.support.annotation.Nullable;
 import android.util.Log;
+
 import com.battlelancer.seriesguide.thetvdbapi.TvdbException;
 import com.battlelancer.seriesguide.util.Utils;
 import com.crashlytics.android.Crashlytics;
+
 import timber.log.Timber;
 
 /**
@@ -19,7 +21,7 @@ public class AnalyticsTree extends Timber.DebugTree {
 
     private final Context context;
 
-    public AnalyticsTree(Context context) {
+    AnalyticsTree(Context context) {
         this.context = context.getApplicationContext();
     }
 

@@ -29,12 +29,13 @@ import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ListAdapter;
 import android.widget.WrapperListAdapter;
+
 import java.util.ArrayList;
 
 /**
  * A {@link GridView} that supports adding header rows. See {@link HeaderGridView#addHeaderView(View,
  * Object, boolean)}.
- *
+ * <p>
  * A copy from https://android.googlesource.com/platform/packages/apps/Gallery2/+/master/src/com/android/photos/views/HeaderGridView.java
  * adapted for this app.
  */
@@ -45,13 +46,19 @@ public class HeaderGridView extends GridView {
      * at the bottom.
      */
     private static class FixedViewInfo {
-        /** The view to add to the grid */
+        /**
+         * The view to add to the grid
+         */
         public View view;
-        public ViewGroup viewContainer;
-        /** The data backing the view. This is returned from {@link ListAdapter#getItem(int)}. */
+        ViewGroup viewContainer;
+        /**
+         * The data backing the view. This is returned from {@link ListAdapter#getItem(int)}.
+         */
         public Object data;
-        /** <code>true</code> if the fixed view should be selectable in the grid */
-        public boolean isSelectable;
+        /**
+         * <code>true</code> if the fixed view should be selectable in the grid
+         */
+        boolean isSelectable;
     }
 
     private ArrayList<FixedViewInfo> mHeaderViewInfos = new ArrayList<>();
@@ -95,8 +102,8 @@ public class HeaderGridView extends GridView {
      * focus if they want. <p> NOTE: Call this before calling setAdapter. This is so HeaderGridView
      * can wrap the supplied cursor with one that will also account for header views.
      *
-     * @param v The view to add.
-     * @param data Data to associate with this view
+     * @param v            The view to add.
+     * @param data         Data to associate with this view
      * @param isSelectable whether the item is selectable
      */
     public void addHeaderView(View v, Object data, boolean isSelectable) {
@@ -130,10 +137,6 @@ public class HeaderGridView extends GridView {
      */
     public void addHeaderView(View v) {
         addHeaderView(v, null, true);
-    }
-
-    public int getHeaderViewCount() {
-        return mHeaderViewInfos.size();
     }
 
     /**
@@ -213,8 +216,8 @@ public class HeaderGridView extends GridView {
         boolean mAreAllFixedViewsSelectable;
         private final boolean mIsFilterable;
 
-        public HeaderViewGridAdapter(ArrayList<FixedViewInfo> headerViewInfos,
-                ListAdapter adapter) {
+        HeaderViewGridAdapter(ArrayList<FixedViewInfo> headerViewInfos,
+                              ListAdapter adapter) {
             mAdapter = adapter;
             mIsFilterable = adapter instanceof Filterable;
             if (headerViewInfos == null) {
@@ -224,7 +227,7 @@ public class HeaderGridView extends GridView {
             mAreAllFixedViewsSelectable = areAllListInfosSelectable(mHeaderViewInfos);
         }
 
-        public int getHeadersCount() {
+        int getHeadersCount() {
             return mHeaderViewInfos.size();
         }
 
@@ -233,7 +236,7 @@ public class HeaderGridView extends GridView {
             return (mAdapter == null || mAdapter.isEmpty()) && getHeadersCount() == 0;
         }
 
-        public void setNumColumns(int numColumns) {
+        void setNumColumns(int numColumns) {
             if (numColumns < 1) {
                 throw new IllegalArgumentException("Number of columns must be 1 or more");
             }
@@ -254,7 +257,7 @@ public class HeaderGridView extends GridView {
             return true;
         }
 
-        public boolean removeHeader(View v) {
+        boolean removeHeader(View v) {
             for (int i = 0; i < mHeaderViewInfos.size(); i++) {
                 FixedViewInfo info = mHeaderViewInfos.get(i);
                 if (info.view == v) {
@@ -278,11 +281,7 @@ public class HeaderGridView extends GridView {
 
         @Override
         public boolean areAllItemsEnabled() {
-            if (mAdapter != null) {
-                return mAreAllFixedViewsSelectable && mAdapter.areAllItemsEnabled();
-            } else {
-                return true;
-            }
+            return mAdapter == null || mAreAllFixedViewsSelectable && mAdapter.areAllItemsEnabled();
         }
 
         @Override
@@ -295,7 +294,7 @@ public class HeaderGridView extends GridView {
             }
             // Adapter
             final int adjPosition = position - numHeadersAndPlaceholders;
-            int adapterCount = 0;
+            int adapterCount;
             if (mAdapter != null) {
                 adapterCount = mAdapter.getCount();
                 if (adjPosition < adapterCount) {
@@ -317,7 +316,7 @@ public class HeaderGridView extends GridView {
             }
             // Adapter
             final int adjPosition = position - numHeadersAndPlaceholders;
-            int adapterCount = 0;
+            int adapterCount;
             if (mAdapter != null) {
                 adapterCount = mAdapter.getCount();
                 if (adjPosition < adapterCount) {
@@ -342,10 +341,7 @@ public class HeaderGridView extends GridView {
 
         @Override
         public boolean hasStableIds() {
-            if (mAdapter != null) {
-                return mAdapter.hasStableIds();
-            }
-            return false;
+            return mAdapter != null && mAdapter.hasStableIds();
         }
 
         @Override
@@ -370,7 +366,7 @@ public class HeaderGridView extends GridView {
             }
             // Adapter
             final int adjPosition = position - numHeadersAndPlaceholders;
-            int adapterCount = 0;
+            int adapterCount;
             if (mAdapter != null) {
                 adapterCount = mAdapter.getCount();
                 if (adjPosition < adapterCount) {
@@ -434,7 +430,7 @@ public class HeaderGridView extends GridView {
             return mAdapter;
         }
 
-        public void notifyDataSetChanged() {
+        void notifyDataSetChanged() {
             mDataSetObservable.notifyChanged();
         }
     }

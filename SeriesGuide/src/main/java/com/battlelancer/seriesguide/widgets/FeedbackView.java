@@ -12,9 +12,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
 import butterknife.ButterKnife;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.util.Utils;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -31,9 +34,9 @@ public class FeedbackView extends FrameLayout {
         void onDismiss();
     }
 
-    @IntDef({ Question.ENJOY, Question.RATE, Question.FEEDBACK })
+    @IntDef({Question.ENJOY, Question.RATE, Question.FEEDBACK})
     @Retention(RetentionPolicy.SOURCE)
-    public @interface Question {
+    @interface Question {
         int ENJOY = 0;
         int RATE = 1;
         int FEEDBACK = 2;
@@ -48,8 +51,10 @@ public class FeedbackView extends FrameLayout {
     private Button negativeButton;
     private Button positiveButton;
 
-    @Nullable private Callback callback;
-    @Question private int question;
+    @Nullable
+    private Callback callback;
+    @Question
+    private int question;
 
     public FeedbackView(Context context) {
         this(context, null);
@@ -148,7 +153,7 @@ public class FeedbackView extends FrameLayout {
         }
     }
 
-    static class SavedState extends BaseSavedState {
+    private static class SavedState extends BaseSavedState {
         int question;
 
         SavedState(Parcelable superState) {

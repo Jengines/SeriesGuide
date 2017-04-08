@@ -71,7 +71,7 @@
         android:layout_marginLeft="@dimen/padding_button"
         android:layout_marginRight="@dimen/padding_button"
         android:contentDescription="@string/checkin"
-        android:drawableLeft="?attr/drawableCheckin"
+        android:drawableStart="?attr/drawableCheckin"
         android:drawablePadding="8dp"
         android:gravity="center_vertical|start"
         android:text="@string/checkin" />

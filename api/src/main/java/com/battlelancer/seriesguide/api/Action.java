@@ -3,7 +3,9 @@ package com.battlelancer.seriesguide.api;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+
 import java.net.URISyntaxException;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,7 +43,7 @@ public class Action {
      * Returns an identifier unique within the entity type. E.g. for episodes the TVDb id.
      * Extensions may use it to determine if there was an action already built for this
      * entity and consequently just re-send it.
-     *
+     * <p>
      * <p> SeriesGuide will use the identifier to match a published action to its request, e.g. which
      * episode the action belongs to.
      */
@@ -79,7 +81,7 @@ public class Action {
          * Sets the (optional) activity {@link Intent} that will be {@linkplain
          * android.content.Context#startActivity(Intent)
          * started} when the user clicks the button for the action.
-         *
+         * <p>
          * <p> The activity that this intent resolves to must have <code>android:exported</code> set
          * to <code>true</code>.
          */
@@ -133,7 +135,7 @@ public class Action {
     /**
      * Serializes this {@link Action} object to a {@link org.json.JSONObject} representation.
      */
-    public JSONObject toJson() throws JSONException {
+    JSONObject toJson() throws JSONException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(KEY_TITLE, mTitle);
         jsonObject.put(KEY_VIEW_INTENT, (mViewIntent != null)
@@ -145,7 +147,7 @@ public class Action {
     /**
      * Deserializes a {@link JSONObject} into an {@link Action} object.
      */
-    public static Action fromJson(JSONObject jsonObject) throws JSONException {
+    static Action fromJson(JSONObject jsonObject) throws JSONException {
         String title = jsonObject.optString(KEY_TITLE);
         if (TextUtils.isEmpty(title)) {
             return null;

@@ -22,11 +22,11 @@ public class TraktOAuthSettings {
 
     /**
      * @param refreshToken The trakt refresh token.
-     * @param expiresIn The trakt access token expires duration in seconds.
+     * @param expiresIn    The trakt access token expires duration in seconds.
      * @return Returns true if the new values were successfully written to persistent storage.
      */
     public static boolean storeRefreshData(Context context, @NonNull String refreshToken,
-            long expiresIn) {
+                                           long expiresIn) {
         return getSettings(context).edit()
                 .putString(KEY_REFRESH_TOKEN, refreshToken)
                 .putLong(KEY_ACCESS_TOKEN_EXPIRY_DATE,

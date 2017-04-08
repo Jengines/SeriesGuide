@@ -6,15 +6,18 @@ import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+
 import com.battlelancer.seriesguide.Constants;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.enums.EpisodeFlags;
 import com.battlelancer.seriesguide.util.DBUtils;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 public class SeriesGuideContract {
 
+    @SuppressWarnings("unused")
     interface ShowsColumns {
 
         /**
@@ -79,7 +82,7 @@ public class SeriesGuideContract {
         /**
          * Release date of the first episode. Encoded as ISO 8601 datetime string. Might be a legacy
          * value which only includes the date.
-         *
+         * <p>
          * <pre>
          * Example: "2008-01-20T02:00:00.000Z"
          * Default: ""
@@ -89,7 +92,7 @@ public class SeriesGuideContract {
 
         /**
          * Local release time. Encoded as integer (hhmm).
-         *
+         * <p>
          * <pre>
          * Example: 2035
          * Default: -1
@@ -109,24 +112,24 @@ public class SeriesGuideContract {
 
         /**
          * Release time zone. Encoded as tzdata "Area/Location" string.
-         *
+         * <p>
          * <pre>
          * Example: "America/New_York"
          * Default: ""
          * </pre>
-         *
+         * <p>
          * <p> Added with {@link com.battlelancer.seriesguide.provider.SeriesGuideDatabase#DBVER_34_TRAKT_V2}.
          */
         String RELEASE_TIMEZONE = "series_timezone";
 
         /**
          * Release country. Encoded as ISO3166-1 alpha-2 string.
-         *
+         * <p>
          * <pre>
          * Example: "us"
          * Default: ""
          * </pre>
-         *
+         * <p>
          * <p> Previous use: Was added in db version 21 to store the air time in pure text.
          */
         String RELEASE_COUNTRY = "series_airtime";
@@ -141,7 +144,7 @@ public class SeriesGuideContract {
         /**
          * The trakt id of this show. Encoded as integer. Note: for simplification, the trakt id
          * might be handled as a String within the app.
-         *
+         * <p>
          * <pre>
          * Range:   integer
          * Default: 0 (unknown)
@@ -161,7 +164,7 @@ public class SeriesGuideContract {
 
         /**
          * Whether this show was merged with data on Hexagon after signing in the last time.
-         *
+         * <p>
          * <pre>
          * Range: 0-1
          * Default: 1
@@ -171,7 +174,7 @@ public class SeriesGuideContract {
 
         /**
          * Next episode TheTVDB id.
-         *
+         * <p>
          * <pre>
          * Example: "42"
          * Default: ""
@@ -181,7 +184,7 @@ public class SeriesGuideContract {
 
         /**
          * Next episode text.
-         *
+         * <p>
          * <pre>
          * Example: "0x12 Episode Name"
          * Default: ""
@@ -196,19 +199,19 @@ public class SeriesGuideContract {
 
         /**
          * Next episode release time instant. See {@link Episodes#FIRSTAIREDMS}.
-         *
+         * <p>
          * <pre>
          * Range:   long
          * Default: {@link com.battlelancer.seriesguide.util.DBUtils#UNKNOWN_NEXT_RELEASE_DATE}
          * </pre>
-         *
+         * <p>
          * <p> Added in db version 25 to allow correct sorting by next air date.
          */
         String NEXTAIRDATEMS = "series_nextairdate";
 
         /**
          * Next episode release time formatted as text.
-         *
+         * <p>
          * <pre>
          * Example: "Apr 2 (Mon)"
          * Default: ""
@@ -247,7 +250,7 @@ public class SeriesGuideContract {
 
         /**
          * Language the show should be downloaded in, in two letter ISO 639-1 format.
-         *
+         * <p>
          * <pre>
          * Example: "de"
          * Default: "" (should fall back to English then)
@@ -336,13 +339,19 @@ public class SeriesGuideContract {
 
         String DIRECTORS = "directors";
 
-        /** See {@link ShowsColumns#RATING_GLOBAL}. */
+        /**
+         * See {@link ShowsColumns#RATING_GLOBAL}.
+         */
         String RATING_GLOBAL = "rating";
 
-        /** See {@link ShowsColumns#RATING_VOTES}. */
+        /**
+         * See {@link ShowsColumns#RATING_VOTES}.
+         */
         String RATING_VOTES = "episode_rating_votes";
 
-        /** See {@link ShowsColumns#RATING_USER}. */
+        /**
+         * See {@link ShowsColumns#RATING_USER}.
+         */
         String RATING_USER = "episode_rating_user";
 
         /**
@@ -353,11 +362,11 @@ public class SeriesGuideContract {
 
         /**
          * First aired date in ms.
-         *
+         * <p>
          * <p>This date time is based on the shows release time and time zone at the time this
          * episode was last updated. It includes country and time zone specific offsets (currently
          * only for US western time zones). It does NOT include the user-set offset.
-         *
+         * <p>
          * <pre>
          * Range:   long
          * Default: {@link Constants#EPISODE_UNKNOWN_RELEASE}
@@ -434,7 +443,7 @@ public class SeriesGuideContract {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    @IntDef({ ListItemTypes.SHOW, ListItemTypes.SEASON, ListItemTypes.EPISODE })
+    @IntDef({ListItemTypes.SHOW, ListItemTypes.SEASON, ListItemTypes.EPISODE})
     public @interface ListItemTypes {
         int SHOW = 1;
         int SEASON = 2;
@@ -508,7 +517,9 @@ public class SeriesGuideContract {
 
         String RATING_VOTES_TRAKT = "movies_rating_votes_trakt";
 
-        /** See {@link ShowsColumns#RATING_USER}. */
+        /**
+         * See {@link ShowsColumns#RATING_USER}.
+         */
         String RATING_USER = "movies_rating_user";
 
         String LAST_UPDATED = "movies_last_updated";
@@ -526,41 +537,41 @@ public class SeriesGuideContract {
     private static final Uri BASE_CONTENT_URI = Uri.parse("content://"
             + SgApp.CONTENT_AUTHORITY);
 
-    public static final String PATH_SHOWS = "shows";
+    static final String PATH_SHOWS = "shows";
 
-    public static final String PATH_SEASONS = "seasons";
+    static final String PATH_SEASONS = "seasons";
 
-    public static final String PATH_EPISODES = "episodes";
+    static final String PATH_EPISODES = "episodes";
 
-    public static final String PATH_OFSHOW = "ofshow";
+    static final String PATH_OFSHOW = "ofshow";
 
-    public static final String PATH_OFSEASON = "ofseason";
+    static final String PATH_OFSEASON = "ofseason";
 
-    public static final String PATH_EPISODESEARCH = "episodesearch";
+    static final String PATH_EPISODESEARCH = "episodesearch";
 
-    public static final String PATH_WITHSHOW = "withshow";
+    static final String PATH_WITHSHOW = "withshow";
 
-    public static final String PATH_RENEWFTSTABLE = "renewftstable";
+    static final String PATH_RENEWFTSTABLE = "renewftstable";
 
-    public static final String PATH_SEARCH = "search";
+    static final String PATH_SEARCH = "search";
 
-    public static final String PATH_FILTER = "filter";
+    static final String PATH_FILTER = "filter";
 
-    public static final String PATH_LISTS = "lists";
+    static final String PATH_LISTS = "lists";
 
-    public static final String PATH_WITH_LIST_ITEM_ID = "with_list_item";
+    static final String PATH_WITH_LIST_ITEM_ID = "with_list_item";
 
-    public static final String PATH_LIST_ITEMS = "listitems";
+    static final String PATH_LIST_ITEMS = "listitems";
 
-    public static final String PATH_WITH_DETAILS = "with_details";
+    static final String PATH_WITH_DETAILS = "with_details";
 
-    public static final String PATH_WITH_NEXT_EPISODE = "with-next-episode";
+    static final String PATH_WITH_NEXT_EPISODE = "with-next-episode";
 
-    public static final String PATH_WITH_LAST_EPISODE = "with-last-episode";
+    static final String PATH_WITH_LAST_EPISODE = "with-last-episode";
 
-    public static final String PATH_MOVIES = "movies";
+    static final String PATH_MOVIES = "movies";
 
-    public static final String PATH_ACTIVITY = "activity";
+    static final String PATH_ACTIVITY = "activity";
 
     public static class Shows implements ShowsColumns, BaseColumns {
 
@@ -583,12 +594,12 @@ public class SeriesGuideContract {
         /**
          * Use if multiple items get returned
          */
-        public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.seriesguide.show";
+        static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.seriesguide.show";
 
         /**
          * Use if a single item is returned
          */
-        public static final String CONTENT_ITEM_TYPE
+        static final String CONTENT_ITEM_TYPE
                 = "vnd.android.cursor.item/vnd.seriesguide.show";
 
         public static final String SORT_TITLE = Shows.TITLE + " COLLATE NOCASE ASC";
@@ -613,7 +624,7 @@ public class SeriesGuideContract {
             return buildShowUri(String.valueOf(showTvdbId));
         }
 
-        public static String getShowId(Uri uri) {
+        static String getShowId(Uri uri) {
             return uri.getLastPathSegment();
         }
     }
@@ -629,12 +640,12 @@ public class SeriesGuideContract {
         /**
          * Use if multiple items get returned
          */
-        public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.seriesguide.episode";
+        static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.seriesguide.episode";
 
         /**
          * Use if a single item is returned
          */
-        public static final String CONTENT_ITEM_TYPE
+        static final String CONTENT_ITEM_TYPE
                 = "vnd.android.cursor.item/vnd.seriesguide.episode";
 
         public static final String SELECTION_UNWATCHED = Episodes.WATCHED + "="
@@ -691,7 +702,7 @@ public class SeriesGuideContract {
             return buildEpisodeUri(String.valueOf(episodeId));
         }
 
-        public static String getEpisodeId(Uri uri) {
+        static String getEpisodeId(Uri uri) {
             return uri.getLastPathSegment();
         }
 
@@ -733,12 +744,12 @@ public class SeriesGuideContract {
         /**
          * Use if multiple items get returned
          */
-        public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.seriesguide.season";
+        static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.seriesguide.season";
 
         /**
          * Use if a single item is returned
          */
-        public static final String CONTENT_ITEM_TYPE
+        static final String CONTENT_ITEM_TYPE
                 = "vnd.android.cursor.item/vnd.seriesguide.season";
 
         public static Uri buildSeasonUri(String seasonTvdbId) {
@@ -749,7 +760,7 @@ public class SeriesGuideContract {
             return buildSeasonUri(String.valueOf(seasonTvdbId));
         }
 
-        public static String getSeasonId(Uri uri) {
+        static String getSeasonId(Uri uri) {
             return uri.getLastPathSegment();
         }
 
@@ -777,7 +788,7 @@ public class SeriesGuideContract {
             return CONTENT_URI.buildUpon().appendPath(rowId).build();
         }
 
-        public static String getDocId(Uri uri) {
+        static String getDocId(Uri uri) {
             return uri.getLastPathSegment();
         }
     }
@@ -787,19 +798,19 @@ public class SeriesGuideContract {
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_LISTS)
                 .build();
 
-        public static final Uri CONTENT_WITH_LIST_ITEM_URI = CONTENT_URI.buildUpon()
+        static final Uri CONTENT_WITH_LIST_ITEM_URI = CONTENT_URI.buildUpon()
                 .appendPath(PATH_WITH_LIST_ITEM_ID)
                 .build();
 
         /**
          * Use if multiple items get returned
          */
-        public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.seriesguide.list";
+        static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.seriesguide.list";
 
         /**
          * Use if a single item is returned
          */
-        public static final String CONTENT_ITEM_TYPE
+        static final String CONTENT_ITEM_TYPE
                 = "vnd.android.cursor.item/vnd.seriesguide.list";
 
         public static final String SORT_ORDER_THEN_NAME = Lists.ORDER + " ASC," + Lists.NAME
@@ -836,18 +847,18 @@ public class SeriesGuideContract {
         /**
          * Use if multiple items get returned
          */
-        public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.seriesguide.listitem";
+        static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.seriesguide.listitem";
 
         /**
          * Use if a single item is returned
          */
-        public static final String CONTENT_ITEM_TYPE
+        static final String CONTENT_ITEM_TYPE
                 = "vnd.android.cursor.item/vnd.seriesguide.listitem";
 
         public static final String SELECTION_LIST = Lists.LIST_ID + "=?";
-        public static final String SELECTION_SHOWS = ListItems.TYPE + "=" + ListItemTypes.SHOW;
-        public static final String SELECTION_SEASONS = ListItems.TYPE + "=" + ListItemTypes.SEASON;
-        public static final String SELECTION_EPISODES = ListItems.TYPE + "="
+        static final String SELECTION_SHOWS = ListItems.TYPE + "=" + ListItemTypes.SHOW;
+        static final String SELECTION_SEASONS = ListItems.TYPE + "=" + ListItemTypes.SEASON;
+        static final String SELECTION_EPISODES = ListItems.TYPE + "="
                 + ListItemTypes.EPISODE;
 
         public static final String SORT_TYPE = ListItems.TYPE + " ASC";
@@ -912,7 +923,9 @@ public class SeriesGuideContract {
 
         public static final String SELECTION_UNWATCHED = Movies.WATCHED + "=0";
 
-        /** Default sort order. */
+        /**
+         * Default sort order.
+         */
         public static final String SORT_TITLE_ALPHABETICAL = Movies.TITLE + " COLLATE NOCASE ASC";
 
         public static final String SORT_TITLE_ALPHABETICAL_NO_ARTICLE = Movies.TITLE_NOARTICLE
@@ -933,12 +946,12 @@ public class SeriesGuideContract {
         /**
          * Use if multiple items get returned
          */
-        public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.seriesguide.movie";
+        static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.seriesguide.movie";
 
         /**
          * Use if a single item is returned
          */
-        public static final String CONTENT_ITEM_TYPE
+        static final String CONTENT_ITEM_TYPE
                 = "vnd.android.cursor.item/vnd.seriesguide.movie";
 
         public static Uri buildMovieUri(Integer tmdbId) {
@@ -959,11 +972,11 @@ public class SeriesGuideContract {
         /**
          * Use if multiple items get returned
          */
-        public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.seriesguide.activity";
+        static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.seriesguide.activity";
 
         public static final String SORT_LATEST = Activity.TIMESTAMP_MS + " DESC";
 
-        public static Uri buildActivityUri(String episodeTvdbId) {
+        static Uri buildActivityUri(String episodeTvdbId) {
             return CONTENT_URI.buildUpon().appendPath(episodeTvdbId).build();
         }
     }

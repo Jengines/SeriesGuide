@@ -2,6 +2,7 @@ package com.battlelancer.seriesguide.settings;
 
 import android.content.Context;
 import android.preference.PreferenceManager;
+
 import com.battlelancer.seriesguide.provider.SeriesGuideContract;
 import com.battlelancer.seriesguide.settings.ShowsDistillationSettings.ShowsSortOrder;
 

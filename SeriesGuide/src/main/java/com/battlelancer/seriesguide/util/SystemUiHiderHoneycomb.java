@@ -13,7 +13,7 @@ import android.view.WindowManager;
  * show and hide the system UI.
  */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class SystemUiHiderHoneycomb extends SystemUiHiderBase {
+class SystemUiHiderHoneycomb extends SystemUiHiderBase {
     /**
      * Flags for {@link View#setSystemUiVisibility(int)} to use when showing the
      * system UI.
@@ -44,7 +44,7 @@ public class SystemUiHiderHoneycomb extends SystemUiHiderBase {
      * {@link SystemUiHider#getInstance} to obtain an instance.
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    protected SystemUiHiderHoneycomb(AppCompatActivity activity, View anchorView, int flags) {
+    SystemUiHiderHoneycomb(AppCompatActivity activity, View anchorView, int flags) {
         super(activity, anchorView, flags);
 
         mShowFlags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
@@ -69,25 +69,33 @@ public class SystemUiHiderHoneycomb extends SystemUiHiderBase {
         }
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setup() {
         mAnchorView.setOnSystemUiVisibilityChangeListener(mSystemUiVisibilityChangeListener);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void hide() {
         mAnchorView.setSystemUiVisibility(mHideFlags);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void show() {
         mAnchorView.setSystemUiVisibility(mShowFlags);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isVisible() {
         return mVisible;

@@ -14,8 +14,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.ui.SeasonsFragment.SeasonsQuery;
 import com.battlelancer.seriesguide.util.SeasonTools;
@@ -116,12 +118,18 @@ public class SeasonsAdapter extends CursorAdapter {
 
     static class ViewHolder {
 
-        @BindView(R.id.textViewSeasonTitle) TextView seasonTitle;
-        @BindView(R.id.textViewSeasonProgress) TextView seasonProgress;
-        @BindView(R.id.progressBarSeason) ProgressBar seasonProgressBar;
-        @BindView(R.id.textViewSeasonWatchCount) TextView seasonWatchCount;
-        @BindView(R.id.imageViewSeasonSkipped) View seasonSkipped;
-        @BindView(R.id.imageViewContextMenu) ImageView contextMenu;
+        @BindView(R.id.textViewSeasonTitle)
+        TextView seasonTitle;
+        @BindView(R.id.textViewSeasonProgress)
+        TextView seasonProgress;
+        @BindView(R.id.progressBarSeason)
+        ProgressBar seasonProgressBar;
+        @BindView(R.id.textViewSeasonWatchCount)
+        TextView seasonWatchCount;
+        @BindView(R.id.imageViewSeasonSkipped)
+        View seasonSkipped;
+        @BindView(R.id.imageViewContextMenu)
+        ImageView contextMenu;
 
         public ViewHolder(View itemView) {
             ButterKnife.bind(this, itemView);

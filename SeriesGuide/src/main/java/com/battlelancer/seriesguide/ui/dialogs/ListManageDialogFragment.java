@@ -15,9 +15,11 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract.Lists;
@@ -59,10 +61,13 @@ public class ListManageDialogFragment extends AppCompatDialogFragment {
         newFragment.show(ft, "listmanagedialog");
     }
 
-    @BindView(R.id.textInputLayoutListManageListName) TextInputLayout textInputLayoutName;
+    @BindView(R.id.textInputLayoutListManageListName)
+    TextInputLayout textInputLayoutName;
     private EditText editTextName;
-    @BindView(R.id.buttonNegative) Button buttonNegative;
-    @BindView(R.id.buttonPositive) Button buttonPositive;
+    @BindView(R.id.buttonNegative)
+    Button buttonNegative;
+    @BindView(R.id.buttonPositive)
+    Button buttonPositive;
 
     private Unbinder unbinder;
     private String listId;
@@ -79,7 +84,7 @@ public class ListManageDialogFragment extends AppCompatDialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         final View layout = inflater.inflate(R.layout.dialog_list_manage, container, false);
         unbinder = ButterKnife.bind(this, layout);
 
@@ -122,7 +127,7 @@ public class ListManageDialogFragment extends AppCompatDialogFragment {
 
         // pre-populate list title
         final Cursor list = getActivity().getContentResolver()
-                .query(Lists.buildListUri(listId), new String[] {
+                .query(Lists.buildListUri(listId), new String[]{
                         Lists.NAME
                 }, null, null, null);
         if (list == null) {
@@ -145,7 +150,7 @@ public class ListManageDialogFragment extends AppCompatDialogFragment {
 
         // do only allow removing if this is NOT the last list
         Cursor lists = getActivity().getContentResolver().query(Lists.CONTENT_URI,
-                new String[] {
+                new String[]{
                         Lists._ID
                 }, null, null, null);
         if (lists != null) {

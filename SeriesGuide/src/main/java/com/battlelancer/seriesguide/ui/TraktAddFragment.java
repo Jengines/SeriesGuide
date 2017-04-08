@@ -12,8 +12,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.items.SearchResult;
@@ -21,11 +23,13 @@ import com.battlelancer.seriesguide.loaders.TraktAddLoader;
 import com.battlelancer.seriesguide.util.ShowTools;
 import com.battlelancer.seriesguide.util.TaskManager;
 import com.battlelancer.seriesguide.widgets.EmptyView;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -46,9 +50,9 @@ public class TraktAddFragment extends AddFragment {
     public final static int TYPE_COLLECTION = 2;
     public final static int TYPE_WATCHLIST = 3;
 
-    @IntDef({ TYPE_RECOMMENDED, TYPE_WATCHED, TYPE_COLLECTION, TYPE_WATCHLIST })
+    @IntDef({TYPE_RECOMMENDED, TYPE_WATCHED, TYPE_COLLECTION, TYPE_WATCHLIST})
     @Retention(RetentionPolicy.SOURCE)
-    public @interface ListType {
+    @interface ListType {
     }
 
     private Unbinder unbinder;
@@ -63,7 +67,7 @@ public class TraktAddFragment extends AddFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_addshow_trakt, container, false);
         unbinder = ButterKnife.bind(this, v);
 
@@ -118,12 +122,12 @@ public class TraktAddFragment extends AddFragment {
         }
     };
 
-    public static class AddItemMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
+    static class AddItemMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
 
         private final SgApp app;
         private final int showTvdbId;
 
-        public AddItemMenuItemClickListener(SgApp app, int showTvdbId) {
+        AddItemMenuItemClickListener(SgApp app, int showTvdbId) {
             this.app = app;
             this.showTvdbId = showTvdbId;
         }
@@ -227,7 +231,7 @@ public class TraktAddFragment extends AddFragment {
 
         @Override
         public void onLoadFinished(Loader<TraktAddLoader.Result> loader,
-                TraktAddLoader.Result data) {
+                                   TraktAddLoader.Result data) {
             if (!isAdded()) {
                 return;
             }

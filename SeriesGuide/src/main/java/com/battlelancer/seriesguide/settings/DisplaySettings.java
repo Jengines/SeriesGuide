@@ -5,9 +5,11 @@ import android.content.res.Configuration;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+
 import com.battlelancer.seriesguide.Constants;
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.ui.ShowsActivity;
+
 import java.util.Locale;
 
 /**
@@ -65,6 +67,7 @@ public class DisplaySettings {
     /**
      * Returns true for xlarge, xlarge-land or sw720dp screens.
      */
+    @SuppressWarnings("unused")
     public static boolean isVeryLargeScreen(Context context) {
         return context.getResources().getBoolean(R.bool.isLargeTablet);
     }
@@ -72,6 +75,7 @@ public class DisplaySettings {
     /**
      * Returns true if this is a large screen.
      */
+    @SuppressWarnings("unused")
     public static boolean isLargeScreen(Context context) {
         return (context.getResources().getConfiguration().screenLayout
                 & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE;

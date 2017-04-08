@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.widget.Toast;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.backend.HexagonTools;
@@ -17,7 +18,9 @@ import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.uwetrottmann.seriesguide.backend.account.Account;
+
 import java.io.IOException;
+
 import org.greenrobot.eventbus.EventBus;
 
 /**
@@ -60,11 +63,11 @@ public class RemoveCloudAccountDialogFragment extends AppCompatDialogFragment {
         EventBus.getDefault().post(new CanceledEvent());
     }
 
-    public static class RemoveHexagonAccountTask extends AsyncTask<Void, Void, Boolean> {
+    private static class RemoveHexagonAccountTask extends AsyncTask<Void, Void, Boolean> {
 
         private final SgApp app;
 
-        public RemoveHexagonAccountTask(SgApp app) {
+        RemoveHexagonAccountTask(SgApp app) {
             this.app = app;
         }
 
@@ -111,13 +114,13 @@ public class RemoveCloudAccountDialogFragment extends AppCompatDialogFragment {
         }
     }
 
-    public static class CanceledEvent {
+    private static class CanceledEvent {
     }
 
     public static class AccountRemovedEvent {
         public final boolean successful;
 
-        public AccountRemovedEvent(boolean successful) {
+        AccountRemovedEvent(boolean successful) {
             this.successful = successful;
         }
 

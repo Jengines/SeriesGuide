@@ -12,22 +12,26 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+
 import butterknife.ButterKnife;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.settings.DisplaySettings;
 import com.battlelancer.seriesguide.util.TaskManager;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
 import org.greenrobot.eventbus.EventBus;
 
 public class FirstRunView extends CardView {
 
     private static final String PREF_KEY_FIRSTRUN = "accepted_eula";
 
-    @IntDef({ ButtonType.DISMISS,
+    @IntDef({ButtonType.DISMISS,
             ButtonType.ADD_SHOW,
             ButtonType.SIGN_IN,
-            ButtonType.RESTORE_BACKUP })
+            ButtonType.RESTORE_BACKUP})
     @Retention(RetentionPolicy.SOURCE)
     public @interface ButtonType {
         int DISMISS = 0;
@@ -38,9 +42,10 @@ public class FirstRunView extends CardView {
 
     public static class ButtonEvent {
         public final FirstRunView firstRunView;
-        @ButtonType public final int type;
+        @ButtonType
+        public final int type;
 
-        public ButtonEvent(FirstRunView firstRunView, @ButtonType int type) {
+        ButtonEvent(FirstRunView firstRunView, @ButtonType int type) {
             this.firstRunView = firstRunView;
             this.type = type;
         }

@@ -10,6 +10,7 @@ import android.support.v4.app.ShareCompat;
 import android.support.v4.app.ShareCompat.IntentBuilder;
 import android.text.format.DateUtils;
 import android.widget.Toast;
+
 import com.battlelancer.seriesguide.R;
 
 /**
@@ -23,7 +24,7 @@ public class ShareUtils {
     protected static final String TAG = "ShareUtils";
 
     public static void shareEpisode(Activity activity, int episodeTvdbId, int seasonNumber,
-            int episodeNumber, String showTitle, String episodeTitle) {
+                                    int episodeNumber, String showTitle, String episodeTitle) {
         String message = showTitle + " - " + TextTools.getNextEpisodeString(activity, seasonNumber,
                 episodeNumber, episodeTitle) + " " + TraktTools.buildEpisodeUrl(episodeTvdbId);
         startShareIntentChooser(activity, message, R.string.share_episode);
@@ -44,7 +45,7 @@ public class ShareUtils {
      * text/plain.
      */
     public static void startShareIntentChooser(Activity activity, String message,
-            @StringRes int titleResId) {
+                                               @StringRes int titleResId) {
         IntentBuilder ib = ShareCompat.IntentBuilder.from(activity);
         ib.setText(message);
         ib.setChooserTitle(titleResId);
@@ -61,7 +62,7 @@ public class ShareUtils {
      * Launches a calendar insert intent for the given episode.
      */
     public static void suggestCalendarEvent(Context context, String showTitle, String episodeTitle,
-            long episodeReleaseTime, int showRunTime) {
+                                            long episodeReleaseTime, int showRunTime) {
         Intent intent = new Intent(Intent.ACTION_INSERT)
                 .setData(CalendarContract.Events.CONTENT_URI)
                 .putExtra(CalendarContract.Events.TITLE, showTitle)

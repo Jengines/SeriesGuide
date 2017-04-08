@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.util.SparseArrayCompat;
 import android.text.TextUtils;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.items.SearchResult;
@@ -19,12 +20,16 @@ import com.uwetrottmann.trakt5.entities.Show;
 import com.uwetrottmann.trakt5.enums.Extended;
 import com.uwetrottmann.trakt5.services.Recommendations;
 import com.uwetrottmann.trakt5.services.Sync;
+
 import dagger.Lazy;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
 import javax.inject.Inject;
+
 import retrofit2.Response;
 
 /**
@@ -47,8 +52,10 @@ public class TraktAddLoader extends GenericSimpleLoader<TraktAddLoader.Result> {
         }
     }
 
-    @Inject Lazy<Recommendations> traktRecommendations;
-    @Inject Lazy<Sync> traktSync;
+    @Inject
+    Lazy<Recommendations> traktRecommendations;
+    @Inject
+    Lazy<Sync> traktSync;
     private final int type;
 
     public TraktAddLoader(SgApp app, int type) {
@@ -142,7 +149,7 @@ public class TraktAddLoader extends GenericSimpleLoader<TraktAddLoader.Result> {
     }
 
     private static List<SearchResult> parseTraktShowsToSearchResults(Context context,
-            @NonNull List<Show> traktShows) {
+                                                                     @NonNull List<Show> traktShows) {
         return parseTraktShowsToSearchResults(context, traktShows, null);
     }
 
@@ -150,8 +157,8 @@ public class TraktAddLoader extends GenericSimpleLoader<TraktAddLoader.Result> {
      * Transforms a list of trakt shows to a list of {@link SearchResult}, marks shows already in
      * the local database as added.
      */
-    public static List<SearchResult> parseTraktShowsToSearchResults(Context context,
-            @NonNull List<Show> traktShows, @Nullable String overrideLanguage) {
+    static List<SearchResult> parseTraktShowsToSearchResults(Context context,
+                                                             @NonNull List<Show> traktShows, @Nullable String overrideLanguage) {
         List<SearchResult> results = new ArrayList<>();
 
         // build list

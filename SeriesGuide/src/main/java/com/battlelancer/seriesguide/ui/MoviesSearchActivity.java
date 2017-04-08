@@ -16,8 +16,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.adapters.MoviesDiscoverAdapter;
 import com.battlelancer.seriesguide.enums.MoviesDiscoverLink;
@@ -25,6 +27,7 @@ import com.battlelancer.seriesguide.settings.SearchSettings;
 import com.battlelancer.seriesguide.ui.dialogs.MovieLocalizationDialogFragment;
 import com.battlelancer.seriesguide.util.SearchHistory;
 import com.battlelancer.seriesguide.util.ViewTools;
+
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -34,10 +37,14 @@ public class MoviesSearchActivity extends BaseNavDrawerActivity implements
     public static final String EXTRA_ID_LINK = "idLink";
     private static final String STATE_SEARCH_VISIBLE = "searchVisible";
 
-    @BindView(R.id.containerSearchBar) View containerSearchBar;
-    @BindView(R.id.editTextSearchBar) AutoCompleteTextView searchView;
-    @BindView(R.id.imageButtonSearchClear) View clearButton;
-    @BindView(R.id.containerMoviesSearchFragment) View containerMoviesSearchFragment;
+    @BindView(R.id.containerSearchBar)
+    View containerSearchBar;
+    @BindView(R.id.editTextSearchBar)
+    AutoCompleteTextView searchView;
+    @BindView(R.id.imageButtonSearchClear)
+    View clearButton;
+    @BindView(R.id.containerMoviesSearchFragment)
+    View containerMoviesSearchFragment;
 
     private SearchHistory searchHistory;
     private ArrayAdapter<String> searchHistoryAdapter;
@@ -114,7 +121,7 @@ public class MoviesSearchActivity extends BaseNavDrawerActivity implements
         // manually retrieve the auto complete view popup background to override the theme
         TypedValue outValue = new TypedValue();
         getTheme().resolveAttribute(android.R.attr.autoCompleteTextViewStyle, outValue, true);
-        int[] attributes = new int[] { android.R.attr.popupBackground };
+        int[] attributes = new int[]{android.R.attr.popupBackground};
         TypedArray a = getTheme().obtainStyledAttributes(outValue.data, attributes);
         if (a.hasValue(0)) {
             searchView.setDropDownBackgroundDrawable(a.getDrawable(0));
@@ -181,6 +188,7 @@ public class MoviesSearchActivity extends BaseNavDrawerActivity implements
         outState.putBoolean(STATE_SEARCH_VISIBLE, showSearchView);
     }
 
+    @SuppressWarnings("unused")
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventLanguageChanged(
             MovieLocalizationDialogFragment.LocalizationChangedEvent event) {

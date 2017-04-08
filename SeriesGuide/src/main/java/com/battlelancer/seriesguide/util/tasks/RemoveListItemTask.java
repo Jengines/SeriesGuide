@@ -1,6 +1,7 @@
 package com.battlelancer.seriesguide.util.tasks;
 
 import android.support.annotation.NonNull;
+
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.backend.HexagonTools;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract;
@@ -8,6 +9,7 @@ import com.uwetrottmann.seriesguide.backend.lists.Lists;
 import com.uwetrottmann.seriesguide.backend.lists.model.SgList;
 import com.uwetrottmann.seriesguide.backend.lists.model.SgListItem;
 import com.uwetrottmann.seriesguide.backend.lists.model.SgListList;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

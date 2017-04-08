@@ -58,7 +58,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
      * Allows complete control over the colors drawn in the tab layout. Set with
      * {@link #setCustomTabColorizer(com.battlelancer.seriesguide.widgets.SlidingTabLayout.TabColorizer)}.
      */
-    public interface TabColorizer {
+    interface TabColorizer {
 
         /**
          * @return return the color of the indicator used when {@code position} is selected.
@@ -107,11 +107,12 @@ public class SlidingTabLayout extends HorizontalScrollView {
     /**
      * Set the custom {@link com.battlelancer.seriesguide.widgets.SlidingTabLayout.TabColorizer} to
      * be used.
-     *
+     * <p>
      * If you only require simple custmisation then you can use
      * {@link #setSelectedIndicatorColors(int...)} to achieve
      * similar effects.
      */
+    @SuppressWarnings("unused")
     public void setCustomTabColorizer(TabColorizer tabColorizer) {
         mTabStrip.setCustomTabColorizer(tabColorizer);
     }
@@ -181,19 +182,15 @@ public class SlidingTabLayout extends HorizontalScrollView {
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, TAB_VIEW_TEXT_SIZE_SP);
         textView.setTypeface(Typeface.DEFAULT_BOLD);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            // If we're running on Honeycomb or newer, then we can use the Theme's
-            // selectableItemBackground to ensure that the View has a pressed state
-            TypedValue outValue = new TypedValue();
-            getContext().getTheme().resolveAttribute(android.R.attr.selectableItemBackground,
-                    outValue, true);
-            textView.setBackgroundResource(outValue.resourceId);
-        }
+        // If we're running on Honeycomb or newer, then we can use the Theme's
+        // selectableItemBackground to ensure that the View has a pressed state
+        TypedValue outValue = new TypedValue();
+        getContext().getTheme().resolveAttribute(android.R.attr.selectableItemBackground,
+                outValue, true);
+        textView.setBackgroundResource(outValue.resourceId);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            // If we're running on ICS or newer, enable all-caps to match the Action Bar tab style
-            textView.setAllCaps(true);
-        }
+        // If we're running on ICS or newer, enable all-caps to match the Action Bar tab style
+        textView.setAllCaps(true);
 
         int padding = (int) (TAB_VIEW_PADDING_DIPS * getResources().getDisplayMetrics().density);
         textView.setPadding(padding, padding, padding, padding);
@@ -224,7 +221,9 @@ public class SlidingTabLayout extends HorizontalScrollView {
                 tabTitleView = (TextView) tabView;
             }
 
-            tabTitleView.setText(adapter.getPageTitle(i));
+            if (tabTitleView != null) {
+                tabTitleView.setText(adapter.getPageTitle(i));
+            }
             tabView.setOnClickListener(tabClickListener);
 
             mTabStrip.addView(tabView);

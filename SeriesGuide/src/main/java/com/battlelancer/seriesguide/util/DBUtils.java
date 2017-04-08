@@ -16,6 +16,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.widget.Toast;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.adapters.CalendarAdapter;
@@ -30,12 +31,15 @@ import com.battlelancer.seriesguide.provider.SeriesGuideContract.Shows;
 import com.battlelancer.seriesguide.settings.CalendarSettings;
 import com.battlelancer.seriesguide.settings.DisplaySettings;
 import com.battlelancer.seriesguide.ui.CalendarFragment.CalendarType;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+
 import org.greenrobot.eventbus.EventBus;
+
 import timber.log.Timber;
 
 import static com.battlelancer.seriesguide.provider.SeriesGuideDatabase.Qualified;
@@ -54,11 +58,11 @@ public class DBUtils {
      * @see Shows#UNWATCHED_COUNT
      */
     public static final int UNKNOWN_UNWATCHED_COUNT = -1;
-    public static final int UNKNOWN_COLLECTED_COUNT = -1;
+    private static final int UNKNOWN_COLLECTED_COUNT = -1;
 
     private static final int SMALL_BATCH_SIZE = 50;
 
-    private static final String[] PROJECTION_COUNT = new String[] {
+    private static final String[] PROJECTION_COUNT = new String[]{
             BaseColumns._COUNT
     };
 
@@ -94,7 +98,7 @@ public class DBUtils {
     /**
      * Maps a {@link java.lang.Boolean} object to an int value to store in the database.
      */
-    public static int convertBooleanToInt(Boolean value) {
+    static int convertBooleanToInt(Boolean value) {
         if (value == null) {
             return 0;
         }
@@ -149,7 +153,7 @@ public class DBUtils {
         }
 
         // unwatched, aired episodes
-        String[] customCurrentTimeArgs = { String.valueOf(TimeTools.getCurrentTime(context)) };
+        String[] customCurrentTimeArgs = {String.valueOf(TimeTools.getCurrentTime(context))};
         final int count = getCountOf(resolver, uri, UnwatchedQuery.AIRED_SELECTION,
                 customCurrentTimeArgs, -1);
         if (count == -1) {
@@ -201,7 +205,7 @@ public class DBUtils {
         return getCountOf(context.getContentResolver(),
                 Episodes.buildEpisodesOfShowUri(showId),
                 UnwatchedQuery.AIRED_SELECTION_NO_SPECIALS,
-                new String[] {
+                new String[]{
                         String.valueOf(TimeTools.getCurrentTime(context))
                 }, UNKNOWN_UNWATCHED_COUNT);
     }
@@ -221,14 +225,14 @@ public class DBUtils {
                         + " AND " + Episodes.SELECTION_NO_SPECIALS
                         + " AND " + Episodes.SELECTION_HAS_RELEASE_DATE
                         + " AND " + Episodes.SELECTION_RELEASED_BEFORE_X,
-                new String[] {
+                new String[]{
                         String.valueOf(TimeTools.getCurrentTime(context))
                 },
                 UNKNOWN_COLLECTED_COUNT);
     }
 
     public static int getCountOf(@NonNull ContentResolver resolver, @NonNull Uri uri,
-            @Nullable String selection, @Nullable String[] selectionArgs, int defaultValue) {
+                                 @Nullable String selection, @Nullable String[] selectionArgs, int defaultValue) {
         Cursor cursor = resolver.query(uri, PROJECTION_COUNT, selection, selectionArgs, null);
         if (cursor == null) {
             return defaultValue;
@@ -244,13 +248,13 @@ public class DBUtils {
 
     /**
      * Returns all episodes that air today or later. Excludes shows that are hidden.
-     *
+     * <p>
      * <p> Filters by watched episodes or favorite shows if enabled.
      *
      * @return Cursor using the projection of {@link CalendarAdapter.Query}.
      */
     public static Cursor getUpcomingEpisodes(Context context, boolean isOnlyFavorites,
-            boolean isOnlyUnwatched) {
+                                             boolean isOnlyUnwatched) {
         String[][] args = buildActivityQuery(context, CalendarType.UPCOMING, isOnlyFavorites,
                 isOnlyUnwatched, -1);
 
@@ -260,13 +264,13 @@ public class DBUtils {
 
     /**
      * Return all episodes that aired the day before and earlier. Excludes shows that are hidden.
-     *
+     * <p>
      * <p> Filters by watched episodes or favorite shows if enabled.
      *
      * @return Cursor using the projection of {@link CalendarAdapter.Query}.
      */
     public static Cursor getRecentEpisodes(Context context, boolean isOnlyFavorites,
-            boolean isOnlyUnwatched) {
+                                           boolean isOnlyUnwatched) {
         String[][] args = buildActivityQuery(context, CalendarType.RECENT, isOnlyFavorites,
                 isOnlyUnwatched, -1);
 
@@ -278,12 +282,12 @@ public class DBUtils {
      * Returns an array of size 3. The built query is stored in {@code [0][0]}, the built selection
      * args in {@code [1]} and the sort order in {@code [2][0]}.
      *
-     * @param type A {@link CalendarType}, defaults to UPCOMING.
+     * @param type                  A {@link CalendarType}, defaults to UPCOMING.
      * @param numberOfDaysToInclude Limits the time range of returned episodes to a number of days
-     * from today. If lower then 1 defaults to infinity.
+     *                              from today. If lower then 1 defaults to infinity.
      */
     public static String[][] buildActivityQuery(Context context, String type,
-            int numberOfDaysToInclude) {
+                                                int numberOfDaysToInclude) {
         boolean isOnlyFavorites = CalendarSettings.isOnlyFavorites(context);
         boolean isNoWatched = DisplaySettings.isNoWatchedEpisodes(context);
 
@@ -292,7 +296,7 @@ public class DBUtils {
     }
 
     private static String[][] buildActivityQuery(Context context, String type,
-            boolean isOnlyFavorites, boolean isOnlyUnwatched, int numberOfDaysToInclude) {
+                                                 boolean isOnlyFavorites, boolean isOnlyUnwatched, int numberOfDaysToInclude) {
         // go an hour back in time, so episodes move to recent one hour late
         long recentThreshold = TimeTools.getCurrentTime(context) - DateUtils.HOUR_IN_MILLIS;
 
@@ -324,7 +328,7 @@ public class DBUtils {
             }
         }
 
-        selectionArgs = new String[] {
+        selectionArgs = new String[]{
                 String.valueOf(recentThreshold), String.valueOf(timeThreshold)
         };
 
@@ -346,11 +350,11 @@ public class DBUtils {
 
         // build result array
         String[][] results = new String[3][];
-        results[0] = new String[] {
+        results[0] = new String[]{
                 query.toString()
         };
         results[1] = selectionArgs;
-        results[2] = new String[] {
+        results[2] = new String[]{
                 sortOrder
         };
         return results;
@@ -360,10 +364,10 @@ public class DBUtils {
      * Marks the next episode (if there is one) of the given show as watched. Submits it to trakt if
      * possible.
      */
-    public static void markNextEpisode(SgApp app, int showId, int episodeId) {
+    static void markNextEpisode(SgApp app, int showId, int episodeId) {
         if (episodeId > 0) {
             Cursor episode = app.getContentResolver().query(
-                    Episodes.buildEpisodeUri(String.valueOf(episodeId)), new String[] {
+                    Episodes.buildEpisodeUri(String.valueOf(episodeId)), new String[]{
                             Episodes.SEASON, Episodes.NUMBER
                     }, null, null, null
             );
@@ -377,7 +381,7 @@ public class DBUtils {
         }
     }
 
-    private static final String[] SHOW_PROJECTION = new String[] {
+    private static final String[] SHOW_PROJECTION = new String[]{
             Shows._ID,
             Shows.POSTER,
             Shows.TITLE
@@ -413,7 +417,7 @@ public class DBUtils {
      */
     public static boolean isShowExists(Context context, int showTvdbId) {
         Cursor testsearch = context.getContentResolver().query(Shows.buildShowUri(showTvdbId),
-                new String[] {
+                new String[]{
                         Shows._ID
                 }, null, null, null
         );
@@ -428,7 +432,7 @@ public class DBUtils {
     /**
      * Builds a {@link ContentProviderOperation} for inserting or updating a show (depending on
      * {@code isNew}).
-     *
+     * <p>
      * <p> If the show is new, sets some default values and the (TheTVDB) id.
      */
     public static ContentProviderOperation buildShowOp(Context context, Show show, boolean isNew) {
@@ -490,7 +494,7 @@ public class DBUtils {
      */
     public static HashMap<Integer, Long> getEpisodeMapForShow(Context context, int showTvdbId) {
         Cursor episodes = context.getContentResolver().query(
-                Episodes.buildEpisodesOfShowUri(showTvdbId), new String[] {
+                Episodes.buildEpisodesOfShowUri(showTvdbId), new String[]{
                         Episodes._ID, Episodes.LAST_EDITED
                 }, null, null, null
         );
@@ -512,7 +516,7 @@ public class DBUtils {
     public static HashSet<Integer> getSeasonIdsOfShow(Context context, int showTvdbId) {
         Cursor seasons = context.getContentResolver().query(
                 Seasons.buildSeasonsOfShowUri(showTvdbId),
-                new String[] {
+                new String[]{
                         Seasons._ID
                 }, null, null, null
         );
@@ -559,7 +563,7 @@ public class DBUtils {
     }
 
     private interface LastWatchedEpisodeQuery {
-        String[] PROJECTION = new String[] {
+        String[] PROJECTION = new String[]{
                 Qualified.SHOWS_ID,
                 Shows.LASTWATCHEDID,
                 Episodes.SEASON,
@@ -575,7 +579,7 @@ public class DBUtils {
     }
 
     private interface NextEpisodesQuery {
-        String[] PROJECTION = new String[] {
+        String[] PROJECTION = new String[]{
                 Episodes._ID,
                 Episodes.SEASON,
                 Episodes.NUMBER,
@@ -637,7 +641,7 @@ public class DBUtils {
         final List<String[]> showsLastEpisodes = new ArrayList<>();
         while (shows.moveToNext()) {
             showsLastEpisodes.add(
-                    new String[] {
+                    new String[]{
                             shows.getString(LastWatchedEpisodeQuery.SHOW_TVDB_ID), // 0
                             shows.getString(LastWatchedEpisodeQuery.LAST_EPISODE_TVDB_ID), // 1
                             shows.getString(LastWatchedEpisodeQuery.LAST_EPISODE_SEASON), // 2
@@ -681,12 +685,12 @@ public class DBUtils {
             final String[] selectionArgs;
             if (isNoReleasedEpisodes) {
                 // restrict to episodes with future release date
-                selectionArgs = new String[] {
+                selectionArgs = new String[]{
                         releaseTime, number, season, releaseTime, currentTime
                 };
             } else {
                 // restrict to episodes with any valid air date
-                selectionArgs = new String[] {
+                selectionArgs = new String[]{
                         releaseTime, number, season, releaseTime
                 };
             }
@@ -773,7 +777,7 @@ public class DBUtils {
     }
 
     private static String buildNextEpisodeSelection(boolean isHidingSpecials,
-            boolean isNoReleasedEpisodes) {
+                                                    boolean isNoReleasedEpisodes) {
         StringBuilder nextEpisodeSelectionBuilder = new StringBuilder(
                 NextEpisodesQuery.SELECT_NEXT);
         if (isHidingSpecials) {
@@ -795,7 +799,7 @@ public class DBUtils {
      * the transaction cache.
      */
     public static void applyInSmallBatches(Context context,
-            ArrayList<ContentProviderOperation> batch) throws OperationApplicationException {
+                                           ArrayList<ContentProviderOperation> batch) throws OperationApplicationException {
         // split into smaller batches to not overload transaction cache
         // see http://developer.android.com/reference/android/os/TransactionTooLargeException.html
 

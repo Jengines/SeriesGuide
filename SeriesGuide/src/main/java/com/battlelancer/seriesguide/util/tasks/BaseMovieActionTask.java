@@ -2,6 +2,7 @@ package com.battlelancer.seriesguide.util.tasks;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.backend.HexagonTools;
 import com.battlelancer.seriesguide.settings.TraktCredentials;
@@ -15,12 +16,17 @@ import com.uwetrottmann.trakt5.entities.SyncItems;
 import com.uwetrottmann.trakt5.entities.SyncMovie;
 import com.uwetrottmann.trakt5.entities.SyncResponse;
 import com.uwetrottmann.trakt5.services.Sync;
+
 import dagger.Lazy;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.inject.Inject;
+
 import org.greenrobot.eventbus.EventBus;
+
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -29,10 +35,11 @@ import retrofit2.Response;
  */
 public abstract class BaseMovieActionTask extends BaseActionTask {
 
-    @Inject Lazy<Sync> traktSync;
+    @Inject
+    Lazy<Sync> traktSync;
     private final int movieTmdbId;
 
-    public BaseMovieActionTask(SgApp app, int movieTmdbId) {
+    BaseMovieActionTask(SgApp app, int movieTmdbId) {
         super(app);
         app.getServicesComponent().inject(this);
         this.movieTmdbId = movieTmdbId;

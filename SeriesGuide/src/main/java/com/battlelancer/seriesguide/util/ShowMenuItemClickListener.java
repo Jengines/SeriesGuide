@@ -3,6 +3,7 @@ package com.battlelancer.seriesguide.util;
 import android.support.v4.app.FragmentManager;
 import android.view.MenuItem;
 import android.widget.PopupMenu;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract;
@@ -11,8 +12,8 @@ import com.battlelancer.seriesguide.ui.dialogs.ManageListsDialogFragment;
 import com.battlelancer.seriesguide.ui.dialogs.RemoveShowDialogFragment;
 
 /**
-* Item click listener for show item popup menu.
-*/
+ * Item click listener for show item popup menu.
+ */
 public class ShowMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
 
     private final SgApp app;
@@ -22,7 +23,7 @@ public class ShowMenuItemClickListener implements PopupMenu.OnMenuItemClickListe
     private final String logTag;
 
     public ShowMenuItemClickListener(SgApp app, FragmentManager fm, int showTvdbId,
-            int episodeTvdbId, String logTag) {
+                                     int episodeTvdbId, String logTag) {
         this.app = app;
         this.fragmentManager = fm;
         this.showTvdbId = showTvdbId;

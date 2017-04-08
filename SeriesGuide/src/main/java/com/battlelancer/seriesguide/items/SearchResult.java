@@ -14,7 +14,9 @@ public class SearchResult implements Parcelable {
 
     public int tvdbid;
 
-    /** Two-letter ISO 639-1 language code. */
+    /**
+     * Two-letter ISO 639-1 language code.
+     */
     public String language;
 
     public String title;

@@ -20,9 +20,11 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.adapters.MoviesAdapter;
@@ -43,18 +45,22 @@ import com.battlelancer.seriesguide.widgets.EmptyViewSwipeRefreshLayout;
  */
 public class MoviesSearchFragment extends Fragment {
 
-    public interface OnSearchClickListener {
+    interface OnSearchClickListener {
         void onSearchClick();
     }
 
     private static final String ARG_SEARCH_QUERY = "search_query";
     private static final String ARG_ID_LINK = "linkId";
 
-    @BindView(R.id.swipeRefreshLayoutMoviesSearch) EmptyViewSwipeRefreshLayout swipeRefreshLayout;
-    @BindView(R.id.recyclerViewMoviesSearch) RecyclerView recyclerView;
-    @BindView(R.id.emptyViewMoviesSearch) EmptyView emptyView;
+    @BindView(R.id.swipeRefreshLayoutMoviesSearch)
+    EmptyViewSwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.recyclerViewMoviesSearch)
+    RecyclerView recyclerView;
+    @BindView(R.id.emptyViewMoviesSearch)
+    EmptyView emptyView;
 
-    @Nullable private MoviesDiscoverLink link;
+    @Nullable
+    private MoviesDiscoverLink link;
     private OnSearchClickListener searchClickListener;
     private MoviesAdapter adapter;
     private Unbinder unbinder;
@@ -89,7 +95,7 @@ public class MoviesSearchFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_movies_search, container, false);
         unbinder = ButterKnife.bind(this, v);
 
@@ -166,7 +172,7 @@ public class MoviesSearchFragment extends Fragment {
 
         @Override
         public void onLoadFinished(Loader<TmdbMoviesLoader.Result> loader,
-                TmdbMoviesLoader.Result data) {
+                                   TmdbMoviesLoader.Result data) {
             if (!isAdded()) {
                 return;
             }
@@ -192,11 +198,11 @@ public class MoviesSearchFragment extends Fragment {
         }
     };
 
-    public static class MovieItemClickListener implements MoviesAdapter.ItemClickListener {
+    static class MovieItemClickListener implements MoviesAdapter.ItemClickListener {
 
         private Activity activity;
 
-        public MovieItemClickListener(Activity activity) {
+        MovieItemClickListener(Activity activity) {
             this.activity = activity;
         }
 
@@ -224,8 +230,8 @@ public class MoviesSearchFragment extends Fragment {
             boolean isInCollection = false;
             Cursor movie = getActivity().getContentResolver().query(
                     SeriesGuideContract.Movies.buildMovieUri(movieTmdbId),
-                    new String[] { SeriesGuideContract.Movies.IN_WATCHLIST,
-                            SeriesGuideContract.Movies.IN_COLLECTION }, null, null, null
+                    new String[]{SeriesGuideContract.Movies.IN_WATCHLIST,
+                            SeriesGuideContract.Movies.IN_COLLECTION}, null, null, null
             );
             if (movie != null) {
                 if (movie.moveToFirst()) {

@@ -4,6 +4,6 @@
     android:minHeight="64dp"
     android:minWidth="280dp"
     android:previewImage="@drawable/next_episodes__small__ori_portrait"
-    android:updatePeriodMillis="1800000" >
+    android:updatePeriodMillis="1800000">
 
 </appwidget-provider>

@@ -8,14 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.ui.PeopleActivity;
 import com.battlelancer.seriesguide.ui.PersonFragment;
 import com.uwetrottmann.tmdb2.entities.CastMember;
 import com.uwetrottmann.tmdb2.entities.Credits;
 import com.uwetrottmann.tmdb2.entities.CrewMember;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import timber.log.Timber;
 
 /**
@@ -24,25 +27,25 @@ import timber.log.Timber;
 public class PeopleListHelper {
 
     public static void populateShowCast(Activity activity,
-            ViewGroup peopleContainer, Credits credits, String logCategory) {
+                                        ViewGroup peopleContainer, Credits credits, String logCategory) {
         populateCast(activity, peopleContainer, credits, PeopleActivity.MediaType.SHOW,
                 logCategory);
     }
 
     public static void populateShowCrew(Activity activity,
-            ViewGroup peopleContainer, Credits credits, String logCategory) {
+                                        ViewGroup peopleContainer, Credits credits, String logCategory) {
         populateCrew(activity, peopleContainer, credits, PeopleActivity.MediaType.SHOW,
                 logCategory);
     }
 
     public static void populateMovieCast(Activity activity,
-            ViewGroup peopleContainer, Credits credits, String logCategory) {
+                                         ViewGroup peopleContainer, Credits credits, String logCategory) {
         populateCast(activity, peopleContainer, credits, PeopleActivity.MediaType.MOVIE,
                 logCategory);
     }
 
     public static void populateMovieCrew(Activity activity,
-            ViewGroup peopleContainer, Credits credits, String logCategory) {
+                                         ViewGroup peopleContainer, Credits credits, String logCategory) {
         populateCrew(activity, peopleContainer, credits, PeopleActivity.MediaType.MOVIE,
                 logCategory);
     }
@@ -52,7 +55,7 @@ public class PeopleListHelper {
      * "Show all" link if there are more.
      */
     private static void populateCast(Activity activity, ViewGroup peopleContainer, Credits credits,
-            PeopleActivity.MediaType mediaType, String logCategory) {
+                                     PeopleActivity.MediaType mediaType, String logCategory) {
         if (peopleContainer == null) {
             // nothing we can do, view is already gone
             Timber.d("populateCast: container reference gone, aborting");
@@ -90,7 +93,7 @@ public class PeopleListHelper {
      * "Show all" link if there are more.
      */
     private static void populateCrew(Activity activity, ViewGroup peopleContainer, Credits credits,
-            PeopleActivity.MediaType mediaType, String logCategory) {
+                                     PeopleActivity.MediaType mediaType, String logCategory) {
         if (peopleContainer == null) {
             // nothing we can do, view is already gone
             Timber.d("populateCrew: container reference gone, aborting");
@@ -124,7 +127,7 @@ public class PeopleListHelper {
     }
 
     private static View createPersonView(Context context, LayoutInflater inflater,
-            ViewGroup peopleContainer, String name, String description, String profilePath) {
+                                         ViewGroup peopleContainer, String name, String description, String profilePath) {
         View personView = inflater.inflate(R.layout.item_person, peopleContainer, false);
 
         // use clickable instead of activatable background
@@ -163,8 +166,8 @@ public class PeopleListHelper {
         /**
          * Listener that will show cast or crew members for the given TMDb entity.
          */
-        public OnPersonClickListener(Activity activity, PeopleActivity.MediaType mediaType,
-                int mediaTmdbId, PeopleActivity.PeopleType peopleType, String logCategory) {
+        OnPersonClickListener(Activity activity, PeopleActivity.MediaType mediaType,
+                              int mediaTmdbId, PeopleActivity.PeopleType peopleType, String logCategory) {
             this(activity, mediaType, mediaTmdbId, peopleType, -1, logCategory);
         }
 
@@ -172,9 +175,9 @@ public class PeopleListHelper {
          * Listener that will show cast or crew members for the given TMDb entity and pre-selects a
          * specific cast or crew member.
          */
-        public OnPersonClickListener(Activity activity, PeopleActivity.MediaType mediaType,
-                int mediaTmdbId, PeopleActivity.PeopleType peopleType, int personTmdbId,
-                String logCategory) {
+        OnPersonClickListener(Activity activity, PeopleActivity.MediaType mediaType,
+                              int mediaTmdbId, PeopleActivity.PeopleType peopleType, int personTmdbId,
+                              String logCategory) {
             this.activity = activity;
             this.itemTmdbId = mediaTmdbId;
             this.peopleType = peopleType;
@@ -199,7 +202,7 @@ public class PeopleListHelper {
     }
 
     private static void addShowAllView(LayoutInflater inflater, ViewGroup peopleContainer,
-            View.OnClickListener clickListener) {
+                                       View.OnClickListener clickListener) {
         TextView showAllView = (TextView) inflater.inflate(R.layout.item_action_add,
                 peopleContainer, false);
         showAllView.setText(R.string.action_display_all);

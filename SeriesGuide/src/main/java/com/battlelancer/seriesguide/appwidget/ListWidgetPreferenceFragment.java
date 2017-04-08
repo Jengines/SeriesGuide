@@ -1,12 +1,11 @@
 package com.battlelancer.seriesguide.appwidget;
 
-import android.annotation.TargetApi;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.PreferenceScreen;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.settings.WidgetSettings;
 import com.battlelancer.seriesguide.ui.BaseSettingsFragment;
@@ -18,7 +17,8 @@ import com.battlelancer.seriesguide.util.Utils;
  */
 public class ListWidgetPreferenceFragment extends BaseSettingsFragment {
 
-    @SuppressWarnings("FieldCanBeLocal") private SharedPreferences.OnSharedPreferenceChangeListener
+    @SuppressWarnings("FieldCanBeLocal")
+    private SharedPreferences.OnSharedPreferenceChangeListener
             preferenceChangeListener;
 
     public static ListWidgetPreferenceFragment newInstance(int appWidgetId) {
@@ -125,7 +125,7 @@ public class ListWidgetPreferenceFragment extends BaseSettingsFragment {
         preferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
             @Override
             public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
-                    String key) {
+                                                  String key) {
                 if (!isAdded()) {
                     return; // no longer attached to activity
                 }

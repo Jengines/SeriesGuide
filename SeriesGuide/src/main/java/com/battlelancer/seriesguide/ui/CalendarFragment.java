@@ -25,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.adapters.CalendarAdapter;
@@ -39,6 +40,7 @@ import com.battlelancer.seriesguide.util.TabClickEvent;
 import com.battlelancer.seriesguide.util.Utils;
 import com.tonicartos.widget.stickygridheaders.StickyGridHeadersGridView;
 import com.uwetrottmann.androidutils.AndroidUtils;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -86,7 +88,7 @@ public class CalendarFragment extends Fragment implements
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_calendar, container, false);
 
         TextView emptyView = (TextView) v.findViewById(R.id.emptyViewCalendar);
@@ -223,13 +225,13 @@ public class CalendarFragment extends Fragment implements
     }
 
     private void updateEpisodeCollectionState(int showTvdbId, int episodeTvdbId, int seasonNumber,
-            int episodeNumber, boolean addToCollection) {
+                                              int episodeNumber, boolean addToCollection) {
         EpisodeTools.episodeCollected(SgApp.from(getActivity()), showTvdbId, episodeTvdbId,
                 seasonNumber, episodeNumber, addToCollection);
     }
 
     private void updateEpisodeWatchedState(int showTvdbId, int episodeTvdbId, int seasonNumber,
-            int episodeNumber, boolean isWatched) {
+                                           int episodeNumber, boolean isWatched) {
         EpisodeTools.episodeWatched(SgApp.from(getActivity()), showTvdbId, episodeTvdbId,
                 seasonNumber, episodeNumber,
                 isWatched ? EpisodeFlags.WATCHED : EpisodeFlags.UNWATCHED);
@@ -248,7 +250,7 @@ public class CalendarFragment extends Fragment implements
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, final int position,
-            final long id) {
+                                   final long id) {
         if (!isResumed()) {
             // guard against being called after fragment is paged away (multi-touch)
             // adapter cursor might no longer have data
@@ -326,6 +328,7 @@ public class CalendarFragment extends Fragment implements
         return getArguments().getInt("loaderid");
     }
 
+    @SuppressWarnings("unused")
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventTabClick(TabClickEvent event) {
         if ((CalendarType.UPCOMING.equals(type)

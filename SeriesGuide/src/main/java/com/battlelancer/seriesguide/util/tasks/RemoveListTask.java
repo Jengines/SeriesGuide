@@ -1,12 +1,15 @@
 package com.battlelancer.seriesguide.util.tasks;
 
 import android.support.annotation.NonNull;
+
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.backend.HexagonTools;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract;
 import com.battlelancer.seriesguide.ui.ListsActivity;
 import com.uwetrottmann.seriesguide.backend.lists.Lists;
+
 import java.io.IOException;
+
 import org.greenrobot.eventbus.EventBus;
 
 /**
@@ -14,7 +17,8 @@ import org.greenrobot.eventbus.EventBus;
  */
 public class RemoveListTask extends BaseActionTask {
 
-    @NonNull protected final String listId;
+    @NonNull
+    protected final String listId;
 
     public RemoveListTask(@NonNull SgApp app, @NonNull String listId) {
         super(app);
@@ -61,7 +65,7 @@ public class RemoveListTask extends BaseActionTask {
         // delete all items of the list
         getContext().getContentResolver()
                 .delete(SeriesGuideContract.ListItems.CONTENT_URI,
-                        SeriesGuideContract.ListItems.SELECTION_LIST, new String[] {
+                        SeriesGuideContract.ListItems.SELECTION_LIST, new String[]{
                                 listId
                         });
         // count of deleted items is not returned, so do not check

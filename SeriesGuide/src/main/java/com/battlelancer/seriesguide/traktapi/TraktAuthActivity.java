@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.enums.TraktResult;
@@ -12,12 +13,17 @@ import com.battlelancer.seriesguide.ui.BaseOAuthActivity;
 import com.battlelancer.seriesguide.util.ConnectTraktTask;
 import com.battlelancer.seriesguide.util.Utils;
 import com.uwetrottmann.trakt5.TraktV2;
+
 import dagger.Lazy;
+
 import java.math.BigInteger;
 import java.security.SecureRandom;
+
 import javax.inject.Inject;
+
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
 import timber.log.Timber;
 
 /**
@@ -35,7 +41,8 @@ public class TraktAuthActivity extends BaseOAuthActivity {
 
     private String state;
     private ConnectTraktTaskFragment taskFragment;
-    @Inject Lazy<TraktV2> trakt;
+    @Inject
+    Lazy<TraktV2> trakt;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

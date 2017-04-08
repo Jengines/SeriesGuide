@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Toast;
+
 import com.battlelancer.seriesguide.BuildConfig;
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
@@ -29,10 +30,14 @@ import com.uwetrottmann.trakt5.entities.SyncEpisode;
 import com.uwetrottmann.trakt5.entities.SyncMovie;
 import com.uwetrottmann.trakt5.services.Checkin;
 import com.uwetrottmann.trakt5.services.Comments;
+
 import dagger.Lazy;
+
 import java.io.IOException;
 import java.util.Date;
+
 import javax.inject.Inject;
+
 import org.greenrobot.eventbus.EventBus;
 
 public class TraktTask extends AsyncTask<Void, Void, TraktTask.TraktResponse> {
@@ -59,11 +64,11 @@ public class TraktTask extends AsyncTask<Void, Void, TraktTask.TraktResponse> {
     /**
      * trakt response status class.
      */
-    public static class TraktResponse {
-        public boolean succesful;
+    static class TraktResponse {
+        boolean succesful;
         public String message;
 
-        public TraktResponse(boolean successful, String message) {
+        TraktResponse(boolean successful, String message) {
             this.succesful = successful;
             this.message = message;
         }
@@ -72,10 +77,10 @@ public class TraktTask extends AsyncTask<Void, Void, TraktTask.TraktResponse> {
     /**
      * trakt checkin response status class.
      */
-    public static class CheckinBlockedResponse extends TraktResponse {
-        public int waitTimeMin;
+    private static class CheckinBlockedResponse extends TraktResponse {
+        int waitTimeMin;
 
-        public CheckinBlockedResponse(int waitTimeMin) {
+        CheckinBlockedResponse(int waitTimeMin) {
             super(false, null);
             this.waitTimeMin = waitTimeMin;
         }
@@ -87,10 +92,10 @@ public class TraktTask extends AsyncTask<Void, Void, TraktTask.TraktResponse> {
 
         public boolean mWasSuccessful;
 
-        public String mMessage;
+        String mMessage;
 
         public TraktActionCompleteEvent(TraktAction traktAction, boolean wasSuccessful,
-                String message) {
+                                        String message) {
             mTraktAction = traktAction;
             mWasSuccessful = wasSuccessful;
             mMessage = message;
@@ -131,7 +136,7 @@ public class TraktTask extends AsyncTask<Void, Void, TraktTask.TraktResponse> {
 
         public int waitMinutes;
 
-        public TraktCheckInBlockedEvent(Bundle traktTaskArgs, int waitMinutes) {
+        TraktCheckInBlockedEvent(Bundle traktTaskArgs, int waitMinutes) {
             this.traktTaskArgs = traktTaskArgs;
             this.waitMinutes = waitMinutes;
         }
@@ -140,9 +145,12 @@ public class TraktTask extends AsyncTask<Void, Void, TraktTask.TraktResponse> {
     private final Context mContext;
     private Bundle mArgs;
     private TraktAction mAction;
-    @Inject Lazy<TraktV2> trakt;
-    @Inject Lazy<Checkin> traktCheckin;
-    @Inject Lazy<Comments> traktComments;
+    @Inject
+    Lazy<TraktV2> trakt;
+    @Inject
+    Lazy<Checkin> traktCheckin;
+    @Inject
+    Lazy<Comments> traktComments;
 
     /**
      * Initial constructor. Call <b>one</b> of the setup-methods like {@link #commentEpisode(int,

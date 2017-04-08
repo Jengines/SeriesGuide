@@ -23,7 +23,7 @@ public interface MovieActionsContract {
      * posting a {@link Runnable} with {@link android.os.Handler#postDelayed(Runnable, long)},
      * delayed by {@link #ACTION_LOADER_DELAY_MILLIS}). If this is called again before the delay
      * expires, the delay should be reset.
-     *
+     * <p>
      * <p>Call this in for example {@link android.support.v4.app.Fragment#onResume()}.
      */
     void loadMovieActionsDelayed();

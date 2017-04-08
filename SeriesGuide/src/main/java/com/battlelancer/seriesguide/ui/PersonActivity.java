@@ -5,6 +5,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.view.Window;
+
 import com.battlelancer.seriesguide.R;
 
 /**

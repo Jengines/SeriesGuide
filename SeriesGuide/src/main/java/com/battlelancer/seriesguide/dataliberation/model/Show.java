@@ -36,7 +36,9 @@ public class Show {
 
     public long last_edited;
 
-    /** SeriesGuide specific values */
+    /**
+     * SeriesGuide specific values
+     */
     public boolean favorite;
     public boolean hidden;
 

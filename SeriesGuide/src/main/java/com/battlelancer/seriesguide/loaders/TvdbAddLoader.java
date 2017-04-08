@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.util.SparseArrayCompat;
 import android.text.TextUtils;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.items.SearchResult;
@@ -20,10 +21,14 @@ import com.uwetrottmann.trakt5.entities.TrendingShow;
 import com.uwetrottmann.trakt5.enums.Extended;
 import com.uwetrottmann.trakt5.services.Search;
 import com.uwetrottmann.trakt5.services.Shows;
+
 import dagger.Lazy;
+
 import java.util.LinkedList;
 import java.util.List;
+
 import javax.inject.Inject;
+
 import timber.log.Timber;
 
 public class TvdbAddLoader extends GenericSimpleLoader<TvdbAddLoader.Result> {
@@ -32,7 +37,9 @@ public class TvdbAddLoader extends GenericSimpleLoader<TvdbAddLoader.Result> {
         @NonNull
         public List<SearchResult> results;
         public String emptyText;
-        /** Whether the network call completed. Does not mean there are any results. */
+        /**
+         * Whether the network call completed. Does not mean there are any results.
+         */
         public boolean successful;
 
         public Result(@NonNull List<SearchResult> results, String emptyText, boolean successful) {
@@ -45,8 +52,10 @@ public class TvdbAddLoader extends GenericSimpleLoader<TvdbAddLoader.Result> {
     private final SgApp app;
     private final String query;
     private final String language;
-    @Inject Lazy<Shows> traktShows;
-    @Inject Lazy<Search> traktSearch;
+    @Inject
+    Lazy<Shows> traktShows;
+    @Inject
+    Lazy<Search> traktSearch;
 
     /**
      * Loads a list of trending shows from trakt (query is empty) or searches trakt/TheTVDB for

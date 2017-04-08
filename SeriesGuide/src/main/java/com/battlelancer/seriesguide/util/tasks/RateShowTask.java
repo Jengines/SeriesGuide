@@ -3,6 +3,7 @@ package com.battlelancer.seriesguide.util.tasks;
 import android.content.ContentValues;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract;
 import com.uwetrottmann.trakt5.entities.ShowIds;

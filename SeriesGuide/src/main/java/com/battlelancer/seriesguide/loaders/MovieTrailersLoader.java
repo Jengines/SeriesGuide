@@ -3,14 +3,18 @@ package com.battlelancer.seriesguide.loaders;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.settings.DisplaySettings;
 import com.battlelancer.seriesguide.tmdbapi.SgTmdb;
 import com.uwetrottmann.androidutils.GenericSimpleLoader;
 import com.uwetrottmann.tmdb2.entities.Videos;
 import com.uwetrottmann.tmdb2.services.MoviesService;
+
 import java.io.IOException;
+
 import javax.inject.Inject;
+
 import retrofit2.Response;
 import timber.log.Timber;
 
@@ -20,7 +24,8 @@ import timber.log.Timber;
  */
 public class MovieTrailersLoader extends GenericSimpleLoader<Videos.Video> {
 
-    @Inject MoviesService moviesService;
+    @Inject
+    MoviesService moviesService;
     private int mTmdbId;
 
     public MovieTrailersLoader(SgApp app, int tmdbId) {

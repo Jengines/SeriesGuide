@@ -6,16 +6,21 @@ import android.view.LayoutInflater;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.items.SearchResult;
 
 public class AddIndicator extends FrameLayout {
 
-    @BindView(R.id.imageViewAddIndicator) ImageView add;
-    @BindView(R.id.imageViewAddIndicatorAdded) ImageView added;
-    @BindView(R.id.progressBarAddIndicator) ProgressBar progressBar;
+    @BindView(R.id.imageViewAddIndicator)
+    ImageView add;
+    @BindView(R.id.imageViewAddIndicatorAdded)
+    ImageView added;
+    @BindView(R.id.progressBarAddIndicator)
+    ProgressBar progressBar;
 
     public AddIndicator(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -36,6 +41,7 @@ public class AddIndicator extends FrameLayout {
         added.setContentDescription(contentDescription);
     }
 
+    @SuppressWarnings("unused")
     public void setOnAddClickListener(OnClickListener onClickListener) {
         add.setOnClickListener(onClickListener);
     }

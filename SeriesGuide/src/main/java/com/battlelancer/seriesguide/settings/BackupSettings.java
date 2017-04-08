@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringDef;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -49,7 +50,7 @@ public class BackupSettings {
             KEY_AUTO_BACKUP_LISTS_EXPORT_URI,
             KEY_AUTO_BACKUP_MOVIES_EXPORT_URI
     })
-    public @interface FileUriSettingsKey {
+    @interface FileUriSettingsKey {
     }
 
     public static boolean isUseAutoBackupDefaultFiles(Context context) {
@@ -61,7 +62,7 @@ public class BackupSettings {
      * Store or remove (by setting it {@code null}) the URI to a backup file.
      */
     public static boolean storeFileUri(Context context, @FileUriSettingsKey String key,
-            @Nullable Uri uri) {
+                                       @Nullable Uri uri) {
         return PreferenceManager.getDefaultSharedPreferences(context)
                 .edit()
                 .putString(key, uri == null ? null : uri.toString())

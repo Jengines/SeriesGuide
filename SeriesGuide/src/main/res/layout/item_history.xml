@@ -16,7 +16,7 @@
             android:id="@+id/imageViewHistoryPoster"
             android:layout_width="@dimen/show_poster_width_default"
             android:layout_height="@dimen/show_poster_height_default"
-            android:layout_marginRight="@dimen/default_padding"
+            android:layout_marginEnd="@dimen/default_padding"
             android:contentDescription="@null"
             android:scaleType="centerInside"
             tools:src="@color/protection_dark" />
@@ -25,38 +25,38 @@
             android:id="@+id/textViewHistoryTimestamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:ellipsize="end"
             android:gravity="end"
             android:maxWidth="120dp"
             android:paddingLeft="@dimen/default_padding"
             android:paddingRight="@dimen/default_padding"
             android:paddingTop="@dimen/default_padding"
-            android:singleLine="true"
             android:textAppearance="@style/TextAppearance.Caption.Dim"
-            tools:text="11 hours ago" />
+            tools:text="11 hours ago"
+            android:maxLines="1" />
 
         <TextView
             android:id="@+id/textViewHistoryTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/textViewHistoryTimestamp"
-            android:layout_toRightOf="@+id/imageViewHistoryPoster"
+            android:layout_toStartOf="@+id/textViewHistoryTimestamp"
+            android:layout_toEndOf="@+id/imageViewHistoryPoster"
             android:ellipsize="end"
             android:paddingTop="@dimen/default_padding"
-            android:singleLine="true"
             android:textAppearance="@style/TextAppearance.Body.Secondary"
-            tools:text="Somewhere in the middle of the park" />
+            tools:text="Somewhere in the middle of the park"
+            android:maxLines="1" />
 
         <TextView
             android:id="@+id/textViewHistoryDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewHistoryTitle"
-            android:layout_toRightOf="@+id/imageViewHistoryPoster"
+            android:layout_toEndOf="@+id/imageViewHistoryPoster"
             android:ellipsize="end"
             android:maxLines="2"
-            android:paddingRight="@dimen/default_padding"
+            android:paddingEnd="@dimen/default_padding"
             android:paddingTop="@dimen/inline_padding"
             android:textAppearance="@style/TextAppearance.Subhead"
             tools:text="24x10 On a Troublesome Terribly Long Episode Name" />
@@ -66,7 +66,7 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:contentDescription="@null"
             android:paddingBottom="@dimen/inline_padding"
             android:paddingLeft="@dimen/default_padding"

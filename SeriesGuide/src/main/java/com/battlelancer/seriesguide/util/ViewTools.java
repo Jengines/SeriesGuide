@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
+
 import com.battlelancer.seriesguide.R;
 
 public class ViewTools {
@@ -29,8 +30,8 @@ public class ViewTools {
      * intrinsic bounds.
      */
     public static void setCompoundDrawablesRelativeWithIntrinsicBounds(Button button,
-            @DrawableRes int left, @DrawableRes int top, @DrawableRes int right,
-            @DrawableRes int bottom) {
+                                                                       @DrawableRes int left, @DrawableRes int top, @DrawableRes int right,
+                                                                       @DrawableRes int bottom) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             button.setCompoundDrawablesRelativeWithIntrinsicBounds(left, top, right, bottom);
             return;
@@ -46,7 +47,7 @@ public class ViewTools {
     }
 
     public static void setVectorCompoundDrawable(Resources.Theme theme, Button button,
-            @AttrRes int vectorAttr) {
+                                                 @AttrRes int vectorAttr) {
         int vectorResId = Utils.resolveAttributeToResourceId(theme, vectorAttr);
         VectorDrawableCompat drawable = VectorDrawableCompat.create(button.getResources(),
                 vectorResId, theme);
@@ -59,7 +60,7 @@ public class ViewTools {
      * their intrinsic bounds.
      */
     public static void setCompoundDrawablesRelativeWithIntrinsicBounds(Button button,
-            Drawable left, Drawable top, Drawable right, Drawable bottom) {
+                                                                       Drawable left, Drawable top, Drawable right, Drawable bottom) {
         if (left != null) {
             left.setBounds(0, 0, left.getIntrinsicWidth(), left.getIntrinsicHeight());
         }
@@ -127,7 +128,7 @@ public class ViewTools {
     }
 
     public static void setSwipeRefreshLayoutColors(Resources.Theme theme,
-            SwipeRefreshLayout swipeRefreshLayout) {
+                                                   SwipeRefreshLayout swipeRefreshLayout) {
         int accentColorResId = Utils.resolveAttributeToResourceId(theme, R.attr.colorAccent);
         swipeRefreshLayout.setColorSchemeResources(accentColorResId, R.color.teal_500);
     }

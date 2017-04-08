@@ -24,9 +24,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.adapters.TraktCommentsAdapter;
@@ -39,9 +41,11 @@ import com.battlelancer.seriesguide.widgets.EmptyViewSwipeRefreshLayout;
 import com.uwetrottmann.androidutils.AndroidUtils;
 import com.uwetrottmann.trakt5.TraktLink;
 import com.uwetrottmann.trakt5.entities.Comment;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
 import timber.log.Timber;
 
 /**
@@ -55,19 +59,25 @@ public class TraktCommentsFragment extends Fragment {
         String EPISODE_TVDB_ID = "episode";
     }
 
-    @BindView(R.id.listViewShouts) ListView list;
-    @BindView(R.id.textViewShoutsEmpty) TextView emptyView;
-    @BindView(R.id.swipeRefreshLayoutShouts) EmptyViewSwipeRefreshLayout swipeRefreshLayout;
-    @BindView(R.id.buttonShouts) Button buttonShout;
-    @BindView(R.id.editTextShouts) EditText editTextShout;
-    @BindView(R.id.checkBoxShouts) CheckBox checkBoxIsSpoiler;
+    @BindView(R.id.listViewShouts)
+    ListView list;
+    @BindView(R.id.textViewShoutsEmpty)
+    TextView emptyView;
+    @BindView(R.id.swipeRefreshLayoutShouts)
+    EmptyViewSwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.buttonShouts)
+    Button buttonShout;
+    @BindView(R.id.editTextShouts)
+    EditText editTextShout;
+    @BindView(R.id.checkBoxShouts)
+    CheckBox checkBoxIsSpoiler;
 
     private TraktCommentsAdapter adapter;
     private Unbinder unbinder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_comments, container, false);
         unbinder = ButterKnife.bind(this, v);
 
@@ -79,7 +89,7 @@ public class TraktCommentsFragment extends Fragment {
             }
         });
         swipeRefreshLayout.setProgressViewOffset(false, getResources().getDimensionPixelSize(
-                        R.dimen.swipe_refresh_progress_bar_start_margin),
+                R.dimen.swipe_refresh_progress_bar_start_margin),
                 getResources().getDimensionPixelSize(
                         R.dimen.swipe_refresh_progress_bar_end_margin));
         ViewTools.setSwipeRefreshLayoutColors(getActivity().getTheme(), swipeRefreshLayout);
@@ -252,7 +262,7 @@ public class TraktCommentsFragment extends Fragment {
 
         @Override
         public void onLoadFinished(Loader<TraktCommentsLoader.Result> loader,
-                TraktCommentsLoader.Result data) {
+                                   TraktCommentsLoader.Result data) {
             if (!isAdded()) {
                 return;
             }

@@ -10,22 +10,22 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
-public class SgAccountAuthenticator extends AbstractAccountAuthenticator {
+class SgAccountAuthenticator extends AbstractAccountAuthenticator {
 
-    public SgAccountAuthenticator(Context context) {
+    SgAccountAuthenticator(Context context) {
         super(context);
     }
 
     @Override
     public Bundle addAccount(AccountAuthenticatorResponse response, String accountType,
-            String authTokenType, String[] requiredFeatures, Bundle options)
+                             String authTokenType, String[] requiredFeatures, Bundle options)
             throws NetworkErrorException {
         return null;
     }
 
     @Override
     public Bundle confirmCredentials(AccountAuthenticatorResponse response, Account account,
-            Bundle options) throws NetworkErrorException {
+                                     Bundle options) throws NetworkErrorException {
         return null;
     }
 
@@ -36,7 +36,7 @@ public class SgAccountAuthenticator extends AbstractAccountAuthenticator {
 
     @Override
     public Bundle getAuthToken(AccountAuthenticatorResponse response, Account account,
-            String authTokenType, Bundle options) throws NetworkErrorException {
+                               String authTokenType, Bundle options) throws NetworkErrorException {
         throw new UnsupportedOperationException();
     }
 
@@ -47,13 +47,13 @@ public class SgAccountAuthenticator extends AbstractAccountAuthenticator {
 
     @Override
     public Bundle updateCredentials(AccountAuthenticatorResponse response, Account account,
-            String authTokenType, Bundle options) throws NetworkErrorException {
+                                    String authTokenType, Bundle options) throws NetworkErrorException {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public Bundle hasFeatures(AccountAuthenticatorResponse response, Account account,
-            String[] features) throws NetworkErrorException {
+                              String[] features) throws NetworkErrorException {
         throw new UnsupportedOperationException();
     }
 

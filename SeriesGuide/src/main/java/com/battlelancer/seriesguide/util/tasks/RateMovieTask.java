@@ -3,6 +3,7 @@ package com.battlelancer.seriesguide.util.tasks;
 import android.content.ContentValues;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract;
 import com.battlelancer.seriesguide.util.MovieTools;
@@ -10,6 +11,7 @@ import com.uwetrottmann.trakt5.entities.MovieIds;
 import com.uwetrottmann.trakt5.entities.SyncItems;
 import com.uwetrottmann.trakt5.entities.SyncMovie;
 import com.uwetrottmann.trakt5.enums.Rating;
+
 import org.greenrobot.eventbus.EventBus;
 
 public class RateMovieTask extends BaseRateItemTask {

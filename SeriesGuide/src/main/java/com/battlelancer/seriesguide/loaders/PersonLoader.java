@@ -5,8 +5,11 @@ import com.battlelancer.seriesguide.tmdbapi.SgTmdb;
 import com.uwetrottmann.androidutils.GenericSimpleLoader;
 import com.uwetrottmann.tmdb2.entities.Person;
 import com.uwetrottmann.tmdb2.services.PeopleService;
+
 import java.io.IOException;
+
 import javax.inject.Inject;
+
 import retrofit2.Response;
 
 /**
@@ -14,7 +17,8 @@ import retrofit2.Response;
  */
 public class PersonLoader extends GenericSimpleLoader<Person> {
 
-    @Inject PeopleService peopleService;
+    @Inject
+    PeopleService peopleService;
     private final int mTmdbId;
 
     public PersonLoader(SgApp app, int tmdbId) {

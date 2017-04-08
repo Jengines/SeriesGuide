@@ -3,6 +3,7 @@ package com.battlelancer.seriesguide.loaders;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.settings.TraktCredentials;
@@ -11,10 +12,14 @@ import com.uwetrottmann.androidutils.AndroidUtils;
 import com.uwetrottmann.androidutils.GenericSimpleLoader;
 import com.uwetrottmann.trakt5.entities.HistoryEntry;
 import com.uwetrottmann.trakt5.services.Users;
+
 import dagger.Lazy;
+
 import java.io.IOException;
 import java.util.List;
+
 import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -34,7 +39,8 @@ public class TraktEpisodeHistoryLoader
         }
     }
 
-    @Inject Lazy<Users> traktUsers;
+    @Inject
+    Lazy<Users> traktUsers;
 
     public TraktEpisodeHistoryLoader(Activity activity) {
         super(activity);

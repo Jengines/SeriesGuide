@@ -2,6 +2,7 @@ package com.battlelancer.seriesguide.api;
 
 import android.os.Bundle;
 
+@SuppressWarnings("unused")
 public class Episode {
     private static final String KEY_TITLE = "title";
     private static final String KEY_NUMBER = "number";
@@ -68,7 +69,7 @@ public class Episode {
 
     /**
      * Release date of the first episode. Encoded as ISO 8601 datetime string.
-     *
+     * <p>
      * <pre>
      * Example: "2008-01-20T02:00:00.000Z"
      * Default: ""
@@ -161,7 +162,7 @@ public class Episode {
     /**
      * Deserializes an {@link Episode} into a {@link android.os.Bundle} object.
      */
-    public static Episode fromBundle(Bundle bundle) {
+    static Episode fromBundle(Bundle bundle) {
         Builder builder = new Builder()
                 .title(bundle.getString(KEY_TITLE))
                 .number(bundle.getInt(KEY_NUMBER))

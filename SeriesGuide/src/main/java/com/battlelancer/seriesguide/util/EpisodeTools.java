@@ -14,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.os.AsyncTaskCompat;
 import android.support.v4.util.SparseArrayCompat;
 import android.text.TextUtils;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.backend.HexagonTools;
@@ -35,12 +36,17 @@ import com.uwetrottmann.trakt5.entities.SyncResponse;
 import com.uwetrottmann.trakt5.entities.SyncSeason;
 import com.uwetrottmann.trakt5.entities.SyncShow;
 import com.uwetrottmann.trakt5.services.Sync;
+
 import dagger.Lazy;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.inject.Inject;
+
 import org.greenrobot.eventbus.EventBus;
+
 import retrofit2.Call;
 import retrofit2.Response;
 import timber.log.Timber;
@@ -54,8 +60,8 @@ public class EpisodeTools {
      */
     public static boolean isEpisodeExists(Context context, int episodeTvdbId) {
         Cursor query = context.getContentResolver().query(
-                SeriesGuideContract.Episodes.buildEpisodeUri(episodeTvdbId), new String[] {
-                        SeriesGuideContract.Episodes._ID }, null, null, null
+                SeriesGuideContract.Episodes.buildEpisodeUri(episodeTvdbId), new String[]{
+                        SeriesGuideContract.Episodes._ID}, null, null, null
         );
         if (query == null) {
             return false;
@@ -99,7 +105,7 @@ public class EpisodeTools {
     }
 
     public static void episodeWatched(SgApp app, int showTvdbId, int episodeTvdbId,
-            int season, int episode, int episodeFlags) {
+                                      int season, int episode, int episodeFlags) {
         validateFlags(episodeFlags);
         execute(app,
                 new EpisodeTaskTypes.EpisodeWatchedType(app, showTvdbId, episodeTvdbId, season,
@@ -109,7 +115,7 @@ public class EpisodeTools {
     }
 
     public static void episodeCollected(SgApp app, int showTvdbId, int episodeTvdbId,
-            int season, int episode, boolean isFlag) {
+                                        int season, int episode, boolean isFlag) {
         execute(app,
                 new EpisodeTaskTypes.EpisodeCollectedType(app, showTvdbId, episodeTvdbId,
                         season, episode,
@@ -122,7 +128,7 @@ public class EpisodeTools {
      * release date).
      */
     public static void episodeWatchedPrevious(SgApp app, int showTvdbId,
-            long episodeFirstAired) {
+                                              long episodeFirstAired) {
         execute(app,
                 new EpisodeTaskTypes.EpisodeWatchedPreviousType(app, showTvdbId,
                         episodeFirstAired)
@@ -130,7 +136,7 @@ public class EpisodeTools {
     }
 
     public static void seasonWatched(SgApp app, int showTvdbId, int seasonTvdbId, int season,
-            int episodeFlags) {
+                                     int episodeFlags) {
         validateFlags(episodeFlags);
         execute(app,
                 new EpisodeTaskTypes.SeasonWatchedType(app, showTvdbId, seasonTvdbId, season,
@@ -139,7 +145,7 @@ public class EpisodeTools {
     }
 
     public static void seasonCollected(SgApp app, int showTvdbId, int seasonTvdbId,
-            int season, boolean isFlag) {
+                                       int season, boolean isFlag) {
         execute(app,
                 new EpisodeTaskTypes.SeasonCollectedType(app, showTvdbId, seasonTvdbId, season,
                         isFlag ? 1 : 0)
@@ -172,7 +178,7 @@ public class EpisodeTools {
         public final EpisodeTaskTypes.FlagType flagType;
         public final boolean isSuccessful;
 
-        public EpisodeTaskCompletedEvent(EpisodeTaskTypes.FlagType flagType, boolean isSuccessful) {
+        EpisodeTaskCompletedEvent(EpisodeTaskTypes.FlagType flagType, boolean isSuccessful) {
             this.flagType = flagType;
             this.isSuccessful = isSuccessful;
         }
@@ -187,7 +193,8 @@ public class EpisodeTools {
         private static final int ERROR_HEXAGON_API = -4;
 
         private final SgApp app;
-        @Inject Lazy<Sync> traktSync;
+        @Inject
+        Lazy<Sync> traktSync;
         private final EpisodeTaskTypes.FlagType flagType;
 
         private boolean shouldSendToTrakt;
@@ -195,7 +202,7 @@ public class EpisodeTools {
 
         private boolean canSendToTrakt;
 
-        public EpisodeFlagTask(SgApp app, EpisodeTaskTypes.FlagType type) {
+        EpisodeFlagTask(SgApp app, EpisodeTaskTypes.FlagType type) {
             this.app = app;
             app.getServicesComponent().inject(this);
             flagType = type;
@@ -256,7 +263,7 @@ public class EpisodeTools {
         }
 
         private static int uploadToHexagon(SgApp app, int showTvdbId,
-                @NonNull List<Episode> batch) {
+                                           @NonNull List<Episode> batch) {
             EpisodeList uploadWrapper = new EpisodeList();
             uploadWrapper.setShowTvdbId(showTvdbId);
 
@@ -553,7 +560,7 @@ public class EpisodeTools {
         }
 
         private static boolean updateLastWatchedTimeOfShows(Context context,
-                SparseArrayCompat<Long> showsLastWatchedMs) {
+                                                            SparseArrayCompat<Long> showsLastWatchedMs) {
             if (showsLastWatchedMs.size() == 0) {
                 return true; // no episodes were watched, no last watched time to update
             }
@@ -696,7 +703,7 @@ public class EpisodeTools {
         }
 
         private static boolean updateLastWatchedTimeOfShow(Context context, int showTvdbId,
-                @Nullable Long lastWatchedMs) {
+                                                           @Nullable Long lastWatchedMs) {
             if (lastWatchedMs == null) {
                 return true; // no last watched time, nothing to update
             }
@@ -723,7 +730,7 @@ public class EpisodeTools {
     public static class Upload {
 
         private interface FlaggedEpisodesQuery {
-            String[] PROJECTION = new String[] {
+            String[] PROJECTION = new String[]{
                     SeriesGuideContract.Episodes._ID,
                     SeriesGuideContract.Episodes.SEASON,
                     SeriesGuideContract.Episodes.NUMBER,
@@ -817,7 +824,7 @@ public class EpisodeTools {
          * Upload the given episodes to Hexagon. Assumes the given episode wrapper has valid
          * values.
          */
-        public static boolean flagsToHexagon(SgApp app, EpisodeList episodes) {
+        static boolean flagsToHexagon(SgApp app, EpisodeList episodes) {
             try {
                 Episodes episodesService = app.getHexagonTools().getEpisodesService();
                 if (episodesService == null) {

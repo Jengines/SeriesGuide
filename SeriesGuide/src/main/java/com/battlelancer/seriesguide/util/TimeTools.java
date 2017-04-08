@@ -7,15 +7,18 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
+
 import com.battlelancer.seriesguide.AnalyticsTree;
 import com.battlelancer.seriesguide.Constants;
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.ui.SeriesGuidePreferences;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
+
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
 import org.joda.time.DateTimeZone;
@@ -24,6 +27,7 @@ import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
+
 import timber.log.Timber;
 
 /**
@@ -68,7 +72,7 @@ public class TimeTools {
 
     /**
      * Returns the appropriate time zone for the given tzdata zone identifier.
-     *
+     * <p>
      * <p> Falls back to "America/New_York" if timezone string is empty or unknown.
      */
     public static DateTimeZone getDateTimeZone(@Nullable String timezone) {
@@ -85,7 +89,7 @@ public class TimeTools {
     /**
      * Parses a ISO 8601 time string (e.g. "20:30") and encodes it into an integer with format
      * "hhmm" (e.g. 2030).
-     *
+     * <p>
      * <p> If time is invalid returns -1. Performs no extensive formatting check, though.
      */
     public static int parseShowReleaseTime(@Nullable String localTime) {
@@ -103,7 +107,7 @@ public class TimeTools {
 
     /**
      * Converts US week day string to {@link org.joda.time.DateTimeConstants} day.
-     *
+     * <p>
      * <p> Returns -1 if no conversion is possible and 0 if it is "Daily".
      */
     public static int parseShowReleaseWeekDay(String day) {
@@ -146,14 +150,14 @@ public class TimeTools {
      * Calculates the episode release date time as a millisecond instant. Adjusts for time zone
      * effects on release time, e.g. delays between time zones (e.g. in the United States) and DST.
      *
-     * @param showTimeZone See {@link #getDateTimeZone(String)}.
+     * @param showTimeZone    See {@link #getDateTimeZone(String)}.
      * @param showReleaseTime See {@link #getShowReleaseTime(int)}.
      * @return -1 if no conversion was possible. Otherwise, any other long value (may be negative!).
      */
     public static long parseEpisodeReleaseDate(@Nullable Context context,
-            @NonNull DateTimeZone showTimeZone, @Nullable String releaseDate,
-            @NonNull LocalTime showReleaseTime, @Nullable String showCountry,
-            @Nullable String showNetwork, @NonNull String deviceTimeZone) {
+                                               @NonNull DateTimeZone showTimeZone, @Nullable String releaseDate,
+                                               @NonNull LocalTime showReleaseTime, @Nullable String showCountry,
+                                               @Nullable String showNetwork, @NonNull String deviceTimeZone) {
         if (releaseDate == null || releaseDate.length() == 0) {
             return Constants.EPISODE_UNKNOWN_RELEASE;
         }
@@ -192,7 +196,7 @@ public class TimeTools {
     /**
      * Creates the show release time from a {@link com.battlelancer.seriesguide.provider.SeriesGuideContract.Shows#RELEASE_TIME}
      * encoded value.
-     *
+     * <p>
      * <p> If the encoded time passed is not from 0 to 2359 or the encoded minute is larger than 59,
      * a sensible default is returned.
      */
@@ -218,8 +222,8 @@ public class TimeTools {
      * @return The date is today or on the next day matching the given week day.
      */
     public static Date getShowReleaseDateTime(@NonNull Context context, @NonNull LocalTime time,
-            int weekDay, @Nullable String timeZone, @Nullable String country,
-            @Nullable String network) {
+                                              int weekDay, @Nullable String timeZone, @Nullable String country,
+                                              @Nullable String network) {
         // determine show time zone (falls back to America/New_York)
         DateTimeZone showTimeZone = getDateTimeZone(timeZone);
 
@@ -256,16 +260,16 @@ public class TimeTools {
     /**
      * If the release time is within the hour past midnight (0:00 until 0:59) moves the date one day
      * into the future (currently US shows only, excluding Netflix shows).
-     *
+     * <p>
      * <p> This is based on late night shows being commonly listed as releasing the day before if
      * they air past midnight (e.g. "Monday night at 0:35" actually is Tuesday 0:35).
-     *
+     * <p>
      * <p>Example: https://thetvdb.com/?tab=series&id=292421
-     *
+     * <p>
      * <p>See also: https://forums.thetvdb.com/viewtopic.php?t=22791
      */
     private static LocalDateTime handleHourPastMidnight(@Nullable String country,
-            @Nullable String network, LocalDateTime localDateTime) {
+                                                        @Nullable String network, LocalDateTime localDateTime) {
         if (ISO3166_1_UNITED_STATES.equals(country)
                 && !NETWORK_NETFLIX.equals(network)
                 && localDateTime.getHourOfDay() == 0) {
@@ -303,7 +307,7 @@ public class TimeTools {
     }
 
     private static DateTime applyUnitedStatesCorrections(@Nullable String country,
-            @NonNull String localTimeZone, @NonNull DateTime dateTime) {
+                                                         @NonNull String localTimeZone, @NonNull DateTime dateTime) {
         // assumed base time zone for US shows by trakt is America/New_York
         // EST UTC−5:00, EDT UTC−4:00
 
@@ -323,21 +327,25 @@ public class TimeTools {
         }
 
         int offset = 0;
-        if (localTimeZone.equals(TIMEZONE_ID_US_MOUNTAIN)) {
-            // MST UTC−7:00, MDT UTC−6:00
-            offset += 1;
-        } else if (localTimeZone.equals(TIMEZONE_ID_US_ARIZONA)) {
-            // is always UTC-07:00, so like Mountain, but no DST
-            boolean noDstInEastern = DateTimeZone.forID(TIMEZONE_ID_US_EASTERN)
-                    .isStandardOffset(dateTime.getMillis());
-            if (noDstInEastern) {
+        switch (localTimeZone) {
+            case TIMEZONE_ID_US_MOUNTAIN:
+                // MST UTC−7:00, MDT UTC−6:00
                 offset += 1;
-            } else {
-                offset += 2;
-            }
-        } else if (localTimeZone.equals(TIMEZONE_ID_US_PACIFIC)) {
-            // PST UTC−8:00 or PDT UTC−7:00
-            offset += 3;
+                break;
+            case TIMEZONE_ID_US_ARIZONA:
+                // is always UTC-07:00, so like Mountain, but no DST
+                boolean noDstInEastern = DateTimeZone.forID(TIMEZONE_ID_US_EASTERN)
+                        .isStandardOffset(dateTime.getMillis());
+                if (noDstInEastern) {
+                    offset += 1;
+                } else {
+                    offset += 2;
+                }
+                break;
+            case TIMEZONE_ID_US_PACIFIC:
+                // PST UTC−8:00 or PDT UTC−7:00
+                offset += 3;
+                break;
         }
 
         dateTime = dateTime.plusHours(offset);
@@ -350,7 +358,7 @@ public class TimeTools {
      * time forward in hour increments until the local date time is outside the gap.
      */
     private static LocalDateTime handleDstGap(DateTimeZone showTimeZone,
-            LocalDateTime localDateTime) {
+                                              LocalDateTime localDateTime) {
         while (showTimeZone.isLocalDateTimeGap(localDateTime)) {
             // move time forward in 1 hour increments, until outside of the gap
             localDateTime = localDateTime.plusHours(1);
@@ -520,7 +528,7 @@ public class TimeTools {
 
     /**
      * Takes a millisecond date time instant and adds the user-defined offset.
-     *
+     * <p>
      * <p> Typically required for episode date times stored in the database before formatting them
      * for display.
      */

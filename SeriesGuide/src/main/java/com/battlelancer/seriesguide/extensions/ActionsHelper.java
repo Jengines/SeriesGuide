@@ -13,13 +13,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.api.Action;
 import com.battlelancer.seriesguide.util.Utils;
 import com.battlelancer.seriesguide.util.ViewTools;
 import com.uwetrottmann.androidutils.AndroidUtils;
 import com.uwetrottmann.androidutils.CheatSheet;
+
 import java.util.List;
+
 import timber.log.Timber;
 
 public class ActionsHelper {
@@ -31,8 +34,8 @@ public class ActionsHelper {
      * of an  {@link com.battlelancer.seriesguide.api.Action} is not null.
      */
     public static void populateActions(@NonNull LayoutInflater layoutInflater,
-            @NonNull Resources.Theme theme, @Nullable ViewGroup actionsContainer,
-            @Nullable List<Action> data, @NonNull final String logCategory) {
+                                       @NonNull Resources.Theme theme, @Nullable ViewGroup actionsContainer,
+                                       @Nullable List<Action> data, @NonNull final String logCategory) {
         if (actionsContainer == null) {
             // nothing we can do, view is already gone
             Timber.d("populateActions: action view container gone, aborting");

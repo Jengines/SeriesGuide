@@ -161,7 +161,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/episodeTitle"
-                                android:layout_marginRight="@dimen/default_padding"
+                                android:layout_marginEnd="@dimen/default_padding"
                                 android:textAllCaps="true"
                                 android:textAppearance="@style/TextAppearance.Caption"
                                 tools:text="OCT 15, 2013 (TUE)" />
@@ -171,7 +171,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/episodeTitle"
-                                android:layout_toRightOf="@+id/episodeTime"
+                                android:layout_toEndOf="@+id/episodeTime"
                                 android:ellipsize="marquee"
                                 android:maxLines="1"
                                 android:textAllCaps="true"

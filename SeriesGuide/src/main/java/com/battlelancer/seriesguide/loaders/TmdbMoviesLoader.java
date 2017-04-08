@@ -3,6 +3,7 @@ package com.battlelancer.seriesguide.loaders;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.enums.MoviesDiscoverLink;
@@ -18,12 +19,16 @@ import com.uwetrottmann.tmdb2.entities.TmdbDate;
 import com.uwetrottmann.tmdb2.enumerations.ReleaseType;
 import com.uwetrottmann.tmdb2.services.MoviesService;
 import com.uwetrottmann.tmdb2.services.SearchService;
+
 import dagger.Lazy;
+
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -33,9 +38,13 @@ import retrofit2.Response;
 public class TmdbMoviesLoader extends GenericSimpleLoader<TmdbMoviesLoader.Result> {
 
     public static class Result {
-        /** If loading failed, is null. Empty if no results. */
-        @Nullable public List<Movie> results;
-        @NonNull public String emptyText;
+        /**
+         * If loading failed, is null. Empty if no results.
+         */
+        @Nullable
+        public List<Movie> results;
+        @NonNull
+        public String emptyText;
 
         public Result(@Nullable List<Movie> results, @NonNull String emptyText) {
             this.results = results;
@@ -43,11 +52,16 @@ public class TmdbMoviesLoader extends GenericSimpleLoader<TmdbMoviesLoader.Resul
         }
     }
 
-    @Inject Lazy<Tmdb> tmdb;
-    @Inject Lazy<MoviesService> moviesService;
-    @Inject Lazy<SearchService> searchService;
-    @NonNull private final MoviesDiscoverLink link;
-    @Nullable private String query;
+    @Inject
+    Lazy<Tmdb> tmdb;
+    @Inject
+    Lazy<MoviesService> moviesService;
+    @Inject
+    Lazy<SearchService> searchService;
+    @NonNull
+    private final MoviesDiscoverLink link;
+    @Nullable
+    private String query;
 
     /**
      * If a query is given, will load search results for that query. Otherwise will load a list of

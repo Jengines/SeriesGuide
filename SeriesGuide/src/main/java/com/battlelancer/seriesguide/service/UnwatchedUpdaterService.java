@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.annotation.Nullable;
+
 import com.battlelancer.seriesguide.provider.SeriesGuideContract;
 import com.battlelancer.seriesguide.util.DBUtils;
+
 import timber.log.Timber;
 
 /**
@@ -23,7 +25,7 @@ public class UnwatchedUpdaterService extends IntentService {
     }
 
     public static Intent buildIntent(Context context, int showTvdbId,
-            @Nullable Integer seasonTvdbId) {
+                                     @Nullable Integer seasonTvdbId) {
         Intent intent = new Intent(context, UnwatchedUpdaterService.class);
         intent.putExtra(EXTRA_SHOW_TVDB_ID, showTvdbId);
         if (seasonTvdbId != null) {
@@ -55,7 +57,7 @@ public class UnwatchedUpdaterService extends IntentService {
             // update all seasons of this show, start with the most recent
             // one
             final Cursor seasons = getContentResolver().query(
-                    SeriesGuideContract.Seasons.buildSeasonsOfShowUri(showTvdbId), new String[] {
+                    SeriesGuideContract.Seasons.buildSeasonsOfShowUri(showTvdbId), new String[]{
                             SeriesGuideContract.Seasons._ID
                     }, null, null, SeriesGuideContract.Seasons.COMBINED + " DESC"
             );

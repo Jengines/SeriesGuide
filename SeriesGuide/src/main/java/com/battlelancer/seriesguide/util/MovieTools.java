@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.os.AsyncTaskCompat;
 import android.text.TextUtils;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.backend.HexagonTools;
@@ -47,7 +48,9 @@ import com.uwetrottmann.trakt5.enums.Type;
 import com.uwetrottmann.trakt5.services.Movies;
 import com.uwetrottmann.trakt5.services.Search;
 import com.uwetrottmann.trakt5.services.Sync;
+
 import dagger.Lazy;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -56,7 +59,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+
 import javax.inject.Inject;
+
 import retrofit2.Response;
 import timber.log.Timber;
 
@@ -90,10 +95,14 @@ public class MovieTools {
     };
 
     private final Context context;
-    @Inject Lazy<MoviesService> tmdbMovies;
-    @Inject Lazy<Movies> traktMovies;
-    @Inject Lazy<Search> traktSearch;
-    @Inject Lazy<Sync> traktSync;
+    @Inject
+    Lazy<MoviesService> tmdbMovies;
+    @Inject
+    Lazy<Movies> traktMovies;
+    @Inject
+    Lazy<Search> traktSearch;
+    @Inject
+    Lazy<Sync> traktSync;
 
     public MovieTools(SgApp app) {
         context = app.getApplicationContext();
@@ -159,7 +168,7 @@ public class MovieTools {
 
     /**
      * Removes the movie from the given list.
-     *
+     * <p>
      * <p>If it would not be on any list afterwards and is not watched, deletes the movie from the
      * local database.
      *
@@ -244,7 +253,7 @@ public class MovieTools {
 
     /**
      * Extracts ratings from trakt, all other properties from TMDb data.
-     *
+     * <p>
      * <p> If either movie data is null, will still extract the properties of others.
      */
     public static ContentValues buildBasicMovieContentValues(MovieDetails details) {
@@ -285,11 +294,11 @@ public class MovieTools {
      *
      * @return null if there was an error, empty list if there are no movies.
      */
-    public static HashSet<Integer> getMovieTmdbIdsAsSet(Context context) {
+    static HashSet<Integer> getMovieTmdbIdsAsSet(Context context) {
         HashSet<Integer> localMoviesIds = new HashSet<>();
 
         Cursor movies = context.getContentResolver().query(SeriesGuideContract.Movies.CONTENT_URI,
-                new String[] { SeriesGuideContract.Movies.TMDB_ID },
+                new String[]{SeriesGuideContract.Movies.TMDB_ID},
                 null, null, null);
         if (movies == null) {
             return null;
@@ -313,7 +322,7 @@ public class MovieTools {
     private static Boolean isMovieInList(Context context, int movieTmdbId, Lists list) {
         Cursor movie = context.getContentResolver()
                 .query(SeriesGuideContract.Movies.buildMovieUri(movieTmdbId),
-                        new String[] { list.databaseColumn }, null, null, null);
+                        new String[]{list.databaseColumn}, null, null, null);
         if (movie == null) {
             return null;
         }
@@ -330,8 +339,8 @@ public class MovieTools {
 
     private static Boolean isMovieInDatabase(Context context, int movieTmdbId) {
         Cursor movie = context.getContentResolver()
-                .query(SeriesGuideContract.Movies.CONTENT_URI, new String[] {
-                                SeriesGuideContract.Movies._ID },
+                .query(SeriesGuideContract.Movies.CONTENT_URI, new String[]{
+                                SeriesGuideContract.Movies._ID},
                         SeriesGuideContract.Movies.TMDB_ID + "=" + movieTmdbId, null, null);
         if (movie == null) {
             return null;
@@ -387,7 +396,7 @@ public class MovieTools {
     }
 
     private static boolean updateMovie(Context context, int movieTmdbId, String column,
-            boolean value) {
+                                       boolean value) {
         ContentValues values = new ContentValues();
         values.put(column, value);
 
@@ -443,13 +452,13 @@ public class MovieTools {
         /**
          * Downloads movies from hexagon, updates existing movies with new properties, removes
          * movies that are neither in collection or watchlist.
-         *
+         * <p>
          * <p> Adds movie tmdb ids to the respective collection or watchlist set.
          */
         @SuppressLint("ApplySharedPref")
         public static boolean fromHexagon(SgApp app,
-                @NonNull Set<Integer> newCollectionMovies, @NonNull Set<Integer> newWatchlistMovies,
-                boolean hasMergedMovies) {
+                                          @NonNull Set<Integer> newCollectionMovies, @NonNull Set<Integer> newWatchlistMovies,
+                                          boolean hasMergedMovies) {
             List<com.uwetrottmann.seriesguide.backend.movies.model.Movie> movies;
             boolean hasMoreMovies = true;
             String cursor = null;
@@ -573,10 +582,10 @@ public class MovieTools {
     /**
      * Updates the local movie database against trakt movie watchlist and collection. Adds, updates
      * and removes movies in the database.
-     *
+     * <p>
      * <p> When syncing the first time, will upload any local movies missing from trakt collection
      * or watchlist instead of removing them locally.
-     *
+     * <p>
      * <p> Performs <b>synchronous network access</b>, make sure to run this on a background
      * thread.
      */
@@ -761,10 +770,10 @@ public class MovieTools {
      * Adds new movies to the database.
      *
      * @param newCollectionMovies Movie TMDB ids to add to the collection.
-     * @param newWatchlistMovies Movie TMDB ids to add to the watchlist.
+     * @param newWatchlistMovies  Movie TMDB ids to add to the watchlist.
      */
     public UpdateResult addMovies(@NonNull Set<Integer> newCollectionMovies,
-            @NonNull Set<Integer> newWatchlistMovies) {
+                                  @NonNull Set<Integer> newWatchlistMovies) {
         Timber.d("addMovies: %s to collection, %s to watchlist", newCollectionMovies.size(),
                 newWatchlistMovies.size());
 
@@ -859,7 +868,7 @@ public class MovieTools {
 
     @Nullable
     private com.uwetrottmann.tmdb2.entities.Movie loadSummaryFromTmdb(String languageCode,
-            int movieTmdbId) {
+                                                                      int movieTmdbId) {
         // try to get local movie summary
         Movie movie = getMovieSummary("get local movie summary", languageCode, movieTmdbId);
         if (movie != null && !TextUtils.isEmpty(movie.overview)) {
@@ -883,7 +892,7 @@ public class MovieTools {
 
     @Nullable
     private Movie getMovieSummary(@NonNull String action, @Nullable String language,
-            int movieTmdbId) {
+                                  int movieTmdbId) {
         try {
             Response<Movie> response = tmdbMovies.get()
                     .summary(movieTmdbId, language, null)
@@ -969,8 +978,8 @@ public class MovieTools {
      * Checks if the given movies are in the local collection or watchlist, then uploads them to the
      * appropriate list(s) on trakt.
      */
-    public UpdateResult toTrakt(Set<Integer> moviesNotOnTraktCollection,
-            Set<Integer> moviesNotOnTraktWatchlist) {
+    private UpdateResult toTrakt(Set<Integer> moviesNotOnTraktCollection,
+                                 Set<Integer> moviesNotOnTraktWatchlist) {
         if (moviesNotOnTraktCollection.size() == 0 && moviesNotOnTraktWatchlist.size() == 0) {
             // nothing to upload
             Timber.d("toTrakt: nothing to upload");

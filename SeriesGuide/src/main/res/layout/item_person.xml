@@ -19,17 +19,17 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_toRightOf="@+id/imageViewPerson"
+        android:layout_toEndOf="@+id/imageViewPerson"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        android:paddingRight="@dimen/large_padding">
+        android:paddingEnd="@dimen/large_padding">
 
         <TextView
             android:id="@+id/textViewPerson"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:singleLine="true"
+            android:maxLines="1"
             android:textAppearance="@style/TextAppearance.Subhead"
             tools:text="Bryan Cranston" />
 
@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:singleLine="true"
+            android:maxLines="1"
             android:textAppearance="@style/TextAppearance.Body"
             tools:text="Walter White" />
 

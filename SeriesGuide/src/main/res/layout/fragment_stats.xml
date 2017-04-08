@@ -52,7 +52,7 @@
             android:id="@+id/textViewStatsShowsWithNext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_below="@+id/progressBarStatsShowsWithNext"
             android:textAppearance="@style/TextAppearance.Caption"
             android:textIsSelectable="true"
@@ -70,7 +70,7 @@
             android:id="@+id/textViewStatsShowsContinuing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_below="@+id/progressBarStatsShowsContinuing"
             android:textAppearance="@style/TextAppearance.Caption"
             android:textIsSelectable="true"
@@ -112,7 +112,7 @@
             android:id="@+id/textViewStatsEpisodesWatched"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_below="@+id/progressBarStatsEpisodesWatched"
             android:textAppearance="@style/TextAppearance.Caption"
             android:textIsSelectable="true"
@@ -148,9 +148,9 @@
             android:id="@+id/progressBarStatsEpisodesRuntime"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_marginTop="@dimen/inline_padding"
             android:layout_below="@id/labelStatsEpisodesRuntime"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/inline_padding" />
 
         <TextView
             android:id="@+id/textViewStatsMovies"
@@ -188,7 +188,7 @@
             android:id="@+id/textViewStatsMoviesWatchlist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_below="@+id/progressBarStatsMoviesWatchlist"
             android:textAppearance="@style/TextAppearance.Caption"
             android:textIsSelectable="true"

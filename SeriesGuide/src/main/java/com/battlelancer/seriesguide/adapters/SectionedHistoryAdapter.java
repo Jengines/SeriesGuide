@@ -7,12 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.adapters.model.HeaderData;
 import com.battlelancer.seriesguide.util.TimeTools;
 import com.battlelancer.seriesguide.util.Utils;
 import com.tonicartos.widget.stickygridheaders.StickyGridHeadersBaseAdapter;
 import com.uwetrottmann.trakt5.entities.HistoryEntry;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -21,17 +23,17 @@ import java.util.List;
 /**
  * A sectioned {@link HistoryEntry} adapter, grouping watched items by day.
  */
-public abstract class SectionedHistoryAdapter extends ArrayAdapter<HistoryEntry> implements
+abstract class SectionedHistoryAdapter extends ArrayAdapter<HistoryEntry> implements
         StickyGridHeadersBaseAdapter {
 
-    protected final LayoutInflater mInflater;
+    final LayoutInflater mInflater;
 
     private List<HeaderData> mHeaders;
     private Calendar mCalendar;
     private final int mResIdDrawableWatched;
     private final int mResIdDrawableCheckin;
 
-    public SectionedHistoryAdapter(Context context) {
+    SectionedHistoryAdapter(Context context) {
         super(context, 0);
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mCalendar = Calendar.getInstance();
@@ -48,11 +50,11 @@ public abstract class SectionedHistoryAdapter extends ArrayAdapter<HistoryEntry>
         }
     }
 
-    public int getResIdDrawableWatched() {
+    int getResIdDrawableWatched() {
         return mResIdDrawableWatched;
     }
 
-    public int getResIdDrawableCheckin() {
+    int getResIdDrawableCheckin() {
         return mResIdDrawableCheckin;
     }
 
@@ -116,7 +118,7 @@ public abstract class SectionedHistoryAdapter extends ArrayAdapter<HistoryEntry>
         super.notifyDataSetInvalidated();
     }
 
-    protected List<HeaderData> generateHeaderList() {
+    private List<HeaderData> generateHeaderList() {
         int count = getCount();
         if (count == 0) {
             return null;
@@ -166,8 +168,7 @@ public abstract class SectionedHistoryAdapter extends ArrayAdapter<HistoryEntry>
         return mCalendar.getTimeInMillis();
     }
 
-    static class HeaderViewHolder {
-
+    private static class HeaderViewHolder {
         public TextView day;
     }
 }

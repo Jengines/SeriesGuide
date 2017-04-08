@@ -27,9 +27,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 import com.battlelancer.seriesguide.Constants;
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
@@ -45,6 +47,7 @@ import com.battlelancer.seriesguide.util.DBUtils;
 import com.battlelancer.seriesguide.util.EpisodeTools;
 import com.battlelancer.seriesguide.util.Utils;
 import com.battlelancer.seriesguide.util.tasks.EpisodeTaskTypes.SeasonWatchedType;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -60,9 +63,12 @@ public class SeasonsFragment extends ListFragment {
     private static final int CONTEXT_COLLECTED_SHOW_NONE_ID = 3;
     private static final String TAG = "Seasons";
 
-    @BindView(R.id.textViewSeasonsRemaining) TextView textViewRemaining;
-    @BindView(R.id.imageViewSeasonsCollectedToggle) ImageView buttonCollectedAll;
-    @BindView(R.id.imageViewSeasonsWatchedToggle) ImageView buttonWatchedAll;
+    @BindView(R.id.textViewSeasonsRemaining)
+    TextView textViewRemaining;
+    @BindView(R.id.imageViewSeasonsCollectedToggle)
+    ImageView buttonCollectedAll;
+    @BindView(R.id.imageViewSeasonsWatchedToggle)
+    ImageView buttonWatchedAll;
     private Unbinder unbinder;
 
     private SeasonsAdapter adapter;
@@ -89,7 +95,7 @@ public class SeasonsFragment extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_seasons, container, false);
         unbinder = ButterKnife.bind(this, view);
         return view;
@@ -183,6 +189,7 @@ public class SeasonsFragment extends ListFragment {
     /**
      * Updates the total remaining episodes counter, updates season counters after episode actions.
      */
+    @SuppressWarnings("unused")
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(EpisodeTools.EpisodeTaskCompletedEvent event) {
         if (!event.isSuccessful) {
@@ -300,7 +307,7 @@ public class SeasonsFragment extends ListFragment {
                 Utils.resolveAttributeToResourceId(getActivity().getTheme(),
                         R.attr.drawableWatchedAll)
                 : Utils.resolveAttributeToResourceId(getActivity().getTheme(),
-                        R.attr.drawableWatchAll));
+                R.attr.drawableWatchAll));
         buttonWatchedAll.setContentDescription(
                 getString(watchedAllEpisodes ? R.string.unmark_all : R.string.mark_all));
         // set onClick listener not before here to avoid unexpected actions
@@ -341,7 +348,7 @@ public class SeasonsFragment extends ListFragment {
         //noinspection ResourceType
         buttonCollectedAll.setImageResource(collectedAllEpisodes ? R.drawable.ic_collected_all
                 : Utils.resolveAttributeToResourceId(getActivity().getTheme(),
-                        R.attr.drawableCollectAll));
+                R.attr.drawableCollectAll));
         buttonCollectedAll.setContentDescription(
                 getString(collectedAllEpisodes ? R.string.uncollect_all : R.string.collect_all));
         // set onClick listener not before here to avoid unexpected actions

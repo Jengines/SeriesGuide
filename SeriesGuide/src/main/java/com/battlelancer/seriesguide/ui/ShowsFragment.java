@@ -26,7 +26,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.PopupMenu;
+
 import butterknife.ButterKnife;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.adapters.BaseShowsAdapter;
@@ -47,6 +49,7 @@ import com.battlelancer.seriesguide.util.ViewTools;
 import com.battlelancer.seriesguide.widgets.FirstRunView;
 import com.battlelancer.seriesguide.widgets.HeaderGridView;
 import com.uwetrottmann.androidutils.AndroidUtils;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -79,7 +82,7 @@ public class ShowsFragment extends Fragment implements
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_shows, container, false);
 
         gridView = ButterKnife.findById(v, android.R.id.list);
@@ -432,7 +435,7 @@ public class ShowsFragment extends Fragment implements
                 break;
             }
             case FirstRunView.ButtonType.SIGN_IN: {
-                ((BaseNavDrawerActivity)getActivity()).openNavDrawer();
+                ((BaseNavDrawerActivity) getActivity()).openNavDrawer();
                 Utils.trackClick(getActivity(), TAG_FIRST_RUN, "Sign in");
                 break;
             }
@@ -564,7 +567,7 @@ public class ShowsFragment extends Fragment implements
 
     /**
      * Periodically restart the shows loader.
-     *
+     * <p>
      * <p>Some changes to the displayed data are not based on actual (detectable) changes to the
      * underlying data, but because time has passed (e.g. relative time displays, release time has
      * passed).

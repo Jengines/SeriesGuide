@@ -1,11 +1,11 @@
 package com.battlelancer.seriesguide.backend.settings;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+
 import com.battlelancer.seriesguide.provider.SeriesGuideContract;
 import com.battlelancer.seriesguide.util.Utils;
 
@@ -22,10 +22,10 @@ public class HexagonSettings {
     public static final String KEY_ACCOUNT_NAME
             = "com.battlelancer.seriesguide.hexagon.v2.accountname";
 
-    public static final String KEY_SETUP_COMPLETED
+    private static final String KEY_SETUP_COMPLETED
             = "com.battlelancer.seriesguide.hexagon.v2.setup_complete";
 
-    public static final String KEY_MERGED_SHOWS
+    private static final String KEY_MERGED_SHOWS
             = "com.battlelancer.seriesguide.hexagon.v2.merged.shows";
 
     public static final String KEY_MERGED_MOVIES

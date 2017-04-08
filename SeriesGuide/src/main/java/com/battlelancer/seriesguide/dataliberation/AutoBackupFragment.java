@@ -26,9 +26,11 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.interfaces.OnTaskFinishedListener;
 import com.battlelancer.seriesguide.interfaces.OnTaskProgressListener;
@@ -36,6 +38,7 @@ import com.battlelancer.seriesguide.settings.AdvancedSettings;
 import com.battlelancer.seriesguide.settings.BackupSettings;
 import com.battlelancer.seriesguide.util.Utils;
 import com.uwetrottmann.androidutils.AndroidUtils;
+
 import timber.log.Timber;
 
 /**
@@ -50,21 +53,34 @@ public class AutoBackupFragment extends Fragment implements OnTaskFinishedListen
     private static final int REQUEST_CODE_LISTS_EXPORT_URI = 4;
     private static final int REQUEST_CODE_MOVIES_EXPORT_URI = 5;
 
-    @BindView(R.id.switchAutoBackup) SwitchCompat switchAutoBackup;
-    @BindView(R.id.containerAutoBackupSettings) View containerSettings;
-    @BindView(R.id.checkBoxAutoBackupDefaultFiles) CheckBox checkBoxDefaultFiles;
+    @BindView(R.id.switchAutoBackup)
+    SwitchCompat switchAutoBackup;
+    @BindView(R.id.containerAutoBackupSettings)
+    View containerSettings;
+    @BindView(R.id.checkBoxAutoBackupDefaultFiles)
+    CheckBox checkBoxDefaultFiles;
 
-    @BindView(R.id.textViewAutoBackupShowsExportFile) TextView textShowsExportFile;
-    @BindView(R.id.buttonAutoBackupShowsExportFile) Button buttonShowsExportFile;
-    @BindView(R.id.textViewAutoBackupListsExportFile) TextView textListsExportFile;
-    @BindView(R.id.buttonAutoBackupListsExportFile) Button buttonListsExportFile;
-    @BindView(R.id.textViewAutoBackupMoviesExportFile) TextView textMoviesExportFile;
-    @BindView(R.id.buttonAutoBackupMoviesExportFile) Button buttonMoviesExportFile;
+    @BindView(R.id.textViewAutoBackupShowsExportFile)
+    TextView textShowsExportFile;
+    @BindView(R.id.buttonAutoBackupShowsExportFile)
+    Button buttonShowsExportFile;
+    @BindView(R.id.textViewAutoBackupListsExportFile)
+    TextView textListsExportFile;
+    @BindView(R.id.buttonAutoBackupListsExportFile)
+    Button buttonListsExportFile;
+    @BindView(R.id.textViewAutoBackupMoviesExportFile)
+    TextView textMoviesExportFile;
+    @BindView(R.id.buttonAutoBackupMoviesExportFile)
+    Button buttonMoviesExportFile;
 
-    @BindView(R.id.checkBoxAutoBackupImportWarning) CheckBox checkBoxImportWarning;
-    @BindView(R.id.textViewAutoBackupLastTime) TextView textViewLastAutoBackup;
-    @BindView(R.id.buttonAutoBackupImport) Button buttonImportAutoBackup;
-    @BindView(R.id.progressBarAutoBackup) ProgressBar progressBar;
+    @BindView(R.id.checkBoxAutoBackupImportWarning)
+    CheckBox checkBoxImportWarning;
+    @BindView(R.id.textViewAutoBackupLastTime)
+    TextView textViewLastAutoBackup;
+    @BindView(R.id.buttonAutoBackupImport)
+    Button buttonImportAutoBackup;
+    @BindView(R.id.progressBarAutoBackup)
+    ProgressBar progressBar;
 
     private AsyncTask<Void, Integer, Integer> importTask;
     private Unbinder unbinder;
@@ -82,7 +98,7 @@ public class AutoBackupFragment extends Fragment implements OnTaskFinishedListen
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_auto_backup, container, false);
         unbinder = ButterKnife.bind(this, v);
 
@@ -137,7 +153,7 @@ public class AutoBackupFragment extends Fragment implements OnTaskFinishedListen
                     PreferenceManager.getDefaultSharedPreferences(buttonView.getContext())
                             .edit()
                             .putBoolean(BackupSettings.KEY_AUTO_BACKUP_USE_DEFAULT_FILES, isChecked)
-                            .commit();
+                            .apply();
                     updateFileViews();
                 }
             });
@@ -241,7 +257,7 @@ public class AutoBackupFragment extends Fragment implements OnTaskFinishedListen
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             // don't have it? request it, do task if granted
-            requestPermissions(new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE },
+            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     REQUEST_CODE_ENABLE_AUTO_BACKUP);
             return;
         }
@@ -253,7 +269,7 @@ public class AutoBackupFragment extends Fragment implements OnTaskFinishedListen
         if (ContextCompat.checkSelfPermission(getActivity(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             // don't have it? request it, do task if granted
-            requestPermissions(new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE },
+            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     REQUEST_CODE_IMPORT_AUTOBACKUP);
             return;
         }
@@ -263,7 +279,7 @@ public class AutoBackupFragment extends Fragment implements OnTaskFinishedListen
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-            @NonNull int[] grantResults) {
+                                           @NonNull int[] grantResults) {
         if (requestCode == REQUEST_CODE_ENABLE_AUTO_BACKUP) {
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {

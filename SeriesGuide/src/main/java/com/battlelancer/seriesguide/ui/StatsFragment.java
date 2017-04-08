@@ -20,9 +20,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract.Episodes;
@@ -32,7 +34,9 @@ import com.battlelancer.seriesguide.util.DBUtils;
 import com.battlelancer.seriesguide.util.ShareUtils;
 import com.battlelancer.seriesguide.util.ShowTools;
 import com.battlelancer.seriesguide.widgets.EmptyView;
+
 import java.util.Locale;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -43,24 +47,39 @@ import org.greenrobot.eventbus.ThreadMode;
  */
 public class StatsFragment extends Fragment {
 
-    @BindView(R.id.emptyViewStats) EmptyView errorView;
+    @BindView(R.id.emptyViewStats)
+    EmptyView errorView;
 
-    @BindView(R.id.textViewStatsShows) TextView mShowCount;
-    @BindView(R.id.textViewStatsShowsWithNext) TextView mShowsWithNextEpisode;
-    @BindView(R.id.progressBarStatsShowsWithNext) ProgressBar mProgressShowsWithNextEpisode;
-    @BindView(R.id.textViewStatsShowsContinuing) TextView mShowsContinuing;
-    @BindView(R.id.progressBarStatsShowsContinuing) ProgressBar mProgressShowsContinuing;
+    @BindView(R.id.textViewStatsShows)
+    TextView mShowCount;
+    @BindView(R.id.textViewStatsShowsWithNext)
+    TextView mShowsWithNextEpisode;
+    @BindView(R.id.progressBarStatsShowsWithNext)
+    ProgressBar mProgressShowsWithNextEpisode;
+    @BindView(R.id.textViewStatsShowsContinuing)
+    TextView mShowsContinuing;
+    @BindView(R.id.progressBarStatsShowsContinuing)
+    ProgressBar mProgressShowsContinuing;
 
-    @BindView(R.id.textViewStatsEpisodes) TextView mEpisodeCount;
-    @BindView(R.id.textViewStatsEpisodesWatched) TextView mEpisodesWatched;
-    @BindView(R.id.progressBarStatsEpisodesWatched) ProgressBar mProgressEpisodesWatched;
-    @BindView(R.id.textViewStatsEpisodesRuntime) TextView mEpisodesRuntime;
-    @BindView(R.id.progressBarStatsEpisodesRuntime) ProgressBar mProgressEpisodesRuntime;
+    @BindView(R.id.textViewStatsEpisodes)
+    TextView mEpisodeCount;
+    @BindView(R.id.textViewStatsEpisodesWatched)
+    TextView mEpisodesWatched;
+    @BindView(R.id.progressBarStatsEpisodesWatched)
+    ProgressBar mProgressEpisodesWatched;
+    @BindView(R.id.textViewStatsEpisodesRuntime)
+    TextView mEpisodesRuntime;
+    @BindView(R.id.progressBarStatsEpisodesRuntime)
+    ProgressBar mProgressEpisodesRuntime;
 
-    @BindView(R.id.textViewStatsMovies) TextView mMovieCount;
-    @BindView(R.id.textViewStatsMoviesWatchlist) TextView mMoviesWatchlist;
-    @BindView(R.id.progressBarStatsMoviesWatchlist) ProgressBar mProgressMoviesWatchlist;
-    @BindView(R.id.textViewStatsMoviesWatchlistRuntime) TextView mMoviesWatchlistRuntime;
+    @BindView(R.id.textViewStatsMovies)
+    TextView mMovieCount;
+    @BindView(R.id.textViewStatsMoviesWatchlist)
+    TextView mMoviesWatchlist;
+    @BindView(R.id.progressBarStatsMoviesWatchlist)
+    ProgressBar mProgressMoviesWatchlist;
+    @BindView(R.id.textViewStatsMoviesWatchlistRuntime)
+    TextView mMoviesWatchlistRuntime;
 
     private Unbinder unbinder;
     private AsyncTask<Void, StatsUpdateEvent, StatsUpdateEvent> statsTask;
@@ -69,7 +88,7 @@ public class StatsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_stats, container, false);
         unbinder = ButterKnife.bind(this, v);
 
@@ -153,7 +172,7 @@ public class StatsFragment extends Fragment {
         if (itemId == R.id.menu_action_stats_filter_specials) {
             PreferenceManager.getDefaultSharedPreferences(getActivity()).edit()
                     .putBoolean(DisplaySettings.KEY_HIDE_SPECIALS, !item.isChecked())
-                    .commit();
+                    .apply();
             getActivity().supportInvalidateOptionsMenu();
             loadStats();
             return true;
@@ -346,13 +365,14 @@ public class StatsFragment extends Fragment {
         ShareUtils.startShareIntentChooser(getActivity(), statsString.toString(), R.string.share);
     }
 
-    public static class StatsUpdateEvent {
-        @NonNull public final Stats stats;
-        public final boolean finalValues;
+    static class StatsUpdateEvent {
+        @NonNull
+        final Stats stats;
+        final boolean finalValues;
         public final boolean successful;
 
-        public StatsUpdateEvent(@NonNull Stats stats, boolean finalValues,
-                boolean successful) {
+        StatsUpdateEvent(@NonNull Stats stats, boolean finalValues,
+                         boolean successful) {
             this.stats = stats;
             this.finalValues = finalValues;
             this.successful = successful;
@@ -365,7 +385,7 @@ public class StatsFragment extends Fragment {
 
         private final Context context;
 
-        public StatsTask(Context context) {
+        StatsTask(Context context) {
             this.context = context.getApplicationContext();
         }
 
@@ -463,9 +483,9 @@ public class StatsFragment extends Fragment {
         private boolean processMovies(ContentResolver resolver, Stats stats) {
             // movies (count, in watchlist, runtime of watchlist)
             final Cursor movies = resolver.query(SeriesGuideContract.Movies.CONTENT_URI,
-                    new String[] { SeriesGuideContract.Movies._ID,
+                    new String[]{SeriesGuideContract.Movies._ID,
                             SeriesGuideContract.Movies.IN_WATCHLIST,
-                            SeriesGuideContract.Movies.RUNTIME_MIN }, null, null, null
+                            SeriesGuideContract.Movies.RUNTIME_MIN}, null, null, null
             );
             if (movies == null) {
                 return false;
@@ -490,7 +510,7 @@ public class StatsFragment extends Fragment {
         @Nullable
         private static SparseIntArray processShows(ContentResolver resolver, Stats stats) {
             Cursor shows = resolver.query(Shows.CONTENT_URI,
-                    new String[] {
+                    new String[]{
                             Shows._ID, // 0
                             Shows.STATUS,
                             Shows.NEXTEPISODE,
@@ -527,7 +547,7 @@ public class StatsFragment extends Fragment {
         }
 
         private boolean processEpisodes(ContentResolver resolver, Stats stats,
-                boolean includeSpecials) {
+                                        boolean includeSpecials) {
             // all episodes
             int allEpisodesCount = DBUtils.getCountOf(resolver, Episodes.CONTENT_URI,
                     includeSpecials ? null : Episodes.SELECTION_NO_SPECIALS, null, -1);
@@ -558,8 +578,8 @@ public class StatsFragment extends Fragment {
         private int mEpisodesWatched;
         private long mEpisodesWatchedRuntime;
         public int movies;
-        public int moviesWatchlist;
-        public long moviesWatchlistRuntime;
+        int moviesWatchlist;
+        long moviesWatchlistRuntime;
 
         public int shows() {
             return mShows;
@@ -570,20 +590,20 @@ public class StatsFragment extends Fragment {
             return this;
         }
 
-        public int showsWithNextEpisodes() {
+        int showsWithNextEpisodes() {
             return mShowsWithNext;
         }
 
-        public Stats showsWithNextEpisodes(int number) {
+        Stats showsWithNextEpisodes(int number) {
             mShowsWithNext = number;
             return this;
         }
 
-        public int showsContinuing() {
+        int showsContinuing() {
             return mShowsContinuing;
         }
 
-        public Stats showsContinuing(int number) {
+        Stats showsContinuing(int number) {
             mShowsContinuing = number;
             return this;
         }
@@ -597,20 +617,20 @@ public class StatsFragment extends Fragment {
             return this;
         }
 
-        public long episodesWatchedRuntime() {
+        long episodesWatchedRuntime() {
             return mEpisodesWatchedRuntime;
         }
 
-        public Stats episodesWatchedRuntime(long runtime) {
+        Stats episodesWatchedRuntime(long runtime) {
             mEpisodesWatchedRuntime = runtime;
             return this;
         }
 
-        public int episodesWatched() {
+        int episodesWatched() {
             return mEpisodesWatched;
         }
 
-        public Stats episodesWatched(int number) {
+        Stats episodesWatched(int number) {
             mEpisodesWatched = number;
             return this;
         }

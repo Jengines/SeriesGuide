@@ -11,20 +11,20 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:paddingBottom="@dimen/large_padding"
-        android:paddingLeft="40dp"
+        android:paddingStart="40dp"
         android:paddingTop="@dimen/large_padding"
-        android:singleLine="true"
         android:textAppearance="@style/TextAppearance.Subhead"
-        tools:text="Sample List Name" />
+        tools:text="Sample List Name"
+        android:maxLines="1" />
 
     <com.battlelancer.seriesguide.widgets.DragGripView
         android:id="@+id/dragGripViewItemList"
         android:layout_width="64dp"
         android:layout_height="match_parent"
-        android:layout_gravity="fill_vertical|left"
+        android:layout_gravity="fill_vertical|start"
         android:color="?attr/sgColorDivider"
         android:paddingBottom="@dimen/default_padding"
-        android:paddingLeft="@dimen/large_padding"
+        android:paddingStart="@dimen/large_padding"
         android:paddingTop="@dimen/default_padding"
         android:src="?attr/sgColorDivider" />
 

@@ -3,7 +3,9 @@ package com.battlelancer.seriesguide.tmdbapi;
 import com.battlelancer.seriesguide.BuildConfig;
 import com.uwetrottmann.tmdb2.Tmdb;
 import com.uwetrottmann.tmdb2.TmdbInterceptor;
+
 import java.io.IOException;
+
 import okhttp3.Interceptor;
 import okhttp3.Response;
 

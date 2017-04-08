@@ -13,6 +13,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.sync.AccountUtils;
@@ -21,7 +22,9 @@ import com.battlelancer.seriesguide.ui.ConnectTraktActivity;
 import com.battlelancer.seriesguide.ui.ShowsActivity;
 import com.uwetrottmann.trakt5.TraktV2;
 import com.uwetrottmann.trakt5.entities.AccessToken;
+
 import java.io.IOException;
+
 import retrofit2.Response;
 import timber.log.Timber;
 
@@ -157,7 +160,7 @@ public class TraktCredentials {
      * Stores the given user name and display name.
      */
     public synchronized boolean storeUsername(@NonNull String username,
-            @Nullable String displayname) {
+                                              @Nullable String displayname) {
         if (TextUtils.isEmpty(username)) {
             throw new IllegalArgumentException("Username is null or empty.");
         }

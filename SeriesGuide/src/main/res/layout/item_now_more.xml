@@ -12,8 +12,8 @@
     <ImageView
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginLeft="@dimen/keyline"
-        android:layout_marginRight="@dimen/default_padding"
+        android:layout_marginEnd="@dimen/default_padding"
+        android:layout_marginStart="@dimen/keyline"
         android:contentDescription="@null"
         android:src="?attr/drawableArrowRight" />
 
@@ -22,8 +22,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:paddingRight="@dimen/large_padding"
-        android:singleLine="true"
+        android:maxLines="1"
+        android:paddingEnd="@dimen/large_padding"
         android:textAppearance="@style/TextAppearance.Button"
         android:textColor="?android:attr/textColorSecondary"
         tools:text="@string/user_stream" />

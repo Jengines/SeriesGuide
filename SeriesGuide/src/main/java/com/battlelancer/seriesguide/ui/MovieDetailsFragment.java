@@ -34,9 +34,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.api.Action;
@@ -73,11 +75,14 @@ import com.uwetrottmann.tmdb2.entities.Credits;
 import com.uwetrottmann.tmdb2.entities.Movie;
 import com.uwetrottmann.tmdb2.entities.Videos;
 import com.uwetrottmann.trakt5.entities.Ratings;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
 import timber.log.Timber;
 
 /**
@@ -103,49 +108,82 @@ public class MovieDetailsFragment extends Fragment implements MovieActionsContra
     private static final String TAG = "Movie Details";
 
     private Unbinder unbinder;
-    @BindView(R.id.rootLayoutMovie) FrameLayout rootLayoutMovie;
-    @BindView(R.id.progressBar) View progressBar;
-    @BindView(R.id.containerMovieButtons) View containerMovieButtons;
-    @BindView(R.id.dividerMovieButtons) View dividerMovieButtons;
-    @BindView(R.id.buttonMovieCheckIn) Button buttonMovieCheckIn;
-    @BindView(R.id.buttonMovieWatched) Button buttonMovieWatched;
-    @BindView(R.id.buttonMovieCollected) Button buttonMovieCollected;
-    @BindView(R.id.buttonMovieWatchlisted) Button buttonMovieWatchlisted;
-    @BindView(R.id.containerRatings) View containerRatings;
-    @BindView(R.id.textViewRatingsTmdbValue) TextView textViewRatingsTmdbValue;
-    @BindView(R.id.textViewRatingsTmdbVotes) TextView textViewRatingsTmdbVotes;
-    @BindView(R.id.textViewRatingsTraktVotes) TextView textViewRatingsTraktVotes;
-    @BindView(R.id.textViewRatingsTraktValue) TextView textViewRatingsTraktValue;
-    @BindView(R.id.textViewRatingsTraktUserLabel) TextView textViewRatingsTraktUserLabel;
-    @BindView(R.id.textViewRatingsTraktUser) TextView textViewRatingsTraktUser;
-    @BindView(R.id.contentContainerMovie) NestedScrollView contentContainerMovie;
-    @Nullable @BindView(R.id.contentContainerMovieRight) NestedScrollView
+    @BindView(R.id.rootLayoutMovie)
+    FrameLayout rootLayoutMovie;
+    @BindView(R.id.progressBar)
+    View progressBar;
+    @BindView(R.id.containerMovieButtons)
+    View containerMovieButtons;
+    @BindView(R.id.dividerMovieButtons)
+    View dividerMovieButtons;
+    @BindView(R.id.buttonMovieCheckIn)
+    Button buttonMovieCheckIn;
+    @BindView(R.id.buttonMovieWatched)
+    Button buttonMovieWatched;
+    @BindView(R.id.buttonMovieCollected)
+    Button buttonMovieCollected;
+    @BindView(R.id.buttonMovieWatchlisted)
+    Button buttonMovieWatchlisted;
+    @BindView(R.id.containerRatings)
+    View containerRatings;
+    @BindView(R.id.textViewRatingsTmdbValue)
+    TextView textViewRatingsTmdbValue;
+    @BindView(R.id.textViewRatingsTmdbVotes)
+    TextView textViewRatingsTmdbVotes;
+    @BindView(R.id.textViewRatingsTraktVotes)
+    TextView textViewRatingsTraktVotes;
+    @BindView(R.id.textViewRatingsTraktValue)
+    TextView textViewRatingsTraktValue;
+    @BindView(R.id.textViewRatingsTraktUserLabel)
+    TextView textViewRatingsTraktUserLabel;
+    @BindView(R.id.textViewRatingsTraktUser)
+    TextView textViewRatingsTraktUser;
+    @BindView(R.id.contentContainerMovie)
+    NestedScrollView contentContainerMovie;
+    @Nullable
+    @BindView(R.id.contentContainerMovieRight)
+    NestedScrollView
             contentContainerMovieRight;
-    @BindView(R.id.frameLayoutMoviePoster) FrameLayout frameLayoutMoviePoster;
-    @BindView(R.id.imageViewMoviePoster) ImageView imageViewMoviePoster;
-    @BindView(R.id.textViewMovieTitle) TextView textViewMovieTitle;
-    @BindView(R.id.textViewMovieDescription) TextView textViewMovieDescription;
-    @BindView(R.id.textViewMovieDate) TextView textViewMovieDate;
-    @BindView(R.id.textViewMovieGenresLabel) View textViewMovieGenresLabel;
-    @BindView(R.id.textViewMovieGenres) TextView textViewMovieGenres;
-    @BindView(R.id.containerCast) ViewGroup containerCast;
-    @BindView(R.id.labelCast) View labelCast;
-    @BindView(R.id.containerCrew) ViewGroup containerCrew;
-    @BindView(R.id.labelCrew) View labelCrew;
-    @BindView(R.id.buttonMovieLanguage) Button buttonMovieLanguage;
-    @BindView(R.id.buttonMovieComments) Button buttonMovieComments;
-    @BindView(R.id.containerMovieActions) ViewGroup containerMovieActions;
+    @BindView(R.id.frameLayoutMoviePoster)
+    FrameLayout frameLayoutMoviePoster;
+    @BindView(R.id.imageViewMoviePoster)
+    ImageView imageViewMoviePoster;
+    @BindView(R.id.textViewMovieTitle)
+    TextView textViewMovieTitle;
+    @BindView(R.id.textViewMovieDescription)
+    TextView textViewMovieDescription;
+    @BindView(R.id.textViewMovieDate)
+    TextView textViewMovieDate;
+    @BindView(R.id.textViewMovieGenresLabel)
+    View textViewMovieGenresLabel;
+    @BindView(R.id.textViewMovieGenres)
+    TextView textViewMovieGenres;
+    @BindView(R.id.containerCast)
+    ViewGroup containerCast;
+    @BindView(R.id.labelCast)
+    View labelCast;
+    @BindView(R.id.containerCrew)
+    ViewGroup containerCrew;
+    @BindView(R.id.labelCrew)
+    View labelCrew;
+    @BindView(R.id.buttonMovieLanguage)
+    Button buttonMovieLanguage;
+    @BindView(R.id.buttonMovieComments)
+    Button buttonMovieComments;
+    @BindView(R.id.containerMovieActions)
+    ViewGroup containerMovieActions;
 
     private int tmdbId;
     private MovieDetails movieDetails = new MovieDetails();
     private Videos.Video trailer;
-    @Nullable private String languageCode;
+    @Nullable
+    private String languageCode;
     private Handler handler = new Handler();
     private AsyncTask<Bitmap, Void, Palette> paletteAsyncTask;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movie, container, false);
         unbinder = ButterKnife.bind(this, view);
 
@@ -395,7 +433,7 @@ public class MovieDetailsFragment extends Fragment implements MovieActionsContra
                             ? Utils.resolveAttributeToResourceId(getActivity().getTheme(),
                             R.attr.drawableWatched)
                             : Utils.resolveAttributeToResourceId(getActivity().getTheme(),
-                                    R.attr.drawableWatch), 0, 0);
+                            R.attr.drawableWatch), 0, 0);
             buttonMovieWatched.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -418,7 +456,7 @@ public class MovieDetailsFragment extends Fragment implements MovieActionsContra
                 inCollection
                         ? R.drawable.ic_collected
                         : Utils.resolveAttributeToResourceId(getActivity().getTheme(),
-                                R.attr.drawableCollect), 0, 0);
+                        R.attr.drawableCollect), 0, 0);
         buttonMovieCollected.setText(inCollection ? R.string.action_collection_remove
                 : R.string.action_collection_add);
         CheatSheet.setup(buttonMovieCollected, inCollection ? R.string.action_collection_remove
@@ -441,7 +479,7 @@ public class MovieDetailsFragment extends Fragment implements MovieActionsContra
                 inWatchlist
                         ? R.drawable.ic_listed
                         : Utils.resolveAttributeToResourceId(getActivity().getTheme(),
-                                R.attr.drawableList), 0, 0);
+                        R.attr.drawableList), 0, 0);
         buttonMovieWatchlisted.setText(
                 inWatchlist ? R.string.watchlist_remove : R.string.watchlist_add);
         CheatSheet.setup(buttonMovieWatchlisted,
@@ -595,6 +633,7 @@ public class MovieDetailsFragment extends Fragment implements MovieActionsContra
         loadMovieActionsDelayed();
     }
 
+    @SuppressWarnings("unused")
     @Subscribe
     public void onEvent(MovieTools.MovieChangedEvent event) {
         if (event.movieTmdbId != tmdbId) {
@@ -604,11 +643,13 @@ public class MovieDetailsFragment extends Fragment implements MovieActionsContra
         restartMovieLoader();
     }
 
+    @SuppressWarnings("unused")
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventEpisodeTask(BaseNavDrawerActivity.ServiceActiveEvent event) {
         setMovieButtonsEnabled(false);
     }
 
+    @SuppressWarnings("unused")
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventEpisodeTask(BaseNavDrawerActivity.ServiceCompletedEvent event) {
         setMovieButtonsEnabled(true);
@@ -631,6 +672,7 @@ public class MovieDetailsFragment extends Fragment implements MovieActionsContra
         }
     }
 
+    @SuppressWarnings("unused")
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void handleLanguageEvent(LanguageChoiceDialogFragment.LanguageChangedEvent event) {
         if (!AndroidUtils.isNetworkConnected(getContext())) {
@@ -812,7 +854,7 @@ public class MovieDetailsFragment extends Fragment implements MovieActionsContra
         private boolean showOverlay;
         private boolean showTitle;
 
-        public ToolbarScrollChangeListener(int overlayThresholdPx, int titleThresholdPx) {
+        ToolbarScrollChangeListener(int overlayThresholdPx, int titleThresholdPx) {
             this.overlayThresholdPx = overlayThresholdPx;
             this.titleThresholdPx = titleThresholdPx;
             // we have determined by science that a capacity of 2 is good in our case :)
@@ -821,7 +863,7 @@ public class MovieDetailsFragment extends Fragment implements MovieActionsContra
 
         @Override
         public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX,
-                int oldScrollY) {
+                                   int oldScrollY) {
             ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
             if (actionBar == null) {
                 return;

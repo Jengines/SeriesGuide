@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.adapters.CalendarAdapter;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract.Episodes;
@@ -26,8 +27,10 @@ import com.battlelancer.seriesguide.util.EpisodeTools;
 import com.battlelancer.seriesguide.util.ServiceUtils;
 import com.battlelancer.seriesguide.util.TextTools;
 import com.battlelancer.seriesguide.util.TimeTools;
+
 import java.io.IOException;
 import java.util.Date;
+
 import timber.log.Timber;
 
 public class ListWidgetService extends RemoteViewsService {
@@ -37,7 +40,7 @@ public class ListWidgetService extends RemoteViewsService {
         return new ListRemoteViewsFactory(getApplicationContext(), intent);
     }
 
-    class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
+    private class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
         private final Context context;
         private final int appWidgetId;
@@ -46,7 +49,7 @@ public class ListWidgetService extends RemoteViewsService {
         private int widgetType;
         private boolean isLightTheme;
 
-        public ListRemoteViewsFactory(Context context, Intent intent) {
+        ListRemoteViewsFactory(Context context, Intent intent) {
             this.context = context;
             this.appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
                     AppWidgetManager.INVALID_APPWIDGET_ID);
@@ -285,6 +288,7 @@ public class ListWidgetService extends RemoteViewsService {
         }
     }
 
+    @SuppressWarnings("unused")
     interface ShowsQuery {
         String[] PROJECTION = {
                 Qualified.SHOWS_ID, Shows.TITLE, Shows.NETWORK, Shows.POSTER, Shows.STATUS,

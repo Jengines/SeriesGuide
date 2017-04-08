@@ -16,9 +16,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.adapters.MoviesDiscoverAdapter;
@@ -28,14 +30,17 @@ import com.battlelancer.seriesguide.ui.dialogs.MovieLocalizationDialogFragment;
 import com.battlelancer.seriesguide.util.AutoGridLayoutManager;
 import com.battlelancer.seriesguide.util.Utils;
 import com.battlelancer.seriesguide.util.ViewTools;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 public class MoviesDiscoverFragment extends Fragment {
 
-    @BindView(R.id.swipeRefreshLayoutMoviesDiscover) SwipeRefreshLayout swipeRefreshLayout;
-    @BindView(R.id.recyclerViewMoviesDiscover) RecyclerView recyclerView;
+    @BindView(R.id.swipeRefreshLayoutMoviesDiscover)
+    SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.recyclerViewMoviesDiscover)
+    RecyclerView recyclerView;
 
     private MoviesDiscoverAdapter adapter;
     private GridLayoutManager layoutManager;
@@ -52,7 +57,7 @@ public class MoviesDiscoverFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movies_discover, container, false);
         unbinder = ButterKnife.bind(this, view);
 
@@ -129,12 +134,14 @@ public class MoviesDiscoverFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    @SuppressWarnings("unused")
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventLanguageChanged(
             MovieLocalizationDialogFragment.LocalizationChangedEvent event) {
         getLoaderManager().restartLoader(0, null, nowPlayingLoaderCallbacks);
     }
 
+    @SuppressWarnings("unused")
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventTabClick(MoviesActivity.MoviesTabClickEvent event) {
         if (event.position == MoviesActivity.TAB_POSITION_DISCOVER) {
@@ -142,10 +149,10 @@ public class MoviesDiscoverFragment extends Fragment {
         }
     }
 
-    public static class MovieItemClickListener extends MoviesSearchFragment.MovieItemClickListener
+    private static class MovieItemClickListener extends MoviesSearchFragment.MovieItemClickListener
             implements MoviesDiscoverAdapter.ItemClickListener {
 
-        public MovieItemClickListener(Activity activity) {
+        MovieItemClickListener(Activity activity) {
             super(activity);
         }
 
@@ -167,7 +174,7 @@ public class MoviesDiscoverFragment extends Fragment {
 
         @Override
         public void onLoadFinished(Loader<TmdbMoviesLoader.Result> loader,
-                TmdbMoviesLoader.Result data) {
+                                   TmdbMoviesLoader.Result data) {
             if (!isAdded()) {
                 return;
             }

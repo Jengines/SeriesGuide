@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract;
 import com.uwetrottmann.trakt5.entities.ShowIds;
@@ -39,10 +40,10 @@ public class RateEpisodeTask extends BaseRateItemTask {
         int showTvdbId = -1;
         Cursor query = getContext().getContentResolver()
                 .query(SeriesGuideContract.Episodes.buildEpisodeUri(episodeTvdbId),
-                        new String[] {
+                        new String[]{
                                 SeriesGuideContract.Episodes.SEASON,
                                 SeriesGuideContract.Episodes.NUMBER,
-                                SeriesGuideContract.Shows.REF_SHOW_ID }, null, null, null);
+                                SeriesGuideContract.Shows.REF_SHOW_ID}, null, null, null);
         if (query != null) {
             if (query.moveToFirst()) {
                 season = query.getInt(0);

@@ -7,13 +7,17 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.widget.ImageView;
+
 import com.battlelancer.seriesguide.BuildConfig;
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.util.ServiceUtils;
+
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+
 import timber.log.Timber;
 
 public class TvdbImageTools {
@@ -29,7 +33,7 @@ public class TvdbImageTools {
     /**
      * Builds a full size url for a TVDb poster or screenshot (episode still) using the given image
      * path.
-     *
+     * <p>
      * <p>Posters probably should use {@link #smallSizeUrl(String)} which downloads a much smaller
      * version.
      */
@@ -91,7 +95,7 @@ public class TvdbImageTools {
      * resizing or cropping. In addition sets alpha on the view.
      */
     public static void loadShowPosterAlpha(Context context, ImageView imageView,
-            String posterPath) {
+                                           String posterPath) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             imageView.setImageAlpha(30);
         } else {
@@ -106,12 +110,12 @@ public class TvdbImageTools {
      * Tries to load a resized, center cropped version of the show poster into the given {@link
      * ImageView}. On failure displays an error drawable (ensure image view is set to center
      * inside).
-     *
+     * <p>
      * <p>The resize dimensions are those used for posters in the show list and change depending on
      * screen size.
      */
     public static void loadShowPosterResizeCrop(Context context, ImageView imageView,
-            String posterPath) {
+                                                String posterPath) {
         ServiceUtils.loadWithPicasso(context, smallSizeUrl(posterPath))
                 .resizeDimen(R.dimen.show_poster_width, R.dimen.show_poster_height)
                 .centerCrop()
@@ -123,14 +127,14 @@ public class TvdbImageTools {
      * Tries to load a resized, center cropped version of the show poster into the given {@link
      * ImageView}. On failure displays an error drawable (ensure image view is set to center
      * inside).
-     *
+     * <p>
      * <p>The resize dimensions are fixed for all screen sizes. Like for items using the show list
      * layout, use {@link TvdbImageTools#loadShowPosterResizeCrop(Context, ImageView, String)}.
      *
      * @param posterUrl This should already be a built TVDB poster URL, not just a poster path!
      */
     public static void loadShowPosterResizeSmallCrop(Context context, ImageView imageView,
-            String posterUrl) {
+                                                     String posterUrl) {
         ServiceUtils.loadWithPicasso(context, posterUrl)
                 .resizeDimen(R.dimen.show_poster_width_default, R.dimen.show_poster_height_default)
                 .centerCrop()
@@ -142,11 +146,11 @@ public class TvdbImageTools {
      * Tries to load a resized, center cropped version of the show poster into the given {@link
      * ImageView}. On failure displays an error drawable (ensure image view is set to center
      * inside).
-     *
+     * <p>
      * <p>The resize dimensions are determined based on the image view size.
      */
     public static void loadShowPosterFitCrop(Context context, ImageView imageView,
-            String posterPath) {
+                                             String posterPath) {
         ServiceUtils.loadWithPicasso(context, smallSizeUrl(posterPath))
                 .fit()
                 .centerCrop()

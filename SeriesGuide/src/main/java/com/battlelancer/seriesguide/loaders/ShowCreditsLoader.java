@@ -9,10 +9,14 @@ import com.uwetrottmann.tmdb2.entities.TvShow;
 import com.uwetrottmann.tmdb2.enumerations.ExternalSource;
 import com.uwetrottmann.tmdb2.services.FindService;
 import com.uwetrottmann.tmdb2.services.TvService;
+
 import dagger.Lazy;
+
 import java.io.IOException;
 import java.util.List;
+
 import javax.inject.Inject;
+
 import retrofit2.Response;
 import timber.log.Timber;
 
@@ -21,8 +25,10 @@ import timber.log.Timber;
  */
 public class ShowCreditsLoader extends GenericSimpleLoader<Credits> {
 
-    @Inject Lazy<FindService> findService;
-    @Inject Lazy<TvService> tvService;
+    @Inject
+    Lazy<FindService> findService;
+    @Inject
+    Lazy<TvService> tvService;
     private final boolean findTmdbId;
     private int showId;
 
@@ -31,7 +37,7 @@ public class ShowCreditsLoader extends GenericSimpleLoader<Credits> {
      * or TMDb.
      *
      * @param findTmdbId If true, the loader assumes the passed id is from TVDb id and will try to
-     * look up the associated TMDb id.
+     *                   look up the associated TMDb id.
      */
     public ShowCreditsLoader(SgApp app, int id, boolean findTmdbId) {
         super(app);

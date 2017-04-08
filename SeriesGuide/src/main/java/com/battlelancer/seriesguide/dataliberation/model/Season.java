@@ -2,6 +2,7 @@
 package com.battlelancer.seriesguide.dataliberation.model;
 
 import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class Season {

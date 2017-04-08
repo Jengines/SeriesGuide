@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.view.View;
+
 import com.battlelancer.seriesguide.provider.SeriesGuideContract;
 import com.battlelancer.seriesguide.thetvdbapi.TvdbImageTools;
 import com.battlelancer.seriesguide.util.DBUtils;
@@ -46,7 +47,7 @@ public class ShowResultsAdapter extends BaseShowsAdapter {
     }
 
     public interface Query {
-        String[] PROJECTION = new String[] {
+        String[] PROJECTION = new String[]{
                 SeriesGuideContract.Shows._ID, // 0
                 SeriesGuideContract.Shows.TITLE,
                 SeriesGuideContract.Shows.POSTER,

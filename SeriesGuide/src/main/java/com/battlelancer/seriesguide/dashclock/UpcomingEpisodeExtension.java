@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.adapters.CalendarAdapter;
 import com.battlelancer.seriesguide.settings.DashClockSettings;
@@ -14,6 +15,7 @@ import com.battlelancer.seriesguide.util.TextTools;
 import com.battlelancer.seriesguide.util.TimeTools;
 import com.google.android.apps.dashclock.api.DashClockExtension;
 import com.google.android.apps.dashclock.api.ExtensionData;
+
 import java.util.Date;
 
 public class UpcomingEpisodeExtension extends DashClockExtension {

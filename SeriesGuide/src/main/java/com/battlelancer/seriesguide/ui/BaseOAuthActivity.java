@@ -13,8 +13,10 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.TextView;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.util.Utils;
+
 import timber.log.Timber;
 
 /**
@@ -23,10 +25,14 @@ import timber.log.Timber;
  */
 public abstract class BaseOAuthActivity extends BaseActivity {
 
-    /** Pass with true to not auto launch the external browser, display default error message. */
+    /**
+     * Pass with true to not auto launch the external browser, display default error message.
+     */
     public static final String EXTRA_KEY_IS_RETRY = "isRetry";
 
-    /** Needs to match with the scheme registered in the manifest. */
+    /**
+     * Needs to match with the scheme registered in the manifest.
+     */
     private static final String OAUTH_URI_SCHEME = "sgoauth";
     public static final String OAUTH_CALLBACK_URL_CUSTOM = OAUTH_URI_SCHEME + "://callback";
 
@@ -62,7 +68,7 @@ public abstract class BaseOAuthActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        /**
+        /*
          * Force the text-to-speech accessibility Javascript plug-in service on Android 4.2.2 to
          * get shutdown, to avoid leaking its context.
          *
@@ -179,7 +185,7 @@ public abstract class BaseOAuthActivity extends BaseActivity {
     protected WebViewClient webViewClient = new WebViewClient() {
         @Override
         public void onReceivedError(WebView view, int errorCode, String description,
-                String failingUrl) {
+                                    String failingUrl) {
             Timber.e("WebView error: %s %s", errorCode, description);
             activateFallbackButtons();
             setMessage(getAuthErrorMessage() + "\n\n(" + errorCode + " " + description + ")");

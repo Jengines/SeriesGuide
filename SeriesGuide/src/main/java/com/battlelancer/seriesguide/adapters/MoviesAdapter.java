@@ -10,12 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.settings.TmdbSettings;
 import com.battlelancer.seriesguide.util.ServiceUtils;
 import com.uwetrottmann.tmdb2.entities.Movie;
+
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -104,12 +107,16 @@ public class MoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     static class MovieViewHolder extends RecyclerView.ViewHolder {
 
         int movieTmdbId;
-        @BindView(R.id.textViewMovieTitle) TextView title;
-        @BindView(R.id.textViewMovieDate) TextView date;
-        @BindView(R.id.imageViewMoviePoster) ImageView poster;
-        @BindView(R.id.imageViewMovieItemContextMenu) ImageView contextMenu;
+        @BindView(R.id.textViewMovieTitle)
+        TextView title;
+        @BindView(R.id.textViewMovieDate)
+        TextView date;
+        @BindView(R.id.imageViewMoviePoster)
+        ImageView poster;
+        @BindView(R.id.imageViewMovieItemContextMenu)
+        ImageView contextMenu;
 
-        public MovieViewHolder(View itemView, final ItemClickListener itemClickListener) {
+        MovieViewHolder(View itemView, final ItemClickListener itemClickListener) {
             super(itemView);
             ButterKnife.bind(this, itemView);
 

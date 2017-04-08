@@ -17,8 +17,10 @@ import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import com.battlelancer.seriesguide.Constants;
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.adapters.TabStripAdapter;
@@ -30,10 +32,12 @@ import com.battlelancer.seriesguide.util.RemoveShowWorkerFragment;
 import com.battlelancer.seriesguide.util.Shadows;
 import com.battlelancer.seriesguide.widgets.SlidingTabLayout;
 import com.uwetrottmann.androidutils.AndroidUtils;
+
 import java.lang.ref.WeakReference;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -52,12 +56,19 @@ public class OverviewActivity extends BaseNavDrawerActivity {
     public static final int SEASONS_LOADER_ID = 105;
 
     // keep reference to adapter while activity is alive
-    @SuppressWarnings("FieldCanBeLocal") private NfcAdapter nfcAdapter;
+    @SuppressWarnings("FieldCanBeLocal")
+    private NfcAdapter nfcAdapter;
     private int showTvdbId;
 
-    @Nullable @BindView(R.id.viewOverviewShadowStart) View shadowOverviewStart;
-    @Nullable @BindView(R.id.viewOverviewShadowEnd) View shadowOverviewEnd;
-    @Nullable @BindView(R.id.viewOverviewShadowBottom) View shadowShowBottom;
+    @Nullable
+    @BindView(R.id.viewOverviewShadowStart)
+    View shadowOverviewStart;
+    @Nullable
+    @BindView(R.id.viewOverviewShadowEnd)
+    View shadowOverviewEnd;
+    @Nullable
+    @BindView(R.id.viewOverviewShadowBottom)
+    View shadowShowBottom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -188,7 +199,7 @@ public class OverviewActivity extends BaseNavDrawerActivity {
                 @Override
                 public NdefMessage createNdefMessage(NfcEvent event) {
                     // send show TVDB id
-                    return new NdefMessage(new NdefRecord[] {
+                    return new NdefMessage(new NdefRecord[]{
                             createMimeRecord(String.valueOf(showTvdbId).getBytes())
                     });
                 }
@@ -196,7 +207,7 @@ public class OverviewActivity extends BaseNavDrawerActivity {
                 /**
                  * Creates a custom MIME type encapsulated in an NDEF record
                  */
-                public NdefRecord createMimeRecord(byte[] payload) {
+                NdefRecord createMimeRecord(byte[] payload) {
                     byte[] mimeBytes = Constants.ANDROID_BEAM_NDEF_MIME_TYPE.getBytes(
                             Charset.forName("US-ASCII"));
                     return new NdefRecord(

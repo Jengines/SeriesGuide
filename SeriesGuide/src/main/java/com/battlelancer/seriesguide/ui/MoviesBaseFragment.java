@@ -17,12 +17,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.adapters.MoviesCursorAdapter;
 import com.battlelancer.seriesguide.settings.DisplaySettings;
 import com.battlelancer.seriesguide.settings.MoviesDistillationSettings;
 import com.battlelancer.seriesguide.util.Utils;
 import com.uwetrottmann.androidutils.AndroidUtils;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -46,7 +48,7 @@ public abstract class MoviesBaseFragment extends Fragment implements
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View v = inflater.inflate(LAYOUT, container, false);
 
         gridView = (GridView) v.findViewById(R.id.gridViewMovies);
@@ -162,6 +164,7 @@ public abstract class MoviesBaseFragment extends Fragment implements
      */
     protected abstract int getTabPosition(boolean showingNowTab);
 
+    @SuppressWarnings("unused")
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventTabClick(MoviesActivity.MoviesTabClickEvent event) {
         if (event.position == getTabPosition(event.showingNowTab)) {

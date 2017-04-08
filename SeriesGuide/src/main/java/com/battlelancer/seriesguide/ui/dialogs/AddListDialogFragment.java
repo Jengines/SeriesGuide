@@ -20,13 +20,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract.Lists;
 import com.battlelancer.seriesguide.util.ListsTools;
+
 import java.util.HashSet;
 
 /**
@@ -38,9 +41,12 @@ public class AddListDialogFragment extends AppCompatDialogFragment {
         return new AddListDialogFragment();
     }
 
-    @BindView(R.id.textInputLayoutListManageListName) TextInputLayout textInputLayoutName;
-    @BindView(R.id.buttonNegative) Button buttonNegative;
-    @BindView(R.id.buttonPositive) Button buttonPositive;
+    @BindView(R.id.textInputLayoutListManageListName)
+    TextInputLayout textInputLayoutName;
+    @BindView(R.id.buttonNegative)
+    Button buttonNegative;
+    @BindView(R.id.buttonPositive)
+    Button buttonPositive;
 
     private Unbinder unbinder;
 
@@ -54,7 +60,7 @@ public class AddListDialogFragment extends AppCompatDialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         final View layout = inflater.inflate(R.layout.dialog_list_manage, container, false);
         unbinder = ButterKnife.bind(this, layout);
 
@@ -125,7 +131,7 @@ public class AddListDialogFragment extends AppCompatDialogFragment {
      * used. Does currently not protect against a new list resulting in the same list id (if
      * inserted just resets the properties of the existing list).
      */
-    public static class ListNameTextWatcher implements TextWatcher {
+    static class ListNameTextWatcher implements TextWatcher {
         private Context context;
         private TextInputLayout textInputLayoutName;
         private TextView buttonPositive;
@@ -133,14 +139,14 @@ public class AddListDialogFragment extends AppCompatDialogFragment {
         @Nullable
         private String currentName;
 
-        public ListNameTextWatcher(Context context, TextInputLayout textInputLayoutName,
-                TextView buttonPositive, @Nullable String currentName) {
+        ListNameTextWatcher(Context context, TextInputLayout textInputLayoutName,
+                            TextView buttonPositive, @Nullable String currentName) {
             this.context = context;
             this.textInputLayoutName = textInputLayoutName;
             this.buttonPositive = buttonPositive;
             this.currentName = currentName;
             Cursor listNameQuery = context.getContentResolver()
-                    .query(Lists.CONTENT_URI, new String[] { Lists._ID, Lists.NAME }, null, null,
+                    .query(Lists.CONTENT_URI, new String[]{Lists._ID, Lists.NAME}, null, null,
                             null);
             listNames = new HashSet<>();
             if (listNameQuery != null) {

@@ -5,8 +5,11 @@ import com.battlelancer.seriesguide.tmdbapi.SgTmdb;
 import com.uwetrottmann.androidutils.GenericSimpleLoader;
 import com.uwetrottmann.tmdb2.entities.Credits;
 import com.uwetrottmann.tmdb2.services.MoviesService;
+
 import java.io.IOException;
+
 import javax.inject.Inject;
+
 import retrofit2.Response;
 
 /**
@@ -14,7 +17,8 @@ import retrofit2.Response;
  */
 public class MovieCreditsLoader extends GenericSimpleLoader<Credits> {
 
-    @Inject MoviesService moviesService;
+    @Inject
+    MoviesService moviesService;
     private final int mTmdbId;
 
     public MovieCreditsLoader(SgApp app, int tmdbId) {

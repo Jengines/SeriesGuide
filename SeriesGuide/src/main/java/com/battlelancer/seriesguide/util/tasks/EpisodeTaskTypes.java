@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.text.format.DateUtils;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.appwidget.ListWidgetProvider;
 import com.battlelancer.seriesguide.enums.EpisodeFlags;
@@ -18,13 +19,14 @@ import com.battlelancer.seriesguide.util.TimeTools;
 import com.uwetrottmann.seriesguide.backend.episodes.model.Episode;
 import com.uwetrottmann.trakt5.entities.SyncEpisode;
 import com.uwetrottmann.trakt5.entities.SyncSeason;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class EpisodeTaskTypes {
 
-    private static final String[] PROJECTION_EPISODE = new String[] {
+    private static final String[] PROJECTION_EPISODE = new String[]{
             SeriesGuideContract.Episodes._ID
     };
 
@@ -51,7 +53,7 @@ public class EpisodeTaskTypes {
         private int flagValue;
         private Action action;
 
-        public FlagType(Context context, int showTvdbId, int flagValue, Action action) {
+        FlagType(Context context, int showTvdbId, int flagValue, Action action) {
             this.context = context.getApplicationContext();
             this.action = action;
             this.showTvdbId = showTvdbId;
@@ -92,7 +94,7 @@ public class EpisodeTaskTypes {
             // query and add episodes to list
             final Cursor episodeCursor = context.getContentResolver().query(
                     uri,
-                    new String[] {
+                    new String[]{
                             SeriesGuideContract.Episodes.SEASON, SeriesGuideContract.Episodes.NUMBER
                     }, selection, null, null
             );
@@ -125,7 +127,7 @@ public class EpisodeTaskTypes {
          * Builds a list of {@link com.uwetrottmann.trakt5.entities.SyncSeason} objects to submit to
          * trakt.
          */
-        protected List<SyncSeason> buildTraktEpisodeList() {
+        List<SyncSeason> buildTraktEpisodeList() {
             List<SyncSeason> seasons = new ArrayList<>();
 
             // determine uri
@@ -136,7 +138,7 @@ public class EpisodeTaskTypes {
             // sort ascending by season, then number for trakt
             final Cursor episodeCursor = context.getContentResolver().query(
                     uri,
-                    new String[] {
+                    new String[]{
                             SeriesGuideContract.Episodes.SEASON, SeriesGuideContract.Episodes.NUMBER
                     },
                     selection,
@@ -206,8 +208,8 @@ public class EpisodeTaskTypes {
          * sure to call through to super.
          *
          * @param lastWatchedEpisodeId The last watched episode for a show to save to the database.
-         * -1 for no-op.
-         * @param setLastWatchedToNow Whether to set the last watched time of a show to now.
+         *                             -1 for no-op.
+         * @param setLastWatchedToNow  Whether to set the last watched time of a show to now.
          */
         @CallSuper
         protected void performPostExecute(int lastWatchedEpisodeId, boolean setLastWatchedToNow) {
@@ -236,14 +238,14 @@ public class EpisodeTaskTypes {
     /**
      * Flagging single episodes watched or collected.
      */
-    public static abstract class EpisodeType extends FlagType {
+    static abstract class EpisodeType extends FlagType {
 
         protected int episodeTvdbId;
         protected int season;
         protected int episode;
 
-        public EpisodeType(Context context, int showTvdbId, int episodeTvdbId, int season,
-                int episode, int flagValue, Action action) {
+        EpisodeType(Context context, int showTvdbId, int episodeTvdbId, int season,
+                    int episode, int flagValue, Action action) {
             super(context, showTvdbId, flagValue, action);
             this.episodeTvdbId = episodeTvdbId;
             this.season = season;
@@ -293,7 +295,7 @@ public class EpisodeTaskTypes {
     public static class EpisodeWatchedType extends EpisodeType {
 
         public EpisodeWatchedType(Context context, int showTvdbId, int episodeTvdbId, int season,
-                int episode, int episodeFlags) {
+                                  int episode, int episodeFlags) {
             super(context, showTvdbId, episodeTvdbId, season, episode, episodeFlags,
                     Action.EPISODE_WATCHED);
         }
@@ -318,7 +320,7 @@ public class EpisodeTaskTypes {
                 // find an appropriate last watched episode
                 final Cursor show = getContext().getContentResolver().query(
                         SeriesGuideContract.Shows.buildShowUri(String.valueOf(getShowTvdbId())),
-                        new String[] {
+                        new String[]{
                                 SeriesGuideContract.Shows._ID,
                                 SeriesGuideContract.Shows.LASTWATCHEDID
                         }, null, null, null
@@ -340,7 +342,7 @@ public class EpisodeTaskTypes {
                                                 .valueOf(getShowTvdbId())),
                                         PROJECTION_EPISODE,
                                         SeriesGuideContract.Episodes.SELECTION_PREVIOUS_WATCHED,
-                                        new String[] {
+                                        new String[]{
                                                 season, season, String.valueOf(episode)
                                         }, SeriesGuideContract.Episodes.SORT_PREVIOUS_WATCHED
                                 );
@@ -401,7 +403,7 @@ public class EpisodeTaskTypes {
     public static class EpisodeCollectedType extends EpisodeType {
 
         public EpisodeCollectedType(Context context, int showTvdbId, int episodeTvdbId, int season,
-                int episode, int episodeFlags) {
+                                    int episode, int episodeFlags) {
             super(context, showTvdbId, episodeTvdbId, season, episode, episodeFlags,
                     Action.EPISODE_COLLECTED);
         }
@@ -427,13 +429,13 @@ public class EpisodeTaskTypes {
     /**
      * Flagging whole seasons watched or collected.
      */
-    public static abstract class SeasonType extends FlagType {
+    static abstract class SeasonType extends FlagType {
 
         protected int seasonTvdbId;
         protected int season;
 
-        public SeasonType(Context context, int showTvdbId, int seasonTvdbId, int season,
-                int flagValue, Action action) {
+        SeasonType(Context context, int showTvdbId, int seasonTvdbId, int season,
+                   int flagValue, Action action) {
             super(context, showTvdbId, flagValue, action);
             this.seasonTvdbId = seasonTvdbId;
             this.season = season;
@@ -462,7 +464,7 @@ public class EpisodeTaskTypes {
         private final long currentTime;
 
         public SeasonWatchedType(Context context, int showTvdbId, int seasonTvdbId, int season,
-                int episodeFlags) {
+                                 int episodeFlags) {
             super(context, showTvdbId, seasonTvdbId, season, episodeFlags,
                     Action.SEASON_WATCHED);
             currentTime = TimeTools.getCurrentTime(context);
@@ -559,7 +561,7 @@ public class EpisodeTaskTypes {
     public static class SeasonCollectedType extends SeasonType {
 
         public SeasonCollectedType(Context context, int showTvdbId, int seasonTvdbId, int season,
-                int episodeFlags) {
+                                   int episodeFlags) {
             super(context, showTvdbId, seasonTvdbId, season, episodeFlags,
                     Action.SEASON_COLLECTED);
         }
@@ -596,9 +598,9 @@ public class EpisodeTaskTypes {
         }
     }
 
-    public static abstract class ShowType extends FlagType {
+    static abstract class ShowType extends FlagType {
 
-        public ShowType(Context context, int showTvdbId, int flagValue, Action action) {
+        ShowType(Context context, int showTvdbId, int flagValue, Action action) {
             super(context, showTvdbId, flagValue, action);
         }
 

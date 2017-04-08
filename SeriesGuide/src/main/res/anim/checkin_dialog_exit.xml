@@ -22,8 +22,8 @@
     android:interpolator="@interpolator/decelerate_quad_sg">
 
     <translate
+        android:duration="250"
         android:fromXDelta="0%"
-        android:toXDelta="100%p"
-        android:duration="250" />
+        android:toXDelta="100%p" />
 
 </set>

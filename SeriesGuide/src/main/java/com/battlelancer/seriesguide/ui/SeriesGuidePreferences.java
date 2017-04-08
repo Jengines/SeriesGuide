@@ -30,6 +30,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.appwidget.ListWidgetProvider;
 import com.battlelancer.seriesguide.backend.settings.HexagonSettings;
@@ -66,15 +67,13 @@ public class SeriesGuidePreferences extends AppCompatActivity {
 
     public static final String KEY_DATABASEIMPORTED = "com.battlelancer.seriesguide.dbimported";
 
-    public static final String KEY_SECURE = "com.battlelancer.seriesguide.secure";
-
     public static final String SUPPORT_MAIL = "support@seriesgui.de";
 
     private static final String KEY_ABOUT = "aboutPref";
 
-    public static final String KEY_TAPE_INTERVAL = "com.battlelancer.seriesguide.tapeinterval";
-
-    public static @StyleRes int THEME = R.style.Theme_SeriesGuide;
+    public static
+    @StyleRes
+    int THEME = R.style.Theme_SeriesGuide;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -411,7 +410,7 @@ public class SeriesGuidePreferences extends AppCompatActivity {
 
         @Override
         public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
-                @NonNull Preference preference) {
+                                             @NonNull Preference preference) {
             String key = preference.getKey();
             if (key != null && key.startsWith("screen_")) {
                 ((SeriesGuidePreferences) getActivity()).switchToSettings(key);

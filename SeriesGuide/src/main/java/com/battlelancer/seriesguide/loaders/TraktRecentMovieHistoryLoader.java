@@ -3,13 +3,16 @@ package com.battlelancer.seriesguide.loaders;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.text.format.DateUtils;
+
 import com.battlelancer.seriesguide.adapters.NowAdapter;
 import com.battlelancer.seriesguide.util.TimeTools;
 import com.uwetrottmann.trakt5.entities.HistoryEntry;
 import com.uwetrottmann.trakt5.entities.UserSlug;
 import com.uwetrottmann.trakt5.enums.HistoryType;
 import com.uwetrottmann.trakt5.services.Users;
+
 import java.util.List;
+
 import retrofit2.Call;
 
 /**
@@ -65,7 +68,7 @@ public class TraktRecentMovieHistoryLoader extends TraktRecentEpisodeHistoryLoad
         return buildUserMovieHistoryCall(traktUsers.get());
     }
 
-    public static Call<List<HistoryEntry>> buildUserMovieHistoryCall(Users traktUsers) {
+    static Call<List<HistoryEntry>> buildUserMovieHistoryCall(Users traktUsers) {
         return traktUsers
                 .history(UserSlug.ME, HistoryType.MOVIES, 1, MAX_HISTORY_SIZE, null,
                         null, null);

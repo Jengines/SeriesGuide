@@ -9,13 +9,16 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.adapters.TabStripAdapter;
 import com.battlelancer.seriesguide.settings.DisplaySettings;
 import com.battlelancer.seriesguide.settings.TraktCredentials;
 import com.battlelancer.seriesguide.widgets.SlidingTabLayout;
+
 import org.greenrobot.eventbus.EventBus;
 
 /**
@@ -23,11 +26,11 @@ import org.greenrobot.eventbus.EventBus;
  */
 public class MoviesActivity extends BaseTopActivity {
 
-    public class MoviesTabClickEvent {
+    class MoviesTabClickEvent {
         public final int position;
-        public final boolean showingNowTab;
+        final boolean showingNowTab;
 
-        public MoviesTabClickEvent(int position, boolean showingNowTab) {
+        MoviesTabClickEvent(int position, boolean showingNowTab) {
             this.position = position;
             this.showingNowTab = showingNowTab;
         }
@@ -47,8 +50,10 @@ public class MoviesActivity extends BaseTopActivity {
     public static final int TAB_POSITION_COLLECTION_WITH_NOW = 3;
     private static final int TAB_COUNT_WITH_TRAKT = 4;
 
-    @BindView(R.id.viewPagerTabs) ViewPager viewPager;
-    @BindView(R.id.tabLayoutTabs) SlidingTabLayout tabs;
+    @BindView(R.id.viewPagerTabs)
+    ViewPager viewPager;
+    @BindView(R.id.tabLayoutTabs)
+    SlidingTabLayout tabs;
     private TabStripAdapter tabsAdapter;
     private boolean showNowTab;
 

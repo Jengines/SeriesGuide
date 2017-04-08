@@ -1,9 +1,12 @@
 package com.battlelancer.seriesguide.modules;
 
 import android.app.Application;
+
 import com.battlelancer.seriesguide.SgApp;
+
 import dagger.Module;
 import dagger.Provides;
+
 import javax.inject.Singleton;
 
 @Module

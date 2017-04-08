@@ -10,9 +10,11 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.backend.settings.HexagonSettings;
 
@@ -22,14 +24,18 @@ import com.battlelancer.seriesguide.backend.settings.HexagonSettings;
 public class ConnectTraktFinishedFragment extends Fragment {
 
     private Unbinder unbinder;
-    @BindView(R.id.buttonPositive) Button buttonClose;
-    @BindView(R.id.buttonNegative) Button buttonHidden;
-    @BindView(R.id.textViewConnectTraktFinished) TextView textViewSyncMessage;
-    @BindView(R.id.buttonShowLibrary) Button buttonShowLibrary;
+    @BindView(R.id.buttonPositive)
+    Button buttonClose;
+    @BindView(R.id.buttonNegative)
+    Button buttonHidden;
+    @BindView(R.id.textViewConnectTraktFinished)
+    TextView textViewSyncMessage;
+    @BindView(R.id.buttonShowLibrary)
+    Button buttonShowLibrary;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_connect_trakt_finished, container, false);
         unbinder = ButterKnife.bind(this, v);
 

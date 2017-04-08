@@ -14,17 +14,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.settings.DisplaySettings;
+
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -33,6 +37,7 @@ import org.greenrobot.eventbus.ThreadMode;
  * A dialog displaying a list of languages and regions to choose from, posting a {@link
  * LocalizationChangedEvent} if a language or region different from the given ones was chosen.
  */
+@SuppressWarnings("unused")
 public class MovieLocalizationDialogFragment extends AppCompatDialogFragment {
 
     private static final String STATE_LIST_VISIBLE = "listVisible";
@@ -40,11 +45,11 @@ public class MovieLocalizationDialogFragment extends AppCompatDialogFragment {
     public static class LocalizationChangedEvent {
     }
 
-    public static class ItemsLoadedEvent {
+    private static class ItemsLoadedEvent {
         public final List<LocalizationAdapter.LocalizationItem> items;
         public final int type;
 
-        public ItemsLoadedEvent(
+        ItemsLoadedEvent(
                 List<LocalizationAdapter.LocalizationItem> items, int type) {
             this.items = items;
             this.type = type;
@@ -57,12 +62,18 @@ public class MovieLocalizationDialogFragment extends AppCompatDialogFragment {
     }
 
     private Unbinder unbinder;
-    @BindView(R.id.buttonPositive) Button buttonOk;
-    @BindView(R.id.recyclerViewLocalization) RecyclerView recyclerView;
-    @BindView(R.id.textViewLocalizationLanguage) TextView textViewLanguage;
-    @BindView(R.id.textViewLocalizationRegion) TextView textViewRegion;
-    @BindView(R.id.buttonLocalizationLanguage) Button buttonLanguage;
-    @BindView(R.id.buttonLocalizationRegion) Button buttonRegion;
+    @BindView(R.id.buttonPositive)
+    Button buttonOk;
+    @BindView(R.id.recyclerViewLocalization)
+    RecyclerView recyclerView;
+    @BindView(R.id.textViewLocalizationLanguage)
+    TextView textViewLanguage;
+    @BindView(R.id.textViewLocalizationRegion)
+    TextView textViewRegion;
+    @BindView(R.id.buttonLocalizationLanguage)
+    Button buttonLanguage;
+    @BindView(R.id.buttonLocalizationRegion)
+    Button buttonRegion;
 
     private LocalizationAdapter adapter;
     int type;
@@ -70,7 +81,7 @@ public class MovieLocalizationDialogFragment extends AppCompatDialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
+                             @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.dialog_localization, container, false);
         unbinder = ButterKnife.bind(this, view);
 
@@ -111,7 +122,7 @@ public class MovieLocalizationDialogFragment extends AppCompatDialogFragment {
                                 new Comparator<LocalizationAdapter.LocalizationItem>() {
                                     @Override
                                     public int compare(LocalizationAdapter.LocalizationItem left,
-                                            LocalizationAdapter.LocalizationItem right) {
+                                                       LocalizationAdapter.LocalizationItem right) {
                                         return collator.compare(left.displayText,
                                                 right.displayText);
                                     }
@@ -142,7 +153,7 @@ public class MovieLocalizationDialogFragment extends AppCompatDialogFragment {
                                 new Comparator<LocalizationAdapter.LocalizationItem>() {
                                     @Override
                                     public int compare(LocalizationAdapter.LocalizationItem left,
-                                            LocalizationAdapter.LocalizationItem right) {
+                                                       LocalizationAdapter.LocalizationItem right) {
                                         return collator.compare(left.displayText,
                                                 right.displayText);
                                     }
@@ -245,31 +256,33 @@ public class MovieLocalizationDialogFragment extends AppCompatDialogFragment {
         }
     };
 
-    public static class LocalizationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private static class LocalizationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-        public static class LocalizationItem {
+        static class LocalizationItem {
             public final String code;
-            public final String displayText;
+            final String displayText;
 
-            public LocalizationItem(String code, String displayText) {
+            LocalizationItem(String code, String displayText) {
                 this.code = code;
                 this.displayText = displayText;
             }
         }
 
-        public interface OnItemClickListener {
+        interface OnItemClickListener {
             void onItemClick(String code);
         }
 
-        @NonNull private final List<LocalizationItem> items;
-        @NonNull private final OnItemClickListener onItemClickListener;
+        @NonNull
+        private final List<LocalizationItem> items;
+        @NonNull
+        private final OnItemClickListener onItemClickListener;
 
-        public LocalizationAdapter(@NonNull OnItemClickListener onItemClickListener) {
+        LocalizationAdapter(@NonNull OnItemClickListener onItemClickListener) {
             this.items = new ArrayList<>();
             this.onItemClickListener = onItemClickListener;
         }
 
-        public void updateItems(@NonNull List<LocalizationItem> items) {
+        void updateItems(@NonNull List<LocalizationItem> items) {
             this.items.clear();
             this.items.addAll(items);
             notifyDataSetChanged();
@@ -299,7 +312,8 @@ public class MovieLocalizationDialogFragment extends AppCompatDialogFragment {
 
         static class ViewHolder extends RecyclerView.ViewHolder {
 
-            @BindView(android.R.id.text1) TextView title;
+            @BindView(android.R.id.text1)
+            TextView title;
             String code;
 
             public ViewHolder(View itemView, final OnItemClickListener onItemClickListener) {

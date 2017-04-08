@@ -22,6 +22,7 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,10 +32,10 @@ import java.util.List;
  */
 public class CustomTabsHelper {
     private static final String TAG = "CustomTabsHelper";
-    static final String STABLE_PACKAGE = "com.android.chrome";
-    static final String BETA_PACKAGE = "com.chrome.beta";
-    static final String DEV_PACKAGE = "com.chrome.dev";
-    static final String LOCAL_PACKAGE = "com.google.android.apps.chrome";
+    private static final String STABLE_PACKAGE = "com.android.chrome";
+    private static final String BETA_PACKAGE = "com.chrome.beta";
+    private static final String DEV_PACKAGE = "com.chrome.dev";
+    private static final String LOCAL_PACKAGE = "com.google.android.apps.chrome";
     private static final String ACTION_CUSTOM_TABS_CONNECTION =
             "android.support.customtabs.action.CustomTabsService";
 
@@ -47,7 +48,7 @@ public class CustomTabsHelper {
      * Goes through all apps that handle VIEW intents and have a warmup service. Picks the one
      * chosen by the user if there is one, otherwise makes a best effort to return a valid package
      * name.
-     *
+     * <p>
      * This is <strong>not</strong> threadsafe.
      *
      * @param context {@link Context} to use for accessing {@link PackageManager}.

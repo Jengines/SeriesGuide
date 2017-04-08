@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Some CoordinatorLayouts have scrollable children which do not support app bar scrolling
+<?xml version="1.0" encoding="utf-8"?><!-- Some CoordinatorLayouts have scrollable children which do not support app bar scrolling
     pre-L, so only add scroll flags on L+. -->
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"

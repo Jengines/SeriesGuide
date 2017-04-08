@@ -6,6 +6,7 @@ import android.database.DataSetObserver;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract.Lists;
@@ -20,7 +21,8 @@ public class ListsPagerAdapter extends MultiPagerAdapter {
 
     private final SgApp app;
     private final ListsDataSetObserver dataSetObserver;
-    @Nullable private Cursor cursorLists;
+    @Nullable
+    private Cursor cursorLists;
     private boolean dataValid;
 
     public ListsPagerAdapter(SgApp app, FragmentManager fm) {
@@ -128,7 +130,7 @@ public class ListsPagerAdapter extends MultiPagerAdapter {
     }
 
     interface ListsQuery {
-        String[] PROJECTION = new String[] {
+        String[] PROJECTION = new String[]{
                 Lists.LIST_ID,
                 Lists.NAME
         };

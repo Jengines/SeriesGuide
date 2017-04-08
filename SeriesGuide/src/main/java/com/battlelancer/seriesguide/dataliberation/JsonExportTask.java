@@ -12,6 +12,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.dataliberation.model.Episode;
 import com.battlelancer.seriesguide.dataliberation.model.List;
@@ -34,6 +35,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import com.google.gson.stream.JsonWriter;
 import com.uwetrottmann.androidutils.AndroidUtils;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -43,6 +45,7 @@ import java.io.OutputStreamWriter;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
+
 import timber.log.Timber;
 
 import static com.battlelancer.seriesguide.provider.SeriesGuideContract.Movies;
@@ -53,15 +56,15 @@ import static com.battlelancer.seriesguide.provider.SeriesGuideContract.Movies;
  */
 public class JsonExportTask extends AsyncTask<Void, Integer, Integer> {
 
-    public static final String EXPORT_FOLDER = "SeriesGuide";
-    public static final String EXPORT_FOLDER_AUTO = "SeriesGuide" + File.separator + "AutoBackup";
-    public static final String EXPORT_JSON_FILE_SHOWS = "sg-shows-export.json";
-    public static final String EXPORT_JSON_FILE_LISTS = "sg-lists-export.json";
-    public static final String EXPORT_JSON_FILE_MOVIES = "sg-movies-export.json";
+    private static final String EXPORT_FOLDER = "SeriesGuide";
+    private static final String EXPORT_FOLDER_AUTO = "SeriesGuide" + File.separator + "AutoBackup";
+    static final String EXPORT_JSON_FILE_SHOWS = "sg-shows-export.json";
+    static final String EXPORT_JSON_FILE_LISTS = "sg-lists-export.json";
+    static final String EXPORT_JSON_FILE_MOVIES = "sg-movies-export.json";
 
-    public static final int BACKUP_SHOWS = 1;
-    public static final int BACKUP_LISTS = 2;
-    public static final int BACKUP_MOVIES = 3;
+    static final int BACKUP_SHOWS = 1;
+    static final int BACKUP_LISTS = 2;
+    static final int BACKUP_MOVIES = 3;
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({
@@ -69,7 +72,7 @@ public class JsonExportTask extends AsyncTask<Void, Integer, Integer> {
             BACKUP_LISTS,
             BACKUP_MOVIES
     })
-    public @interface BackupType {
+    @interface BackupType {
     }
 
     private static final int SUCCESS = 1;
@@ -85,7 +88,7 @@ public class JsonExportTask extends AsyncTask<Void, Integer, Integer> {
         String UNKNOWN = "unknown";
     }
 
-    public interface ListItemTypesExport {
+    interface ListItemTypesExport {
         String SHOW = "show";
         String SEASON = "season";
         String EPISODE = "episode";
@@ -98,7 +101,7 @@ public class JsonExportTask extends AsyncTask<Void, Integer, Integer> {
     private boolean isAutoBackupMode;
     private boolean isUseDefaultFolders;
 
-    public static File getExportPath(boolean isAutoBackupMode) {
+    static File getExportPath(boolean isAutoBackupMode) {
         return new File(
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
                 isAutoBackupMode ? EXPORT_FOLDER_AUTO : EXPORT_FOLDER);
@@ -107,13 +110,13 @@ public class JsonExportTask extends AsyncTask<Void, Integer, Integer> {
     /**
      * Same as {@link JsonExportTask} but allows to set parameters.
      *
-     * @param isFullDump Whether to also export meta-data like descriptions, ratings, actors, etc.
-     * Increases file size about 2-4 times.
+     * @param isFullDump       Whether to also export meta-data like descriptions, ratings, actors, etc.
+     *                         Increases file size about 2-4 times.
      * @param isAutoBackupMode Whether to run an auto backup, also shows no result toasts.
      */
     public JsonExportTask(Context context, OnTaskProgressListener progressListener,
-            OnTaskFinishedListener listener, boolean isFullDump,
-            boolean isAutoBackupMode) {
+                          OnTaskFinishedListener listener, boolean isFullDump,
+                          boolean isAutoBackupMode) {
         this.context = context.getApplicationContext();
         this.progressListener = progressListener;
         finishedListener = listener;
@@ -174,7 +177,7 @@ public class JsonExportTask extends AsyncTask<Void, Integer, Integer> {
             // store current time = last backup time
             final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             prefs.edit().putLong(AdvancedSettings.KEY_LASTBACKUP, System.currentTimeMillis())
-                    .commit();
+                    .apply();
         }
 
         return SUCCESS;
@@ -406,7 +409,7 @@ public class JsonExportTask extends AsyncTask<Void, Integer, Integer> {
         show.seasons = new ArrayList<>();
         final Cursor seasonsCursor = context.getContentResolver().query(
                 Seasons.buildSeasonsOfShowUri(String.valueOf(show.tvdb_id)),
-                new String[] {
+                new String[]{
                         Seasons._ID,
                         Seasons.COMBINED
                 }, null, null, null
@@ -504,7 +507,7 @@ public class JsonExportTask extends AsyncTask<Void, Integer, Integer> {
         final Cursor listItems = context.getContentResolver().query(
                 ListItems.CONTENT_URI, ListItemsQuery.PROJECTION,
                 ListItemsQuery.SELECTION,
-                new String[] {
+                new String[]{
                         list.listId
                 }, null
         );
@@ -571,8 +574,8 @@ public class JsonExportTask extends AsyncTask<Void, Integer, Integer> {
         writer.close();
     }
 
-    public interface ShowsQuery {
-        String[] PROJECTION = new String[] {
+    interface ShowsQuery {
+        String[] PROJECTION = new String[]{
                 Shows._ID,
                 Shows.TITLE,
                 Shows.FAVORITE,
@@ -594,7 +597,7 @@ public class JsonExportTask extends AsyncTask<Void, Integer, Integer> {
                 Shows.RATING_USER,
                 Shows.LANGUAGE
         };
-        String[] PROJECTION_FULL = new String[] {
+        String[] PROJECTION_FULL = new String[]{
                 Shows._ID,
                 Shows.TITLE,
                 Shows.FAVORITE,
@@ -652,8 +655,8 @@ public class JsonExportTask extends AsyncTask<Void, Integer, Integer> {
         int LAST_EDITED = 25;
     }
 
-    public interface EpisodesQuery {
-        String[] PROJECTION = new String[] {
+    interface EpisodesQuery {
+        String[] PROJECTION = new String[]{
                 Episodes._ID,
                 Episodes.NUMBER,
                 Episodes.ABSOLUTE_NUMBER,
@@ -665,7 +668,7 @@ public class JsonExportTask extends AsyncTask<Void, Integer, Integer> {
                 Episodes.DVDNUMBER,
                 Episodes.RATING_USER
         };
-        String[] PROJECTION_FULL = new String[] {
+        String[] PROJECTION_FULL = new String[]{
                 Episodes._ID,
                 Episodes.NUMBER,
                 Episodes.ABSOLUTE_NUMBER,
@@ -710,8 +713,8 @@ public class JsonExportTask extends AsyncTask<Void, Integer, Integer> {
         int LAST_EDITED = 17;
     }
 
-    public interface ListsQuery {
-        String[] PROJECTION = new String[] {
+    interface ListsQuery {
+        String[] PROJECTION = new String[]{
                 SeriesGuideContract.Lists.LIST_ID,
                 SeriesGuideContract.Lists.NAME,
                 SeriesGuideContract.Lists.ORDER
@@ -722,8 +725,8 @@ public class JsonExportTask extends AsyncTask<Void, Integer, Integer> {
         int ORDER = 2;
     }
 
-    public interface ListItemsQuery {
-        String[] PROJECTION = new String[] {
+    interface ListItemsQuery {
+        String[] PROJECTION = new String[]{
                 ListItems.LIST_ITEM_ID, SeriesGuideContract.Lists.LIST_ID, ListItems.ITEM_REF_ID,
                 ListItems.TYPE
         };
@@ -736,8 +739,8 @@ public class JsonExportTask extends AsyncTask<Void, Integer, Integer> {
         int TYPE = 3;
     }
 
-    public interface MoviesQuery {
-        String[] PROJECTION = new String[] {
+    interface MoviesQuery {
+        String[] PROJECTION = new String[]{
                 Movies._ID,
                 Movies.TMDB_ID,
                 Movies.IMDB_ID,

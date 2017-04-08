@@ -10,9 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.backend.settings.HexagonSettings;
 import com.battlelancer.seriesguide.settings.TraktCredentials;
@@ -26,13 +28,20 @@ public class ConnectTraktCredentialsFragment extends Fragment {
     private boolean isConnecting;
 
     private Unbinder unbinder;
-    @BindView(R.id.buttonPositive) Button buttonConnect;
-    @BindView(R.id.buttonNegative) Button buttonDisconnect;
-    @BindView(R.id.textViewConnectTraktUsernameLabel) View textViewUsernameLabel;
-    @BindView(R.id.textViewConnectTraktUsername) TextView textViewUsername;
-    @BindView(R.id.textViewConnectTraktHexagonWarning) TextView textViewHexagonWarning;
-    @BindView(R.id.progressBarConnectTrakt) View progressBar;
-    @BindView(R.id.textViewConnectTraktStatus) TextView textViewStatus;
+    @BindView(R.id.buttonPositive)
+    Button buttonConnect;
+    @BindView(R.id.buttonNegative)
+    Button buttonDisconnect;
+    @BindView(R.id.textViewConnectTraktUsernameLabel)
+    View textViewUsernameLabel;
+    @BindView(R.id.textViewConnectTraktUsername)
+    TextView textViewUsername;
+    @BindView(R.id.textViewConnectTraktHexagonWarning)
+    TextView textViewHexagonWarning;
+    @BindView(R.id.progressBarConnectTrakt)
+    View progressBar;
+    @BindView(R.id.textViewConnectTraktStatus)
+    TextView textViewStatus;
 
     public static ConnectTraktCredentialsFragment newInstance() {
         return new ConnectTraktCredentialsFragment();
@@ -40,7 +49,7 @@ public class ConnectTraktCredentialsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_connect_trakt_credentials, container, false);
         unbinder = ButterKnife.bind(this, view);
 
@@ -128,9 +137,9 @@ public class ConnectTraktCredentialsFragment extends Fragment {
     }
 
     /**
-     * @param progressVisible If {@code true}, will show progress bar.
+     * @param progressVisible      If {@code true}, will show progress bar.
      * @param statusTextResourceId If {@code -1} will hide the status display, otherwise show the
-     * given text ressource.
+     *                             given text ressource.
      */
     private void setStatus(boolean progressVisible, int statusTextResourceId) {
         isConnecting = progressVisible;

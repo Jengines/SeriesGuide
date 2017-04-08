@@ -3,10 +3,12 @@ package com.battlelancer.seriesguide.loaders;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
+
 import com.battlelancer.seriesguide.dataliberation.model.Season;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract;
 import com.battlelancer.seriesguide.settings.DisplaySettings;
 import com.uwetrottmann.androidutils.GenericSimpleLoader;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +28,7 @@ public class SeasonsLoader extends GenericSimpleLoader<SeasonsLoader.Result> {
         public List<Season> seasonsOfShow;
 
         public Result(int showTvdbId, String showTitle, String showPoster,
-                int seasonIndexOfEpisode, @NonNull List<Season> seasonsOfShow) {
+                      int seasonIndexOfEpisode, @NonNull List<Season> seasonsOfShow) {
             this.showTvdbId = showTvdbId;
             this.showTitle = showTitle;
             this.showPoster = showPoster;
@@ -89,7 +91,7 @@ public class SeasonsLoader extends GenericSimpleLoader<SeasonsLoader.Result> {
     }
 
     interface EpisodeQuery {
-        String[] PROJECTION = new String[] {
+        String[] PROJECTION = new String[]{
                 SeriesGuideContract.Shows.REF_SHOW_ID,
                 SeriesGuideContract.Shows.TITLE,
                 SeriesGuideContract.Shows.POSTER,
@@ -102,7 +104,7 @@ public class SeasonsLoader extends GenericSimpleLoader<SeasonsLoader.Result> {
     }
 
     interface SeasonsQuery {
-        String[] PROJECTION = new String[] {
+        String[] PROJECTION = new String[]{
                 SeriesGuideContract.Seasons._ID,
                 SeriesGuideContract.Seasons.COMBINED
         };

@@ -26,6 +26,7 @@ import android.widget.Checkable;
 import android.widget.CheckedTextView;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract;
@@ -37,6 +38,7 @@ import com.battlelancer.seriesguide.provider.SeriesGuideContract.Shows;
 import com.battlelancer.seriesguide.provider.SeriesGuideDatabase.Tables;
 import com.battlelancer.seriesguide.util.ListsTools;
 import com.battlelancer.seriesguide.util.SeasonTools;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +50,7 @@ public class ManageListsDialogFragment extends AppCompatDialogFragment implement
         LoaderManager.LoaderCallbacks<Cursor>, OnItemClickListener {
 
     public static ManageListsDialogFragment newInstance(int itemTvdbId,
-            @SeriesGuideContract.ListItemTypes int itemType) {
+                                                        @SeriesGuideContract.ListItemTypes int itemType) {
         ManageListsDialogFragment f = new ManageListsDialogFragment();
         Bundle args = new Bundle();
         args.putInt(InitBundle.INT_ITEM_TVDB_ID, itemTvdbId);
@@ -76,7 +78,7 @@ public class ManageListsDialogFragment extends AppCompatDialogFragment implement
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         final View layout = inflater.inflate(R.layout.dialog_manage_lists, container, false);
 
         // buttons
@@ -148,26 +150,26 @@ public class ManageListsDialogFragment extends AppCompatDialogFragment implement
             case 1:
                 // show
                 uri = Shows.buildShowUri(itemTvdbId);
-                projection = new String[] {
+                projection = new String[]{
                         Shows._ID, Shows.TITLE
                 };
                 break;
             case 2:
                 // season
                 uri = Seasons.buildSeasonUri(itemTvdbId);
-                projection = new String[] {
+                projection = new String[]{
                         Seasons._ID, Seasons.COMBINED
                 };
                 break;
             case 3:
                 // episode
                 uri = Episodes.buildEpisodeUri(itemTvdbId);
-                projection = new String[] {
+                projection = new String[]{
                         Episodes._ID, Episodes.TITLE
                 };
                 break;
         }
-        if (uri != null && projection != null) {
+        if (uri != null) {
             Cursor item = getActivity().getContentResolver().query(uri, projection, null, null,
                     null);
             if (item != null && item.moveToFirst()) {
@@ -225,7 +227,7 @@ public class ManageListsDialogFragment extends AppCompatDialogFragment implement
 
         private SparseBooleanArray mCheckedItems;
 
-        public ListsAdapter(Context context) {
+        ListsAdapter(Context context) {
             super(context, null, 0);
             mInflater = LayoutInflater.from(context);
             mCheckedItems = new SparseBooleanArray();
@@ -257,18 +259,18 @@ public class ManageListsDialogFragment extends AppCompatDialogFragment implement
             return mInflater.inflate(R.layout.item_list_checked, parent, false);
         }
 
-        public void setItemChecked(int position, boolean value) {
+        void setItemChecked(int position, boolean value) {
             mCheckedItems.put(position, value);
         }
 
-        public SparseBooleanArray getCheckedPositions() {
+        SparseBooleanArray getCheckedPositions() {
             return mCheckedItems;
         }
     }
 
     interface ListsQuery {
 
-        String[] PROJECTION = new String[] {
+        String[] PROJECTION = new String[]{
                 Tables.LISTS + "." + Lists._ID, Tables.LISTS + "." + Lists.LIST_ID, Lists.NAME,
                 ListItems.LIST_ITEM_ID
         };
@@ -284,10 +286,10 @@ public class ManageListsDialogFragment extends AppCompatDialogFragment implement
      * Display a dialog which asks if the user wants to add the given show to one or more lists.
      *
      * @param itemTvdbId TVDb id of the item to add
-     * @param itemType type of the item to add (show, season or episode)
+     * @param itemType   type of the item to add (show, season or episode)
      */
     public static void showListsDialog(int itemTvdbId,
-            @SeriesGuideContract.ListItemTypes int itemType, FragmentManager fm) {
+                                       @SeriesGuideContract.ListItemTypes int itemType, FragmentManager fm) {
         if (fm == null) {
             return;
         }

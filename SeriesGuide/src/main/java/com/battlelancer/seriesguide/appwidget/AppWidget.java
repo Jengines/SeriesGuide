@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.support.v4.app.TaskStackBuilder;
 import android.text.TextUtils;
 import android.widget.RemoteViews;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.adapters.CalendarAdapter;
 import com.battlelancer.seriesguide.settings.CalendarSettings;
@@ -23,8 +24,10 @@ import com.battlelancer.seriesguide.util.EpisodeTools;
 import com.battlelancer.seriesguide.util.ServiceUtils;
 import com.battlelancer.seriesguide.util.TextTools;
 import com.battlelancer.seriesguide.util.TimeTools;
+
 import java.io.IOException;
 import java.util.Date;
+
 import timber.log.Timber;
 
 public class AppWidget extends AppWidgetProvider {
@@ -80,7 +83,7 @@ public class AppWidget extends AppWidgetProvider {
         }
 
         protected RemoteViews buildUpdate(Context context, String limit, int layout,
-                int itemLayout, Intent updateIntent) {
+                                          int itemLayout, Intent updateIntent) {
             // Get the layout for the App Widget, remove existing views
             // RemoteViews views = new RemoteViews(context.getPackageName(),
             // layout);

@@ -5,9 +5,12 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.text.format.DateUtils;
+
 import com.battlelancer.seriesguide.provider.SeriesGuideContract.Activity;
+
 import java.util.ArrayList;
 import java.util.HashSet;
+
 import timber.log.Timber;
 
 /**
@@ -21,7 +24,7 @@ public class ActivityTools {
     /**
      * Adds an activity entry for the given episode with the current time as timestamp. If an entry
      * already exists it is replaced.
-     *
+     * <p>
      * <p>Also cleans up old entries.
      */
     public static void addActivity(Context context, int episodeTvdbId, int showTvdbId) {
@@ -59,7 +62,7 @@ public class ActivityTools {
     public static void populateShowsLastWatchedTime(Context context) {
         Cursor query = context.getContentResolver()
                 .query(Activity.CONTENT_URI,
-                        new String[] { Activity.TIMESTAMP_MS, Activity.SHOW_TVDB_ID },
+                        new String[]{Activity.TIMESTAMP_MS, Activity.SHOW_TVDB_ID},
                         null, null,
                         Activity.SORT_LATEST);
         if (query == null) {

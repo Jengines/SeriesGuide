@@ -9,10 +9,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -35,40 +37,40 @@ import static com.battlelancer.seriesguide.api.constants.OutgoingConstants.EXTRA
  * feed actions (represented through {@linkplain Action actions}) for media items to SeriesGuide.
  * Actions may for example launch other apps or just display interesting information related to a
  * media item. Extensions are specialized {@link IntentService} classes.
- *
+ * <p>
  * <p> Multiple extensions may be enabled within SeriesGuide at the same time. When a SeriesGuide
  * user chooses to enable an extension, SeriesGuide will <em>subscribe</em> to it prior of
  * requesting actions. If the user disables the extension, SeriesGuide will <em>unsubscribe</em>
  * from it.
- *
+ * <p>
  * <p> The API is designed such that other applications besides SeriesGuide can subscribe and
  * request actions from an extension.
- *
+ * <p>
  * <h3>Subclassing {@link SeriesGuideExtension}</h3>
- *
+ * <p>
  * Subclasses must at least implement {@link #onRequest(int, Episode)}, which is called when
  * SeriesGuide requests actions to display for a media item. Do not perform long running operations
  * here as the user will get frustrated while waiting for this extensions action to be published.
- *
+ * <p>
  * <p> To publish an action, call {@link #publishAction(Action)} from {@link #onRequest(int,
  * Episode)}. All current subscribers will then immediately receive an update with the new action
  * information. Under the hood, this is all done with {@linkplain Context#startService(Intent)
  * service intents}.
- *
+ * <p>
  * <h3>Registering your extension</h3>
- *
+ * <p>
  * An extension is simply a service that SeriesGuide and other apps interact with via
  * {@linkplain Context#startService(Intent) service intents}. Subclasses of {@link
  * SeriesGuideExtension} should thus be declared as <code>&lt;service&gt;</code> components in the
  * application's <code>AndroidManifest.xml</code> file.
- *
+ * <p>
  * <p> The SeriesGuide app and other potential subscribers discover available extensions using
  * Android's {@link Intent} mechanism. Ensure that your <code>service</code> definition includes an
  * <code>&lt;intent-filter&gt;</code> with an action of {@link #ACTION_SERIESGUIDE_EXTENSION}.
- *
+ * <p>
  * <p> To make your extension easier to identify for users you should add the following attributes
  * to your service definition:
- *
+ * <p>
  * <ul>
  * <li><code>android:label</code> (optional): the name to display when displaying your extension in
  * the user interface.</li>
@@ -77,60 +79,60 @@ import static com.battlelancer.seriesguide.api.constants.OutgoingConstants.EXTRA
  * <li><code>android:icon</code> (optional): a drawable to represent the extension in the user
  * interface.</li>
  * </ul>
- *
+ * <p>
  * <p> Lastly, you may want to add the following <code>&lt;meta-data&gt;</code> element to your
  * service definition:
- *
+ * <p>
  * <ul>
  * <li><code>settingsActivity</code> (optional): if present, should be the qualified
  * component name for a configuration activity in the extension's package that SeriesGuide can
  * offer to the user for customizing the extension. This activity must be exported.</li>
  * </ul>
- *
+ * <p>
  * <h3>Example</h3>
- *
+ * <p>
  * Below is an example extension declaration in the manifest:
- *
+ * <p>
  * <pre class="prettyprint">
  * &lt;service android:name=".ExampleExtension"
- *     android:label="@string/extension_title"
- *     android:icon="@drawable/ic_extension_example"
- *     android:description="@string/extension_description"&gt;
- *     &lt;intent-filter&gt;
- *         &lt;action android:name="com.battlelancer.seriesguide.api.SeriesGuideExtension" /&gt;
- *     &lt;/intent-filter&gt;
- *     &lt;!-- A settings activity is optional --&gt;
- *     &lt;meta-data android:name="settingsActivity"
- *         android:value=".ExampleSettingsActivity" /&gt;
+ * android:label="@string/extension_title"
+ * android:icon="@drawable/ic_extension_example"
+ * android:description="@string/extension_description"&gt;
+ * &lt;intent-filter&gt;
+ * &lt;action android:name="com.battlelancer.seriesguide.api.SeriesGuideExtension" /&gt;
+ * &lt;/intent-filter&gt;
+ * &lt;!-- A settings activity is optional --&gt;
+ * &lt;meta-data android:name="settingsActivity"
+ * android:value=".ExampleSettingsActivity" /&gt;
  * &lt;/service&gt;
  * </pre>
- *
+ * <p>
  * If a <code>settingsActivity</code> meta-data element is present, an activity with the given
  * component name should be defined and exported in the application's manifest as well. SeriesGuide
  * will set the {@link #EXTRA_FROM_SERIESGUIDE_SETTINGS} extra to true in the launch intent for this
  * activity. An example is shown below:
- *
+ * <p>
  * <pre class="prettyprint">
  * &lt;activity android:name=".ExampleSettingsActivity"
- *     android:label="@string/title_settings"
- *     android:exported="true" /&gt;
+ * android:label="@string/title_settings"
+ * android:exported="true" /&gt;
  * </pre>
- *
+ * <p>
  * Finally, below is a simple example {@link SeriesGuideExtension} subclass that publishes actions
  * for episodes performing a simple Google search:
- *
+ * <p>
  * <pre class="prettyprint">
  * public class ExampleExtension extends SeriesGuideExtension {
- *     protected void onRequest(int episodeIdentifier, Episode episode) {
- *         publishAction(new Action.Builder("Google search", episodeIdentifier)
- *                 .viewIntent(new Intent(Intent.ACTION_VIEW)
- *                          .setData(Uri.parse("https://www.google.com/#q="
- *                                 + episode.getTitle())))
-                   .build());
- *     }
+ * protected void onRequest(int episodeIdentifier, Episode episode) {
+ * publishAction(new Action.Builder("Google search", episodeIdentifier)
+ * .viewIntent(new Intent(Intent.ACTION_VIEW)
+ * .setData(Uri.parse("https://www.google.com/#q="
+ * + episode.getTitle())))
+ * .build());
+ * }
  * }
  * </pre>
- *
+ * <p>
  * <p> Based on code from <a href="https://github.com/romannurik/muzei">Muzei</a>, an awesome Live
  * Wallpaper by Roman Nurik.
  */
@@ -171,7 +173,7 @@ public abstract class SeriesGuideExtension extends IntentService {
 
     /**
      * Call from your default constructor.
-     *
+     * <p>
      * <p> Gives the extension a name. This is not user-visible, but will be used to store preferences
      * and state for the extension.
      */
@@ -259,7 +261,7 @@ public abstract class SeriesGuideExtension extends IntentService {
      * display using {@link #publishAction(Action)}.
      *
      * @param episodeIdentifier The episode identifier the extension should submit with the action
-     * it wants to publish.
+     *                          it wants to publish.
      */
     protected void onRequest(int episodeIdentifier, Episode episode) {
         // do nothing by default, may choose to either supply episode or movie actions
@@ -270,7 +272,7 @@ public abstract class SeriesGuideExtension extends IntentService {
      * display using {@link #publishAction(Action)}.
      *
      * @param movieIdentifier The movie identifier the extension should submit with the action it
-     * wants to publish.
+     *                        wants to publish.
      */
     @SuppressWarnings("UnusedParameters")
     protected void onRequest(int movieIdentifier, Movie movie) {

@@ -8,14 +8,16 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+
 import com.battlelancer.seriesguide.BuildConfig;
 import com.battlelancer.seriesguide.SgApp;
 import com.uwetrottmann.androidutils.AndroidUtils;
+
 import timber.log.Timber;
 
 public class AccountUtils {
 
-    public static final int SYNC_FREQUENCY = 24 * 60 * 60; // 1 day (in seconds)
+    private static final int SYNC_FREQUENCY = 24 * 60 * 60; // 1 day (in seconds)
 
     private static final String ACCOUNT_NAME = "SeriesGuide Sync";
 

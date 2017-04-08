@@ -27,7 +27,7 @@
         android:clipToPadding="false"
         android:divider="@color/transparent"
         android:paddingBottom="@dimen/default_padding"
-        android:paddingLeft="@dimen/keyline_minus_16"
+        android:paddingStart="@dimen/keyline_minus_16"
         android:paddingTop="@dimen/default_padding"
         tools:listitem="@layout/item_person" />
 

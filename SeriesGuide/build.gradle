@@ -15,7 +15,7 @@ android {
     buildToolsVersion project.androidBuildToolsVersion
 
     defaultConfig {
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 25
 
         // only enable if debug builds exceed 64K method limit

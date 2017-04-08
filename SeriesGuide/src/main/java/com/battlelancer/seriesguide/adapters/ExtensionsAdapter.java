@@ -2,6 +2,7 @@ package com.battlelancer.seriesguide.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,13 +11,16 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.api.SeriesGuideExtension;
 import com.battlelancer.seriesguide.extensions.ExtensionManager;
 import com.battlelancer.seriesguide.extensions.ExtensionsConfigurationFragment;
 import com.battlelancer.seriesguide.util.Utils;
+
 import org.greenrobot.eventbus.EventBus;
 
 /**
@@ -27,7 +31,7 @@ public class ExtensionsAdapter extends ArrayAdapter<ExtensionManager.Extension> 
     public class ExtensionDisableRequestEvent {
         public int position;
 
-        public ExtensionDisableRequestEvent(int position) {
+        ExtensionDisableRequestEvent(int position) {
             this.position = position;
         }
     }
@@ -63,8 +67,9 @@ public class ExtensionsAdapter extends ArrayAdapter<ExtensionManager.Extension> 
         return 2;
     }
 
+    @NonNull
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
         if (getItemViewType(position) == VIEW_TYPE_ADD) {
             if (convertView == null) {
                 convertView = mLayoutInflater.inflate(LAYOUT_ADD, parent, false);
@@ -91,6 +96,7 @@ public class ExtensionsAdapter extends ArrayAdapter<ExtensionManager.Extension> 
 
         final ExtensionManager.Extension extension = getItem(position);
 
+        assert extension != null;
         viewHolder.description.setText(extension.description);
 
         // title
@@ -127,7 +133,7 @@ public class ExtensionsAdapter extends ArrayAdapter<ExtensionManager.Extension> 
 
         private final int mPosition;
 
-        public OverflowItemClickListener(int position) {
+        OverflowItemClickListener(int position) {
             mPosition = position;
         }
 
@@ -137,6 +143,7 @@ public class ExtensionsAdapter extends ArrayAdapter<ExtensionManager.Extension> 
                 case R.id.menu_action_extension_settings:
                     ExtensionManager.Extension extension = getItem(mPosition);
                     // launch settings activity
+                    assert extension != null;
                     Utils.tryStartActivity(getContext(), new Intent()
                                     .setComponent(extension.settingsActivity)
                                     .putExtra(SeriesGuideExtension.EXTRA_FROM_SERIESGUIDE_SETTINGS,
@@ -155,10 +162,14 @@ public class ExtensionsAdapter extends ArrayAdapter<ExtensionManager.Extension> 
     }
 
     static class ViewHolder {
-        @BindView(R.id.imageViewItemExtensionIcon) ImageView icon;
-        @BindView(R.id.textViewItemExtensionTitle) TextView title;
-        @BindView(R.id.textViewItemExtensionDescription) TextView description;
-        @BindView(R.id.imageViewItemExtensionSettings) ImageView settings;
+        @BindView(R.id.imageViewItemExtensionIcon)
+        ImageView icon;
+        @BindView(R.id.textViewItemExtensionTitle)
+        TextView title;
+        @BindView(R.id.textViewItemExtensionDescription)
+        TextView description;
+        @BindView(R.id.imageViewItemExtensionSettings)
+        ImageView settings;
 
         public ViewHolder(View view) {
             ButterKnife.bind(this, view);

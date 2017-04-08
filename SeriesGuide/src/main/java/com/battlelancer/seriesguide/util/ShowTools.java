@@ -75,7 +75,7 @@ public class ShowTools {
      *
      * @return One of {@link com.battlelancer.seriesguide.enums.NetworkResult}.
      */
-    public int removeShow(int showTvdbId) {
+    int removeShow(int showTvdbId) {
         if (HexagonSettings.isEnabled(app)) {
             if (!AndroidUtils.isNetworkConnected(app)) {
                 return NetworkResult.OFFLINE;
@@ -157,7 +157,7 @@ public class ShowTools {
      * Sets the isRemoved flag of the given show on Hexagon, so the show will not be auto-added on
      * any device connected to Hexagon.
      */
-    public void sendIsRemoved(int showTvdbId) {
+    private void sendIsRemoved(int showTvdbId) {
         Show show = new Show();
         show.setTvdbId(showTvdbId);
         show.setIsRemoved(true);
@@ -201,7 +201,7 @@ public class ShowTools {
     /**
      * Saves new hidden flag to the local database and, if signed in, up into the cloud as well.
      */
-    public void storeIsHidden(int showTvdbId, boolean isHidden) {
+    void storeIsHidden(int showTvdbId, boolean isHidden) {
         if (HexagonSettings.isEnabled(app)) {
             if (Utils.isNotConnected(app, true)) {
                 return;
@@ -299,7 +299,7 @@ public class ShowTools {
 
         private final Show mShow;
 
-        public ShowsUploadTask(SgApp app, Show show) {
+        ShowsUploadTask(SgApp app, Show show) {
             this.app = app;
             mShow = show;
         }
@@ -340,7 +340,7 @@ public class ShowTools {
          *
          * @return One of {@link com.battlelancer.seriesguide.enums.Result}.
          */
-        public static boolean toHexagon(SgApp app, List<Show> shows) {
+        static boolean toHexagon(SgApp app, List<Show> shows) {
             // wrap into helper object
             ShowList showList = new ShowList();
             showList.setShows(shows);
@@ -548,8 +548,8 @@ public class ShowTools {
         }
     }
 
-    public static boolean addLastWatchedUpdateOpIfNewer(Context context,
-            ArrayList<ContentProviderOperation> batch, int showTvdbId, long lastWatchedMsNew) {
+    static boolean addLastWatchedUpdateOpIfNewer(Context context,
+                                                 ArrayList<ContentProviderOperation> batch, int showTvdbId, long lastWatchedMsNew) {
         Uri uri = SeriesGuideContract.Shows.buildShowUri(showTvdbId);
         Cursor query = context.getContentResolver().query(uri, new String[] {
                 SeriesGuideContract.Shows.LASTWATCHED_MS }, null, null, null);

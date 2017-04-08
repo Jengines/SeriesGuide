@@ -1,22 +1,24 @@
 package com.battlelancer.seriesguide.backend;
 
 import android.content.Context;
+
 import com.battlelancer.seriesguide.BuildConfig;
 import com.battlelancer.seriesguide.util.Utils;
 import com.google.api.client.googleapis.services.AbstractGoogleClient;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
 import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
+
 import java.io.IOException;
 
 /**
  * Common utilities for working with Cloud Endpoints.
- *
+ * <p>
  * If you'd like to test using a locally-running version of your App Engine backend (i.e. running on
  * the Development App Server), you need to set USE_LOCAL_VERSION to 'true'.
- *
+ * <p>
  * See https://cloud.google.com/appengine/docs/java/endpoints
  */
-public class CloudEndpointUtils {
+class CloudEndpointUtils {
 
     private static final String PATH_API = "/_ah/api/";
 
@@ -24,7 +26,7 @@ public class CloudEndpointUtils {
      * Change this to 'true' if you're running your backend locally using the DevAppServer.
      */
     @SuppressWarnings("PointlessBooleanExpression")
-    protected static final boolean USE_LOCAL_VERSION = false && BuildConfig.DEBUG;
+    private static final boolean USE_LOCAL_VERSION = false && BuildConfig.DEBUG;
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean USE_STAGING_VERSION = false && BuildConfig.DEBUG;
@@ -35,6 +37,7 @@ public class CloudEndpointUtils {
      * The root URL of where your DevAppServer is running (if you're running the DevAppServer
      * locally).
      */
+    @SuppressWarnings("unused")
     private static final String ROOT_URL_LOCALHOST = "http://localhost:8080/";
 
     /**
@@ -52,8 +55,8 @@ public class CloudEndpointUtils {
      * @param builder Google client builder
      * @return same Google client builder
      */
-    public static <B extends AbstractGoogleClient.Builder> B updateBuilder(Context context,
-            B builder) {
+    static <B extends AbstractGoogleClient.Builder> B updateBuilder(Context context,
+                                                                    B builder) {
         if (USE_LOCAL_VERSION) {
             builder.setRootUrl(ROOT_URL_LOCALHOST_ANDROID + PATH_API);
         } else if (USE_STAGING_VERSION) {

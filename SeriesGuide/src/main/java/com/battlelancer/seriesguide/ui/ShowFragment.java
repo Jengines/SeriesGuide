@@ -26,9 +26,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.loaders.ShowCreditsLoader;
@@ -52,10 +54,13 @@ import com.battlelancer.seriesguide.util.Utils;
 import com.battlelancer.seriesguide.util.ViewTools;
 import com.uwetrottmann.androidutils.CheatSheet;
 import com.uwetrottmann.tmdb2.entities.Credits;
+
 import java.util.Date;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
 import timber.log.Timber;
 
 import static com.battlelancer.seriesguide.provider.SeriesGuideContract.Shows;
@@ -83,50 +88,81 @@ public class ShowFragment extends Fragment {
         return f;
     }
 
-    @BindView(R.id.imageViewShowPosterBackground) ImageView posterBackgroundView;
+    @BindView(R.id.imageViewShowPosterBackground)
+    ImageView posterBackgroundView;
 
-    @BindView(R.id.containerShowPoster) View posterContainer;
-    @BindView(R.id.imageViewShowPoster) ImageView posterView;
-    @BindView(R.id.textViewShowStatus) TextView mTextViewStatus;
-    @BindView(R.id.textViewShowReleaseTime) TextView mTextViewReleaseTime;
-    @BindView(R.id.textViewShowRuntime) TextView mTextViewRuntime;
-    @BindView(R.id.textViewShowNetwork) TextView mTextViewNetwork;
-    @BindView(R.id.textViewShowOverview) TextView mTextViewOverview;
-    @BindView(R.id.textViewShowReleaseCountry) TextView mTextViewReleaseCountry;
-    @BindView(R.id.textViewShowFirstAirdate) TextView mTextViewFirstRelease;
-    @BindView(R.id.textViewShowContentRating) TextView mTextViewContentRating;
-    @BindView(R.id.textViewShowGenres) TextView mTextViewGenres;
-    @BindView(R.id.textViewRatingsValue) TextView mTextViewRatingGlobal;
-    @BindView(R.id.textViewRatingsVotes) TextView mTextViewRatingVotes;
-    @BindView(R.id.textViewRatingsUser) TextView mTextViewRatingUser;
-    @BindView(R.id.textViewShowLastEdit) TextView mTextViewLastEdit;
+    @BindView(R.id.containerShowPoster)
+    View posterContainer;
+    @BindView(R.id.imageViewShowPoster)
+    ImageView posterView;
+    @BindView(R.id.textViewShowStatus)
+    TextView mTextViewStatus;
+    @BindView(R.id.textViewShowReleaseTime)
+    TextView mTextViewReleaseTime;
+    @BindView(R.id.textViewShowRuntime)
+    TextView mTextViewRuntime;
+    @BindView(R.id.textViewShowNetwork)
+    TextView mTextViewNetwork;
+    @BindView(R.id.textViewShowOverview)
+    TextView mTextViewOverview;
+    @BindView(R.id.textViewShowReleaseCountry)
+    TextView mTextViewReleaseCountry;
+    @BindView(R.id.textViewShowFirstAirdate)
+    TextView mTextViewFirstRelease;
+    @BindView(R.id.textViewShowContentRating)
+    TextView mTextViewContentRating;
+    @BindView(R.id.textViewShowGenres)
+    TextView mTextViewGenres;
+    @BindView(R.id.textViewRatingsValue)
+    TextView mTextViewRatingGlobal;
+    @BindView(R.id.textViewRatingsVotes)
+    TextView mTextViewRatingVotes;
+    @BindView(R.id.textViewRatingsUser)
+    TextView mTextViewRatingUser;
+    @BindView(R.id.textViewShowLastEdit)
+    TextView mTextViewLastEdit;
 
-    @BindView(R.id.buttonShowFavorite) Button mButtonFavorite;
-    @BindView(R.id.buttonShowShare) Button mButtonShare;
-    @BindView(R.id.buttonShowShortcut) Button mButtonShortcut;
-    @BindView(R.id.buttonShowLanguage) Button buttonLanguage;
-    @BindView(R.id.containerRatings) View mButtonRate;
-    @BindView(R.id.buttonShowInfoIMDB) View mButtonImdb;
-    @BindView(R.id.buttonTVDB) View mButtonTvdb;
-    @BindView(R.id.buttonTrakt) View mButtonTrakt;
-    @BindView(R.id.buttonWebSearch) Button mButtonWebSearch;
-    @BindView(R.id.buttonShouts) Button mButtonComments;
+    @BindView(R.id.buttonShowFavorite)
+    Button mButtonFavorite;
+    @BindView(R.id.buttonShowShare)
+    Button mButtonShare;
+    @BindView(R.id.buttonShowShortcut)
+    Button mButtonShortcut;
+    @BindView(R.id.buttonShowLanguage)
+    Button buttonLanguage;
+    @BindView(R.id.containerRatings)
+    View mButtonRate;
+    @BindView(R.id.buttonShowInfoIMDB)
+    View mButtonImdb;
+    @BindView(R.id.buttonTVDB)
+    View mButtonTvdb;
+    @BindView(R.id.buttonTrakt)
+    View mButtonTrakt;
+    @BindView(R.id.buttonWebSearch)
+    Button mButtonWebSearch;
+    @BindView(R.id.buttonShouts)
+    Button mButtonComments;
 
-    @BindView(R.id.labelCast) TextView castLabel;
-    @BindView(R.id.containerCast) LinearLayout castContainer;
-    @BindView(R.id.labelCrew) TextView crewLabel;
-    @BindView(R.id.containerCrew) LinearLayout crewContainer;
+    @BindView(R.id.labelCast)
+    TextView castLabel;
+    @BindView(R.id.containerCast)
+    LinearLayout castContainer;
+    @BindView(R.id.labelCrew)
+    TextView crewLabel;
+    @BindView(R.id.containerCrew)
+    LinearLayout crewContainer;
 
     private Unbinder unbinder;
     private Cursor showCursor;
     private TraktRatingsTask traktTask;
     private String showTitle;
     private String posterPath;
-    @Nullable private String languageCode;
+    @Nullable
+    private String languageCode;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_show, container, false);
         unbinder = ButterKnife.bind(this, v);
 
@@ -229,7 +265,7 @@ public class ShowFragment extends Fragment {
 
     interface ShowQuery {
 
-        String[] PROJECTION = new String[] {
+        String[] PROJECTION = new String[]{
                 Shows._ID,
                 Shows.TITLE,
                 Shows.STATUS,

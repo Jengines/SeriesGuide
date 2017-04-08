@@ -9,9 +9,12 @@ import com.uwetrottmann.tmdb2.services.MoviesService;
 import com.uwetrottmann.tmdb2.services.PeopleService;
 import com.uwetrottmann.tmdb2.services.SearchService;
 import com.uwetrottmann.tmdb2.services.TvService;
+
 import dagger.Module;
 import dagger.Provides;
+
 import javax.inject.Singleton;
+
 import okhttp3.OkHttpClient;
 
 @Module

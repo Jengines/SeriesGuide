@@ -4,6 +4,7 @@ package com.battlelancer.seriesguide.sync;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+
 import timber.log.Timber;
 
 public class SgAuthenticationService extends Service {

@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+
 import com.battlelancer.seriesguide.R;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -29,7 +30,7 @@ public final class ServiceUtils {
 
     private static final String IMDB_APP_TITLE_URI = "imdb:///title/";
 
-    public static final String IMDB_TITLE_URL = "http://imdb.com/title/";
+    private static final String IMDB_TITLE_URL = "http://imdb.com/title/";
 
     private static final String TVDB_SHOW_URL = "http://thetvdb.com/?tab=series&id=";
 
@@ -52,13 +53,13 @@ public final class ServiceUtils {
     /**
      * Build Picasso {@link com.squareup.picasso.RequestCreator} which respects user requirement of
      * only loading images over WiFi.
-     *
+     * <p>
      * <p>If {@link Utils#isAllowedLargeDataConnection} is false, will set {@link
      * com.squareup.picasso.NetworkPolicy#OFFLINE} (which will set {@link
      * okhttp3.CacheControl#FORCE_CACHE} on requests) to skip the network and accept stale images.
      *
      * @param context {@link Context#getApplicationContext() context.getApplicationContext()} will
-     * be used.
+     *                be used.
      */
     @NonNull
     public static RequestCreator loadWithPicasso(Context context, String path) {
@@ -121,8 +122,7 @@ public final class ServiceUtils {
      */
     public static Intent buildGooglePlayIntent(String title, Context context) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        String playStoreQuery = String.format(context.getString(R.string.url_movies_search),
-                Uri.encode(title));
+        String playStoreQuery = String.format(context.getString(R.string.url_movies_search),Uri.encode(title));
         intent.setData(Uri.parse(playStoreQuery));
         return intent;
     }
@@ -130,13 +130,14 @@ public final class ServiceUtils {
     /**
      * Tries to open Google Play to search for the given tv show, episode or movie title.
      */
+    @SuppressWarnings("unused")
     public static void searchGooglePlay(final String title, final String logTag, Context context) {
         Intent intent = buildGooglePlayIntent(title, context);
         Utils.openNewDocument(context, intent, logTag, "Google Play");
     }
 
     public static void setUpTraktShowButton(@Nullable View button, final int showTvdbId,
-            @NonNull final String logTag) {
+                                            @NonNull final String logTag) {
         if (button != null) {
             button.setOnClickListener(new OnClickListener() {
                 @Override
@@ -150,7 +151,7 @@ public final class ServiceUtils {
     }
 
     public static void setUpTraktEpisodeButton(@Nullable View button, final int episodeTvdbId,
-            @NonNull final String logTag) {
+                                               @NonNull final String logTag) {
         if (button != null) {
             button.setOnClickListener(new OnClickListener() {
                 @Override
@@ -169,7 +170,7 @@ public final class ServiceUtils {
      * page.
      */
     public static void setUpTvdbButton(final int showTvdbId, final int seasonTvdbId,
-            final int episodeTvdbId, final View tvdbButton, final String logTag) {
+                                       final int episodeTvdbId, final View tvdbButton, final String logTag) {
         if (tvdbButton != null) {
             tvdbButton.setOnClickListener(new OnClickListener() {
 
@@ -249,8 +250,8 @@ public final class ServiceUtils {
      * Attempts to search the web for <code>query</code>.
      *
      * @param context The {@link Context} to use
-     * @param query The search query
-     * @param logTag The log tag to use, for Analytics
+     * @param query   The search query
+     * @param logTag  The log tag to use, for Analytics
      */
     public static void performWebSearch(Context context, String query, String logTag) {
         Utils.openNewDocument(context, buildWebSearchIntent(query), logTag, "Web search");
@@ -259,7 +260,7 @@ public final class ServiceUtils {
     /**
      * Used to search the web for <code>query</code>
      *
-     * @param query The search query for the YouTube app
+     * @param query  The search query for the YouTube app
      * @param button The {@link Button} used to invoke the {@link android.view.View.OnClickListener}
      * @param logTag The log tag to use, for Analytics
      */

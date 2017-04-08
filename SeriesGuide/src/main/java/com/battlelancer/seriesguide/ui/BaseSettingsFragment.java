@@ -42,7 +42,7 @@ public abstract class BaseSettingsFragment extends PreferenceFragment {
      * dependent on the type of preference.
      */
     public static void bindPreferenceSummaryToValue(SharedPreferences prefs,
-            Preference preference) {
+                                                    Preference preference) {
         // Set the listener to watch for value changes.
         preference.setOnPreferenceChangeListener(sSetSummaryListener);
 

@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.text.format.DateUtils;
+
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract;
 import com.battlelancer.seriesguide.traktapi.SgTrakt;
@@ -11,8 +12,11 @@ import com.uwetrottmann.androidutils.AndroidUtils;
 import com.uwetrottmann.trakt5.entities.Ratings;
 import com.uwetrottmann.trakt5.services.Episodes;
 import com.uwetrottmann.trakt5.services.Shows;
+
 import dagger.Lazy;
+
 import javax.inject.Inject;
+
 import timber.log.Timber;
 
 public class TraktRatingsTask extends AsyncTask<Void, Void, Void> {
@@ -29,8 +33,10 @@ public class TraktRatingsTask extends AsyncTask<Void, Void, Void> {
     private final int episodeTvdbId;
     private final int season;
     private final int episode;
-    @Inject Lazy<Shows> traktShows;
-    @Inject Lazy<Episodes> traktEpisodes;
+    @Inject
+    Lazy<Shows> traktShows;
+    @Inject
+    Lazy<Episodes> traktEpisodes;
 
     /**
      * Loads the latest ratings for the given show from trakt and saves them to the database. If
@@ -45,7 +51,7 @@ public class TraktRatingsTask extends AsyncTask<Void, Void, Void> {
      * ratings were loaded recently, might do nothing.
      */
     public TraktRatingsTask(SgApp app, int showTvdbId, int episodeTvdbId, int season,
-            int episode) {
+                            int episode) {
         this.context = app;
         app.getServicesComponent().inject(this);
         this.showTvdbId = showTvdbId;

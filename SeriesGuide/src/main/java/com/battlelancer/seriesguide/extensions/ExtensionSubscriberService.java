@@ -3,6 +3,7 @@ package com.battlelancer.seriesguide.extensions;
 import android.app.IntentService;
 import android.content.Intent;
 import android.os.Bundle;
+
 import com.battlelancer.seriesguide.api.Action;
 
 import static com.battlelancer.seriesguide.api.constants.IncomingConstants.EXTRA_TOKEN;

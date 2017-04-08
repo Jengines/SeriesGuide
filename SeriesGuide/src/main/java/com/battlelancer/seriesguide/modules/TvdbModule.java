@@ -1,13 +1,17 @@
 package com.battlelancer.seriesguide.modules;
 
 import android.app.Application;
+
 import com.battlelancer.seriesguide.thetvdbapi.SgTheTvdb;
 import com.uwetrottmann.thetvdb.TheTvdb;
 import com.uwetrottmann.thetvdb.services.TheTvdbSearch;
 import com.uwetrottmann.thetvdb.services.TheTvdbSeries;
+
 import dagger.Module;
 import dagger.Provides;
+
 import javax.inject.Singleton;
+
 import okhttp3.OkHttpClient;
 
 @Module

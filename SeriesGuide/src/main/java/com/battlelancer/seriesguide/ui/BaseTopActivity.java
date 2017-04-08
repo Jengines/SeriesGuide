@@ -12,18 +12,20 @@ import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.backend.CloudSetupActivity;
 import com.battlelancer.seriesguide.dataliberation.DataLiberationActivity;
 import com.battlelancer.seriesguide.settings.AdvancedSettings;
 import com.battlelancer.seriesguide.sync.AccountUtils;
+
 import timber.log.Timber;
 
 /**
  * Activities at the top of the navigation hierarchy, display the nav drawer upon pressing the
  * up/home action bar button.
- *
+ * <p>
  * <p>Also provides support for an optional sync progress bar (see {@link
  * #setupSyncProgressBar(int)}).
  */

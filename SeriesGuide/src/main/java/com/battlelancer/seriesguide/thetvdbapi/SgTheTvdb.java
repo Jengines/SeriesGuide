@@ -2,8 +2,10 @@ package com.battlelancer.seriesguide.thetvdbapi;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
 import com.battlelancer.seriesguide.BuildConfig;
 import com.uwetrottmann.thetvdb.TheTvdb;
+
 import okhttp3.OkHttpClient;
 
 /**

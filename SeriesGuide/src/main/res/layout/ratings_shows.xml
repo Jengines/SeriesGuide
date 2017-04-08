@@ -22,8 +22,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textViewRatingsValue"
-        android:layout_marginRight="@dimen/default_padding"
-        android:layout_toRightOf="@+id/textViewRatingsValue"
+        android:layout_marginEnd="@dimen/default_padding"
+        android:layout_toEndOf="@+id/textViewRatingsValue"
         android:text="@string/tvdb_range"
         android:textAppearance="@style/TextAppearance.Caption" />
 
@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textViewRatingsValue"
-        android:layout_toRightOf="@id/textViewRatingsRange"
+        android:layout_toEndOf="@id/textViewRatingsRange"
         android:ellipsize="end"
         android:maxLines="2"
         android:text="@string/norating"

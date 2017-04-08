@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:drawableLeft="?attr/drawableAddIcon"
+        android:drawableStart="?attr/drawableAddIcon"
         android:gravity="center"
         android:text="@string/action_extensions_add"
         android:textAppearance="@style/TextAppearance.Button" />

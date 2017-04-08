@@ -6,13 +6,15 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 import android.text.TextUtils;
+
 import java.util.List;
+
 import timber.log.Timber;
 
 /**
  * Broadcast receiver watching for changes to installed packages on the device. Removes uninstalled
  * extensions or clears caches triggering a data refresh if an extension was updated.
- *
+ * <p>
  * <p> Adapted from <a href="https://github.com/romannurik/muzei">muzei's</a>
  * SourcePackageChangeReceiver.
  */

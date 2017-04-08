@@ -4,9 +4,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.widget.Toast;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.enums.NetworkResult;
+
 import org.greenrobot.eventbus.EventBus;
 
 /**
@@ -35,7 +37,7 @@ public class RemoveShowWorkerFragment extends Fragment {
     public static class OnRemovingShowEvent {
         public final int showTvdbId;
 
-        public OnRemovingShowEvent(int showTvdbId) {
+        OnRemovingShowEvent(int showTvdbId) {
             this.showTvdbId = showTvdbId;
         }
     }
@@ -45,10 +47,12 @@ public class RemoveShowWorkerFragment extends Fragment {
      */
     public static class OnShowRemovedEvent {
         public final int showTvdbId;
-        /** One of {@link com.battlelancer.seriesguide.enums.NetworkResult}. */
+        /**
+         * One of {@link com.battlelancer.seriesguide.enums.NetworkResult}.
+         */
         public final int resultCode;
 
-        public OnShowRemovedEvent(int showTvdbId, int resultCode) {
+        OnShowRemovedEvent(int showTvdbId, int resultCode) {
             this.showTvdbId = showTvdbId;
             this.resultCode = resultCode;
         }
@@ -84,7 +88,7 @@ public class RemoveShowWorkerFragment extends Fragment {
         private final SgApp app;
         private final int showTvdbId;
 
-        public RemoveShowTask(SgApp app, int showTvdbId) {
+        RemoveShowTask(SgApp app, int showTvdbId) {
             this.app = app;
             this.showTvdbId = showTvdbId;
         }

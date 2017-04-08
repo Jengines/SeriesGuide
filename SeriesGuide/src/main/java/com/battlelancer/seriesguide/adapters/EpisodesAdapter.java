@@ -11,8 +11,10 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.settings.DisplaySettings;
 import com.battlelancer.seriesguide.ui.EpisodesFragment.EpisodesQuery;
@@ -21,6 +23,7 @@ import com.battlelancer.seriesguide.util.TextTools;
 import com.battlelancer.seriesguide.util.TimeTools;
 import com.battlelancer.seriesguide.widgets.WatchedBox;
 import com.uwetrottmann.androidutils.CheatSheet;
+
 import java.util.Date;
 
 public class EpisodesAdapter extends CursorAdapter {
@@ -31,14 +34,14 @@ public class EpisodesAdapter extends CursorAdapter {
 
     public interface PopupMenuClickListener {
         void onPopupMenuClick(View v, int episodeTvdbId, int episodeNumber,
-                long releaseTimeMs, int watchedFlag, boolean isCollected);
+                              long releaseTimeMs, int watchedFlag, boolean isCollected);
     }
 
     private PopupMenuClickListener popupMenuClickListener;
     private OnFlagEpisodeListener onFlagListener;
 
     public EpisodesAdapter(Context context, PopupMenuClickListener listener,
-            OnFlagEpisodeListener flagListener) {
+                           OnFlagEpisodeListener flagListener) {
         super(context, null, 0);
         popupMenuClickListener = listener;
         onFlagListener = flagListener;
@@ -171,13 +174,20 @@ public class EpisodesAdapter extends CursorAdapter {
     }
 
     static class ViewHolder {
-        @BindView(R.id.textViewEpisodeAlternativeNumbers) TextView episodeAlternativeNumbers;
-        @BindView(R.id.textViewEpisodeAirdate) TextView episodeAirdate;
-        @BindView(R.id.textViewEpisodeNumber) TextView episodeNumber;
-        @BindView(R.id.textViewEpisodeTitle) TextView episodeTitle;
-        @BindView(R.id.watchedBoxEpisode) WatchedBox watchedBox;
-        @BindView(R.id.imageViewCollected) ImageView collected;
-        @BindView(R.id.imageViewContextMenu) ImageView contextMenu;
+        @BindView(R.id.textViewEpisodeAlternativeNumbers)
+        TextView episodeAlternativeNumbers;
+        @BindView(R.id.textViewEpisodeAirdate)
+        TextView episodeAirdate;
+        @BindView(R.id.textViewEpisodeNumber)
+        TextView episodeNumber;
+        @BindView(R.id.textViewEpisodeTitle)
+        TextView episodeTitle;
+        @BindView(R.id.watchedBoxEpisode)
+        WatchedBox watchedBox;
+        @BindView(R.id.imageViewCollected)
+        ImageView collected;
+        @BindView(R.id.imageViewContextMenu)
+        ImageView contextMenu;
 
         public ViewHolder(View itemView) {
             ButterKnife.bind(this, itemView);

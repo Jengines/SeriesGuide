@@ -3,7 +3,9 @@ package com.battlelancer.seriesguide.util;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
 import com.battlelancer.seriesguide.settings.DisplaySettings;
+
 import java.util.List;
 
 /**
@@ -53,7 +55,7 @@ public class TextTools {
      * Returns a string like "1x01 Title". The number format may change based on user preference.
      */
     public static String getNextEpisodeString(Context context, int season, int episode,
-            String title) {
+                                              String title) {
         String result = getEpisodeNumber(context, season, episode);
         result += " " + title;
         return result;
@@ -63,7 +65,7 @@ public class TextTools {
      * Returns a string like "Title 1x01". The number format may change based on user preference.
      */
     public static String getShowWithEpisodeNumber(Context context, String title, int season,
-            int episode) {
+                                                  int episode) {
         String number = getEpisodeNumber(context, season, episode);
         title += " " + number;
         return title;

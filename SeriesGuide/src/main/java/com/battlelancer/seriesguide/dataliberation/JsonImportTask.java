@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.ParcelFileDescriptor;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.dataliberation.JsonExportTask.ListItemTypesExport;
 import com.battlelancer.seriesguide.dataliberation.model.Episode;
@@ -31,12 +32,14 @@ import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import com.google.gson.stream.JsonReader;
 import com.uwetrottmann.androidutils.AndroidUtils;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+
 import timber.log.Timber;
 
 import static com.battlelancer.seriesguide.provider.SeriesGuideContract.Movies;
@@ -62,7 +65,7 @@ public class JsonImportTask extends AsyncTask<Void, Integer, Integer> {
     private boolean isImportLists;
     private boolean isImportMovies;
 
-    public JsonImportTask(Context context, OnTaskFinishedListener listener) {
+    JsonImportTask(Context context, OnTaskFinishedListener listener) {
         this(context);
         finishedListener = listener;
         isImportingAutoBackup = true;
@@ -76,8 +79,8 @@ public class JsonImportTask extends AsyncTask<Void, Integer, Integer> {
                 || BackupSettings.isUseAutoBackupDefaultFiles(context);
     }
 
-    public JsonImportTask(Context context, OnTaskFinishedListener listener,
-            boolean importShows, boolean importLists, boolean importMovies) {
+    JsonImportTask(Context context, OnTaskFinishedListener listener,
+                   boolean importShows, boolean importLists, boolean importMovies) {
         this(context);
         finishedListener = listener;
         isImportingAutoBackup = false;
@@ -336,8 +339,8 @@ public class JsonImportTask extends AsyncTask<Void, Integer, Integer> {
         showValues.put(Shows.FAVORITE, show.favorite);
         showValues.put(Shows.HIDDEN, show.hidden);
         // only add the language, if we support it
-        for (int i = 0, size = languageCodes.length; i < size; i++) {
-            if (languageCodes[i].equals(show.language)) {
+        for (String languageCode : languageCodes) {
+            if (languageCode.equals(show.language)) {
                 showValues.put(Shows.LANGUAGE, show.language);
                 break;
             }
@@ -490,7 +493,7 @@ public class JsonImportTask extends AsyncTask<Void, Integer, Integer> {
             }
         }
 
-        return new ContentValues[][] {
+        return new ContentValues[][]{
                 seasonBatch.size() == 0 ? null
                         : seasonBatch.toArray(new ContentValues[seasonBatch.size()]),
                 episodeBatch.size() == 0 ? null

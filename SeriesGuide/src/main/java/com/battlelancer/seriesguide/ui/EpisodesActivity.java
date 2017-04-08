@@ -17,8 +17,10 @@ import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import com.battlelancer.seriesguide.Constants;
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.dataliberation.model.Show;
@@ -35,9 +37,11 @@ import com.battlelancer.seriesguide.util.SeasonTools;
 import com.battlelancer.seriesguide.util.Shadows;
 import com.battlelancer.seriesguide.util.Utils;
 import com.battlelancer.seriesguide.widgets.SlidingTabLayout;
+
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+
 import timber.log.Timber;
 
 /**
@@ -50,11 +54,21 @@ public class EpisodesActivity extends BaseNavDrawerActivity {
     public static final int EPISODE_LOADER_ID = 101;
     public static final int ACTIONS_LOADER_ID = 102;
 
-    @Nullable @BindView(R.id.pagerEpisodes) ViewPager episodeDetailsPager;
-    @Nullable @BindView(R.id.tabsEpisodes) SlidingTabLayout episodeDetailsTabs;
-    @Nullable @BindView(R.id.imageViewEpisodesBackground) ImageView backgroundImageView;
-    @Nullable @BindView(R.id.viewEpisodesShadowStart) View shadowStart;
-    @Nullable @BindView(R.id.viewEpisodesShadowEnd) View shadowEnd;
+    @Nullable
+    @BindView(R.id.pagerEpisodes)
+    ViewPager episodeDetailsPager;
+    @Nullable
+    @BindView(R.id.tabsEpisodes)
+    SlidingTabLayout episodeDetailsTabs;
+    @Nullable
+    @BindView(R.id.imageViewEpisodesBackground)
+    ImageView backgroundImageView;
+    @Nullable
+    @BindView(R.id.viewEpisodesShadowStart)
+    View shadowStart;
+    @Nullable
+    @BindView(R.id.viewEpisodesShadowEnd)
+    View shadowEnd;
 
     private EpisodesFragment episodesListFragment;
     private EpisodePagerAdapter episodeDetailsAdapter;
@@ -103,7 +117,7 @@ public class EpisodesActivity extends BaseNavDrawerActivity {
             } else {
                 // get season id
                 final Cursor episode = getContentResolver().query(
-                        Episodes.buildEpisodeUri(String.valueOf(episodeId)), new String[] {
+                        Episodes.buildEpisodeUri(String.valueOf(episodeId)), new String[]{
                                 Episodes._ID, Seasons.REF_SEASON_ID
                         }, null, null, null
                 );
@@ -130,7 +144,7 @@ public class EpisodesActivity extends BaseNavDrawerActivity {
 
         // get show id and season number
         final Cursor season = getContentResolver().query(
-                Seasons.buildSeasonUri(String.valueOf(seasonTvdbId)), new String[] {
+                Seasons.buildSeasonUri(String.valueOf(seasonTvdbId)), new String[]{
                         Seasons._ID, Seasons.COMBINED, Shows.REF_SHOW_ID
                 }, null, null, null
         );
@@ -298,7 +312,7 @@ public class EpisodesActivity extends BaseNavDrawerActivity {
 
     /**
      * Switch to the given page, update the highlighted episode.
-     *
+     * <p>
      * <p> Only call this if the episode list and episode view pager are available.
      */
     public void setCurrentPage(int position) {
@@ -323,7 +337,7 @@ public class EpisodesActivity extends BaseNavDrawerActivity {
 
         Cursor episodeCursor = getContentResolver().query(
                 Episodes.buildEpisodesOfSeasonWithShowUri(String.valueOf(seasonTvdbId)),
-                new String[] {
+                new String[]{
                         Episodes._ID, Episodes.NUMBER
                 }, null, null, sortOrder.query()
         );

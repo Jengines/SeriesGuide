@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.os.AsyncTaskCompat;
 import android.text.TextUtils;
+
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.backend.HexagonTools;
 import com.battlelancer.seriesguide.backend.settings.HexagonSettings;
@@ -26,10 +27,12 @@ import com.uwetrottmann.seriesguide.backend.lists.model.SgList;
 import com.uwetrottmann.seriesguide.backend.lists.model.SgListIds;
 import com.uwetrottmann.seriesguide.backend.lists.model.SgListItem;
 import com.uwetrottmann.seriesguide.backend.lists.model.SgListList;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+
 import timber.log.Timber;
 
 /**
@@ -41,10 +44,10 @@ public class ListsTools {
     private static final String[] SELECTION_ARG = new String[1];
 
     interface Query {
-        String[] PROJECTION_LIST_ID = new String[] {
+        String[] PROJECTION_LIST_ID = new String[]{
                 SeriesGuideContract.Lists.LIST_ID
         };
-        String[] PROJECTION_LIST = new String[] {
+        String[] PROJECTION_LIST = new String[]{
                 SeriesGuideContract.Lists.LIST_ID,
                 SeriesGuideContract.Lists.NAME,
                 SeriesGuideContract.Lists.ORDER
@@ -53,7 +56,7 @@ public class ListsTools {
         int NAME = 1;
         int ORDER = 2;
 
-        String[] PROJECTION_LIST_ITEMS = new String[] {
+        String[] PROJECTION_LIST_ITEMS = new String[]{
                 SeriesGuideContract.ListItems.LIST_ITEM_ID
         };
         int LIST_ITEM_ID = 0;
@@ -67,7 +70,7 @@ public class ListsTools {
     }
 
     public static void renameList(@NonNull SgApp app, @NonNull String listId,
-            @NonNull String listName) {
+                                  @NonNull String listName) {
         AsyncTaskCompat.executeParallel(new RenameListTask(app, listId, listName));
     }
 
@@ -76,12 +79,12 @@ public class ListsTools {
     }
 
     public static void reorderLists(@NonNull SgApp app,
-            @NonNull List<String> listIdsInOrder) {
+                                    @NonNull List<String> listIdsInOrder) {
         AsyncTaskCompat.executeParallel(new ReorderListsTask(app, listIdsInOrder));
     }
 
     public static void changeListsOfItem(@NonNull SgApp app, int itemTvdbId, int itemType,
-            @NonNull List<String> addToTheseLists, @NonNull List<String> removeFromTheseLists) {
+                                         @NonNull List<String> addToTheseLists, @NonNull List<String> removeFromTheseLists) {
         AsyncTaskCompat.executeParallel(
                 new ChangeListItemListsTask(app, itemTvdbId, itemType, addToTheseLists,
                         removeFromTheseLists));
@@ -313,7 +316,7 @@ public class ListsTools {
     }
 
     private static boolean doListsDatabaseUpdate(Context context, List<SgList> lists,
-            HashSet<String> localListIds, boolean hasMergedLists) {
+                                                 HashSet<String> localListIds, boolean hasMergedLists) {
         ArrayList<ContentProviderOperation> batch = new ArrayList<>();
         for (SgList list : lists) {
             // add or update the list

@@ -27,13 +27,14 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
+
 import com.battlelancer.seriesguide.R;
 
 /**
  * From https://code.google.com/p/dashclock. Modified for compatibility with API levels below 17.
  */
 public class DragGripView extends View {
-    private static final int[] ATTRS = new int[] {
+    private static final int[] ATTRS = new int[]{
             android.R.attr.gravity,
             android.R.attr.color,
     };
@@ -106,7 +107,7 @@ public class DragGripView extends View {
                     drawLeft = getPaddingLeft()
                             + ((mWidth - getPaddingLeft() - getPaddingRight()) - drawWidth) / 2;
                     break;
-                case Gravity.RIGHT:
+                case Gravity.END:
                     drawLeft = getWidth() - getPaddingRight() - drawWidth;
                     break;
                 default:

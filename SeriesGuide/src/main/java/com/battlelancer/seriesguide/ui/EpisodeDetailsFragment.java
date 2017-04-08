@@ -27,9 +27,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.api.Action;
@@ -63,12 +65,15 @@ import com.battlelancer.seriesguide.util.ViewTools;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.uwetrottmann.androidutils.CheatSheet;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
 import timber.log.Timber;
 
 /**
@@ -93,39 +98,68 @@ public class EpisodeDetailsFragment extends Fragment implements EpisodeActionsCo
     private int mShowRunTime;
     private long mEpisodeReleaseTime;
 
-    @BindView(R.id.containerEpisode) View mEpisodeContainer;
-    @BindView(R.id.containerRatings) View mRatingsContainer;
-    @BindView(R.id.containerEpisodeActions) LinearLayout mActionsContainer;
+    @BindView(R.id.containerEpisode)
+    View mEpisodeContainer;
+    @BindView(R.id.containerRatings)
+    View mRatingsContainer;
+    @BindView(R.id.containerEpisodeActions)
+    LinearLayout mActionsContainer;
 
-    @BindView(R.id.containerEpisodeImage) View mImageContainer;
-    @BindView(R.id.imageViewEpisode) ImageView mEpisodeImage;
+    @BindView(R.id.containerEpisodeImage)
+    View mImageContainer;
+    @BindView(R.id.imageViewEpisode)
+    ImageView mEpisodeImage;
 
-    @BindView(R.id.textViewEpisodeTitle) TextView mTitle;
-    @BindView(R.id.textViewEpisodeDescription) TextView mDescription;
-    @BindView(R.id.textViewEpisodeReleaseTime) TextView mReleaseTime;
-    @BindView(R.id.textViewEpisodeReleaseDate) TextView mReleaseDate;
-    @BindView(R.id.textViewEpisodeLastEdit) TextView mLastEdit;
-    @BindView(R.id.labelEpisodeGuestStars) View mLabelGuestStars;
-    @BindView(R.id.textViewEpisodeGuestStars) TextView mGuestStars;
-    @BindView(R.id.textViewEpisodeDirectors) TextView mDirectors;
-    @BindView(R.id.textViewEpisodeWriters) TextView mWriters;
-    @BindView(R.id.labelEpisodeDvd) View mLabelDvd;
-    @BindView(R.id.textViewEpisodeDvd) TextView mDvd;
-    @BindView(R.id.textViewRatingsValue) TextView mTextRating;
-    @BindView(R.id.textViewRatingsVotes) TextView mTextRatingVotes;
-    @BindView(R.id.textViewRatingsUser) TextView mTextUserRating;
+    @BindView(R.id.textViewEpisodeTitle)
+    TextView mTitle;
+    @BindView(R.id.textViewEpisodeDescription)
+    TextView mDescription;
+    @BindView(R.id.textViewEpisodeReleaseTime)
+    TextView mReleaseTime;
+    @BindView(R.id.textViewEpisodeReleaseDate)
+    TextView mReleaseDate;
+    @BindView(R.id.textViewEpisodeLastEdit)
+    TextView mLastEdit;
+    @BindView(R.id.labelEpisodeGuestStars)
+    View mLabelGuestStars;
+    @BindView(R.id.textViewEpisodeGuestStars)
+    TextView mGuestStars;
+    @BindView(R.id.textViewEpisodeDirectors)
+    TextView mDirectors;
+    @BindView(R.id.textViewEpisodeWriters)
+    TextView mWriters;
+    @BindView(R.id.labelEpisodeDvd)
+    View mLabelDvd;
+    @BindView(R.id.textViewEpisodeDvd)
+    TextView mDvd;
+    @BindView(R.id.textViewRatingsValue)
+    TextView mTextRating;
+    @BindView(R.id.textViewRatingsVotes)
+    TextView mTextRatingVotes;
+    @BindView(R.id.textViewRatingsUser)
+    TextView mTextUserRating;
 
-    @BindView(R.id.dividerEpisodeButtons) View dividerEpisodeButtons;
-    @BindView(R.id.buttonEpisodeCheckin) Button buttonCheckin;
-    @BindView(R.id.buttonEpisodeWatched) Button buttonWatch;
-    @BindView(R.id.buttonEpisodeCollected) Button buttonCollect;
-    @BindView(R.id.buttonEpisodeSkip) Button buttonSkip;
+    @BindView(R.id.dividerEpisodeButtons)
+    View dividerEpisodeButtons;
+    @BindView(R.id.buttonEpisodeCheckin)
+    Button buttonCheckin;
+    @BindView(R.id.buttonEpisodeWatched)
+    Button buttonWatch;
+    @BindView(R.id.buttonEpisodeCollected)
+    Button buttonCollect;
+    @BindView(R.id.buttonEpisodeSkip)
+    Button buttonSkip;
 
-    @BindView(R.id.buttonShowInfoIMDB) View mImdbButton;
-    @BindView(R.id.buttonTVDB) View mTvdbButton;
-    @BindView(R.id.buttonTrakt) View mTraktButton;
-    @BindView(R.id.buttonWebSearch) View mWebSearchButton;
-    @BindView(R.id.buttonShouts) Button mCommentsButton;
+    @BindView(R.id.buttonShowInfoIMDB)
+    View mImdbButton;
+    @BindView(R.id.buttonTVDB)
+    View mTvdbButton;
+    @BindView(R.id.buttonTrakt)
+    View mTraktButton;
+    @BindView(R.id.buttonWebSearch)
+    View mWebSearchButton;
+    @BindView(R.id.buttonShouts)
+    Button mCommentsButton;
 
     private Unbinder unbinder;
 
@@ -159,7 +193,7 @@ public class EpisodeDetailsFragment extends Fragment implements EpisodeActionsCo
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_episode, container, false);
         unbinder = ButterKnife.bind(this, v);
 
@@ -300,11 +334,13 @@ public class EpisodeDetailsFragment extends Fragment implements EpisodeActionsCo
         }
     }
 
+    @SuppressWarnings("unused")
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventEpisodeTask(BaseNavDrawerActivity.ServiceActiveEvent event) {
         setEpisodeButtonsEnabled(false);
     }
 
+    @SuppressWarnings("unused")
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventEpisodeTask(BaseNavDrawerActivity.ServiceCompletedEvent event) {
         setEpisodeButtonsEnabled(true);
@@ -515,7 +551,7 @@ public class EpisodeDetailsFragment extends Fragment implements EpisodeActionsCo
                 isWatched ? Utils.resolveAttributeToResourceId(getActivity().getTheme(),
                         R.attr.drawableWatched)
                         : Utils.resolveAttributeToResourceId(getActivity().getTheme(),
-                                R.attr.drawableWatch), 0, 0);
+                        R.attr.drawableWatch), 0, 0);
         buttonWatch.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -532,7 +568,7 @@ public class EpisodeDetailsFragment extends Fragment implements EpisodeActionsCo
         ViewTools.setCompoundDrawablesRelativeWithIntrinsicBounds(buttonCollect, 0,
                 mCollected ? R.drawable.ic_collected
                         : Utils.resolveAttributeToResourceId(getActivity().getTheme(),
-                                R.attr.drawableCollect), 0, 0);
+                        R.attr.drawableCollect), 0, 0);
         buttonCollect.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -556,7 +592,7 @@ public class EpisodeDetailsFragment extends Fragment implements EpisodeActionsCo
                     isSkipped
                             ? R.drawable.ic_skipped
                             : Utils.resolveAttributeToResourceId(getActivity().getTheme(),
-                                    R.attr.drawableSkip), 0, 0);
+                            R.attr.drawableSkip), 0, 0);
             buttonSkip.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -705,7 +741,7 @@ public class EpisodeDetailsFragment extends Fragment implements EpisodeActionsCo
 
     interface DetailsQuery {
 
-        String[] PROJECTION = new String[] {
+        String[] PROJECTION = new String[]{
                 Tables.EPISODES + "." + Episodes._ID,
                 Episodes.NUMBER,
                 Episodes.ABSOLUTE_NUMBER,

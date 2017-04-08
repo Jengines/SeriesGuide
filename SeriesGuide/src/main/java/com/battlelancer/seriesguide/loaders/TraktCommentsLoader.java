@@ -3,12 +3,12 @@ package com.battlelancer.seriesguide.loaders;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract;
 import com.battlelancer.seriesguide.traktapi.SgTrakt;
 import com.battlelancer.seriesguide.ui.TraktCommentsFragment;
-import com.battlelancer.seriesguide.util.MovieTools;
 import com.battlelancer.seriesguide.util.ShowTools;
 import com.uwetrottmann.androidutils.AndroidUtils;
 import com.uwetrottmann.androidutils.GenericSimpleLoader;
@@ -17,10 +17,14 @@ import com.uwetrottmann.trakt5.enums.Extended;
 import com.uwetrottmann.trakt5.services.Episodes;
 import com.uwetrottmann.trakt5.services.Movies;
 import com.uwetrottmann.trakt5.services.Shows;
+
 import dagger.Lazy;
+
 import java.io.IOException;
 import java.util.List;
+
 import javax.inject.Inject;
+
 import retrofit2.Response;
 import timber.log.Timber;
 
@@ -43,9 +47,12 @@ public class TraktCommentsLoader extends GenericSimpleLoader<TraktCommentsLoader
 
     private final SgApp app;
     private Bundle args;
-    @Inject Lazy<Episodes> traktEpisodes;
-    @Inject Lazy<Movies> traktMovies;
-    @Inject Lazy<Shows> traktShows;
+    @Inject
+    Lazy<Episodes> traktEpisodes;
+    @Inject
+    Lazy<Movies> traktMovies;
+    @Inject
+    Lazy<Shows> traktShows;
 
     public TraktCommentsLoader(SgApp app, Bundle args) {
         super(app);
@@ -87,9 +94,9 @@ public class TraktCommentsLoader extends GenericSimpleLoader<TraktCommentsLoader
             // look up episode number, season and show id
             Cursor query = getContext().getContentResolver()
                     .query(SeriesGuideContract.Episodes.buildEpisodeUri(episodeTvdbId),
-                            new String[] { SeriesGuideContract.Episodes.SEASON,
+                            new String[]{SeriesGuideContract.Episodes.SEASON,
                                     SeriesGuideContract.Episodes.NUMBER,
-                                    SeriesGuideContract.Shows.REF_SHOW_ID }, null, null, null);
+                                    SeriesGuideContract.Shows.REF_SHOW_ID}, null, null, null);
             int season = -1;
             int episode = -1;
             int showTvdbId = -1;

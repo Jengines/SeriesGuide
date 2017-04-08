@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.battlelancer.seriesguide.R;
 import com.battlelancer.seriesguide.SgApp;
 import com.battlelancer.seriesguide.provider.SeriesGuideContract.ListItems;
@@ -16,6 +17,7 @@ import com.battlelancer.seriesguide.util.SeasonTools;
 import com.battlelancer.seriesguide.util.ShowTools;
 import com.battlelancer.seriesguide.util.TextTools;
 import com.battlelancer.seriesguide.util.TimeTools;
+
 import java.util.Date;
 
 /**
@@ -27,7 +29,7 @@ public class ListItemsAdapter extends BaseShowsAdapter {
         void onClick(View view, ListItemViewHolder viewHolder);
     }
 
-    public OnContextMenuClickListener onContextMenuClickListener;
+    private OnContextMenuClickListener onContextMenuClickListener;
 
     public ListItemsAdapter(Activity activity, OnContextMenuClickListener listener) {
         super(activity, null);
@@ -133,7 +135,7 @@ public class ListItemsAdapter extends BaseShowsAdapter {
         public int itemTvdbId;
         public int itemType;
 
-        public ListItemViewHolder(View v, SgApp app, final OnContextMenuClickListener listener) {
+        ListItemViewHolder(View v, SgApp app, final OnContextMenuClickListener listener) {
             super(v, app, null);
 
             contextMenu.setOnClickListener(new View.OnClickListener() {
@@ -149,7 +151,7 @@ public class ListItemsAdapter extends BaseShowsAdapter {
 
     public interface Query {
 
-        String[] PROJECTION = new String[] {
+        String[] PROJECTION = new String[]{
                 ListItems._ID, // 0
                 ListItems.LIST_ITEM_ID,
                 ListItems.ITEM_REF_ID,

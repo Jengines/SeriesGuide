@@ -2,6 +2,7 @@ package com.battlelancer.seriesguide.enums;
 
 import android.support.annotation.StringRes;
 import android.support.v4.util.SparseArrayCompat;
+
 import com.battlelancer.seriesguide.R;
 
 public enum MoviesDiscoverLink {

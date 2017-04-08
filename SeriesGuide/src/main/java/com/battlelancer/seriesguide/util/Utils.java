@@ -31,6 +31,7 @@ import android.text.format.DateUtils;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Toast;
+
 import com.battlelancer.seriesguide.Analytics;
 import com.battlelancer.seriesguide.BuildConfig;
 import com.battlelancer.seriesguide.R;
@@ -43,7 +44,9 @@ import com.battlelancer.seriesguide.settings.AdvancedSettings;
 import com.battlelancer.seriesguide.settings.UpdateSettings;
 import com.google.android.gms.analytics.HitBuilders;
 import com.uwetrottmann.androidutils.AndroidUtils;
+
 import java.io.File;
+
 import retrofit2.Response;
 import timber.log.Timber;
 
@@ -201,7 +204,7 @@ public class Utils {
      * status information.
      */
     public static void trackCustomEvent(@NonNull Context context, String category, String action,
-            String label) {
+                                        String label) {
         Analytics.getTracker(context).send(new HitBuilders.EventBuilder()
                 .setCategory(category)
                 .setAction(action)
@@ -244,7 +247,7 @@ public class Utils {
     }
 
     public static void trackFailedRequest(Context context, String category, String action,
-            Response response) {
+                                          Response response) {
         Utils.trackCustomEvent(context, category, action,
                 response.code() + " " + response.message());
         // log like "action: 404 not found"
@@ -253,7 +256,7 @@ public class Utils {
     }
 
     public static void trackFailedRequest(Context context, String category, String action,
-            Throwable throwable) {
+                                          Throwable throwable) {
         Utils.trackCustomEvent(context, category, action, throwable.getMessage());
         // log like "action: Unable to resolve host"
         Timber.tag(category);
@@ -264,7 +267,7 @@ public class Utils {
      * Returns false if there is an active, but metered (pre-Jelly Bean: non-WiFi) connection and
      * the user did not approve it for large data downloads (e.g. images).
      */
-    public static boolean isAllowedLargeDataConnection(Context context) {
+    static boolean isAllowedLargeDataConnection(Context context) {
         boolean isConnected;
         boolean largeDataOverWifiOnly = UpdateSettings.isLargeDataOverWifiOnly(context);
 
@@ -289,7 +292,7 @@ public class Utils {
      * Checks for an available network connection.
      *
      * @param showOfflineToast If not connected, displays a toast asking the user to connect to a
-     * network.
+     *                         network.
      */
     public static boolean isNotConnected(Context context, boolean showOfflineToast) {
         boolean isConnected = AndroidUtils.isNetworkConnected(context);
@@ -307,7 +310,7 @@ public class Utils {
      * <b>implicit</b>, makes sure there is an {@link Activity} to handle it. If <b>explicit</b>,
      * will intercept {@link android.content.ActivityNotFoundException}. Can show an error toast on
      * failure.
-     *
+     * <p>
      * <p> E.g. an implicit intent may fail if e.g. the web browser has been disabled through
      * restricted profiles.
      *
@@ -338,7 +341,7 @@ public class Utils {
      * a result.
      */
     public static boolean tryStartActivityForResult(Fragment fragment, Intent intent,
-            int requestCode) {
+                                                    int requestCode) {
         Context context = fragment.getContext();
 
         // check if the intent can be handled
@@ -368,7 +371,7 @@ public class Utils {
     }
 
     public static void startActivityWithTransition(Activity activity, Intent intent, View view,
-            @StringRes int sharedElementNameRes) {
+                                                   @StringRes int sharedElementNameRes) {
         Bundle activityOptions;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // shared element transition on L+
@@ -388,7 +391,7 @@ public class Utils {
      */
     @AnyRes
     public static int resolveAttributeToResourceId(Resources.Theme theme,
-            @AttrRes int attributeResId) {
+                                                   @AttrRes int attributeResId) {
         TypedValue outValue = new TypedValue();
         theme.resolveAttribute(attributeResId, outValue, true);
         return outValue.resourceId;
@@ -409,7 +412,7 @@ public class Utils {
      * Tries to start a new activity to handle the given URL using {@link #openNewDocument}.
      */
     public static void launchWebsite(@Nullable Context context, @Nullable String url,
-            @NonNull String logTag, @NonNull String logItem) {
+                                     @NonNull String logTag, @NonNull String logItem) {
         if (context == null || TextUtils.isEmpty(url)) {
             return;
         }
@@ -420,12 +423,12 @@ public class Utils {
     /**
      * Tries to start the given intent as a new document (e.g. opening a website, other app) so it
      * appears as a new entry in the task switcher using {@link #tryStartActivity}.
-     *
+     * <p>
      * <p>On versions before L, will instead clear the launched activity from the task stack when
      * returning to the app through the task switcher.
      */
-    public static boolean openNewDocument(@NonNull Context context, @NonNull Intent intent,
-            @Nullable String logTag, @Nullable String logItem) {
+    static boolean openNewDocument(@NonNull Context context, @NonNull Intent intent,
+                                   @Nullable String logTag, @Nullable String logItem) {
         // launch as a new document (separate entry in task switcher)
         // or on older versions: clear from task stack when returning to app
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -447,7 +450,7 @@ public class Utils {
     /**
      * Executes the {@link android.os.AsyncTask} on the {@link android.os.AsyncTask#SERIAL_EXECUTOR},
      * e.g. one after another.
-     *
+     * <p>
      * <p> This is useful for executing non-blocking operations (e.g. NO network activity, etc.).
      */
     @SafeVarargs

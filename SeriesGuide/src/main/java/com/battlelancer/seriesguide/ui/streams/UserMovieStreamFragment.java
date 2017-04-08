@@ -9,6 +9,7 @@ import android.support.v4.content.Loader;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
+
 import com.battlelancer.seriesguide.adapters.MovieHistoryAdapter;
 import com.battlelancer.seriesguide.loaders.TraktMovieHistoryLoader;
 import com.battlelancer.seriesguide.ui.HistoryActivity;
@@ -79,7 +80,7 @@ public class UserMovieStreamFragment extends StreamFragment {
 
                 @Override
                 public void onLoadFinished(Loader<TraktMovieHistoryLoader.Result> loader,
-                        TraktMovieHistoryLoader.Result data) {
+                                           TraktMovieHistoryLoader.Result data) {
                     if (!isAdded()) {
                         return;
                     }
